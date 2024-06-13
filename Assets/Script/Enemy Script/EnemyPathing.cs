@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,13 +9,13 @@ using UnityEngine.AI;
 public class EnemyPathing : MonoBehaviour
 {
     public NavMeshAgent agent;
-    //public CapsuleCollider hostileRange;
     public GameObject hostileRange;
-
+    public float movementSpeed;
 
     void Start()
     {
         hostileRange = GetComponent<GameObject>();
+        movementSpeed = 5.0f;
     }
 
     void Update()
@@ -27,6 +28,8 @@ public class EnemyPathing : MonoBehaviour
                 agent.SetDestination(hitInfo.point);
             }
         }
+
+        agent.speed = movementSpeed;
     }
 
     void OnTriggerEnter(Collider other)
@@ -34,6 +37,8 @@ public class EnemyPathing : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             UnityEngine.Debug.Log("Player entered the hostile range!");
+            //movementSpeed *= 2;
         }
+        
     }
 }
