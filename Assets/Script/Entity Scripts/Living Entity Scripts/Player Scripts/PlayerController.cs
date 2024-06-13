@@ -17,7 +17,10 @@ public class PlayerController : MonoBehaviour
     private float jumpHeight = 20.0f;
     private float gravityValue = -9.81f;
 
-    
+    [SerializeField]
+    private Light light;
+
+
     private InputManager inputManager;
     private Transform cameraTransform;
 
@@ -30,6 +33,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         inputManager = InputManager.Instance;
         cameraTransform = Camera.main.transform;
+        light.transform.position = cameraTransform.position;
         playerSpeed = 20.0f;
        
     }

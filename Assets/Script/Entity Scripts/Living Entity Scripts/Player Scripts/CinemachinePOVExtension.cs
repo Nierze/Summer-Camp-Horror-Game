@@ -10,8 +10,10 @@ public class CinemachinePOVExtension : CinemachineExtension
     [SerializeField]
     private float clampAngle = 80f;
 
+
     private InputManager inputManager;
     private Vector3 startingRotation;
+
 
     protected override void Awake()
     {
