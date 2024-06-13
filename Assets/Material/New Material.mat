@@ -13,13 +13,14 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _DETAIL_SCALED
+  - _EMISSION
   - _ENVIRONMENTREFLECTIONS_OFF
   - _OCCLUSIONMAP
   - _SPECULARHIGHLIGHTS_OFF
   m_InvalidKeywords: []
-  m_LightmapFlags: 6
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: 1998
   stringTagMap:
     RenderType: Opaque
@@ -93,10 +94,10 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _Cull: 2
-    - _Cutoff: 0.5
-    - _DetailAlbedoMapScale: 0.99
-    - _DetailNormalMapScale: 1.1
+    - _Cull: 0
+    - _Cutoff: 0.392
+    - _DetailAlbedoMapScale: 2
+    - _DetailNormalMapScale: 2
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 0
