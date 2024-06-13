@@ -33,18 +33,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RunStart",
+                    "name": "Attack",
                     "type": "Button",
-                    "id": "be361e38-f7dc-4d98-a125-daa93bdc60d1",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RunStart1",
-                    "type": "Button",
-                    "id": "dc9104e8-d043-4493-a079-c907dd44c403",
+                    "id": "3492e36d-5b82-4d09-9f22-65421979baa8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -131,23 +122,12 @@
                 },
                 {
                     "name": "",
-                    "id": "9551aa54-a2e9-4013-a378-dc0d16aa46f9",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "Press",
+                    "id": "d4b023da-44aa-4adb-ac2e-be0a87a02be5",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RunStart",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "32b07a6b-2a9d-4f43-96f1-edc00f3736ba",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "Press(behavior=1)",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RunStart1",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

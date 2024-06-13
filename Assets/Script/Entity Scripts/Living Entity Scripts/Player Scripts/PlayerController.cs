@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private float jumpHeight = 1.0f;
     private float gravityValue = -9.81f;
 
+    
     private InputManager inputManager;
     private Transform cameraTransform;
 
@@ -51,17 +52,6 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        //if (isRunning) Run();
-        //else Walk();
-                
-
-       /*** if (move != Vector3.zero)
-        {
-            gameObject.transform.forward = move;
-        }
-       ***/
-
-        // Changes the height position of the player..
         if (inputManager.PlayerJumpedThisFrame() && groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);

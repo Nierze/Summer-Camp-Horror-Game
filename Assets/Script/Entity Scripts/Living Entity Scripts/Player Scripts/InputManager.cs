@@ -56,9 +56,5 @@ public class InputManager : MonoBehaviour
         return playerControls.Player.Jump.triggered;
     }
 
-    /*public bool PlayerSprintedThisFrame()
-    {
-        return playerControls.Player.Run.triggered;
-    }*/
 
 }
