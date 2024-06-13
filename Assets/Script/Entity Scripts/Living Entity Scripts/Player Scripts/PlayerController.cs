@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private bool groundedPlayer;
     [SerializeField]
     private float playerSpeed;
-    private float jumpHeight = 1.0f;
+    private float jumpHeight = 20.0f;
     private float gravityValue = -9.81f;
 
     
@@ -36,13 +36,16 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
-        {
-            playerVelocity.y = 0f;
-        }
-                
-        if (Input.GetKey(KeyCode.LeftShift) && !isRunning)
+        // groundedPlayer = controller.isGrounded;
+        // if (groundedPlayer && playerVelocity.y < 0)
+        // {
+        //     playerVelocity.y = 0f;
+        // }
+        
+
+        /////////////////////////////////////////
+        // Movement Handler
+        if (inputManager.GetSprint())
         {
             Run();
         }      
@@ -51,14 +54,15 @@ public class PlayerController : MonoBehaviour
             Walk();
         }
 
+        /////////////////////////////////////////
+        // Attack Handler
 
-        if (inputManager.PlayerJumpedThisFrame() && groundedPlayer)
+        if (inputManager.GetAttack())
         {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            UnityEngine.Debug.Log("Attacked");
         }
 
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+
 
     }
 
@@ -70,7 +74,6 @@ public class PlayerController : MonoBehaviour
         move.y = 0f;
         controller.Move(move * Time.deltaTime * playerSpeed);
 
-        //UnityEngine.Debug.Log("Is Walking");
     }
 
     void Run()
@@ -81,6 +84,5 @@ public class PlayerController : MonoBehaviour
         move.y = 0f;
         controller.Move(move * Time.deltaTime * (playerSpeed * sprintSpeedMultiplier));
 
-        //UnityEngine.Debug.Log("Is Running");
     }
 }

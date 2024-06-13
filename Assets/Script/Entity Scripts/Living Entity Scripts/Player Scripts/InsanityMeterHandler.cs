@@ -20,14 +20,14 @@ public class InsanityMeterHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currrentInsanityMeter = currrentInsanityMeter + CalculateInsanity();
-        if (currentInsanityBuildUp <= 0 ) {
-            currrentInsanityMeter -= 0.01f;
-        }
-        if (currrentInsanityMeter <= 0) {
-            currrentInsanityMeter = 0;
-        }
-        Debug.Log("Insanity: " + Math.Round(currrentInsanityMeter,2));
+        // currrentInsanityMeter = currrentInsanityMeter + CalculateInsanity();
+        // if (currentInsanityBuildUp <= 0 ) {
+        //     currrentInsanityMeter -= 0.01f;
+        // }
+        // if (currrentInsanityMeter <= 0) {
+        //     currrentInsanityMeter = 0;
+        // }
+        // Debug.Log("Insanity: " + Math.Round(currrentInsanityMeter,2));
         // Debug.Log("Rand" + UnityEngine.Random.Range(0f, currentInsanityBuildUp));
     }
 
