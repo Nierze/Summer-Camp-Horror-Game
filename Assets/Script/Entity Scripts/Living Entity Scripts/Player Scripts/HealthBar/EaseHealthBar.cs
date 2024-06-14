@@ -11,6 +11,7 @@ public class EaseHealthBar : MonoBehaviour
     public float health;
     private float lerpSpeed = 0.05f;
     public TextMeshProUGUI healthText;
+    public bool isDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +33,7 @@ public class EaseHealthBar : MonoBehaviour
         // Sample Take Damage
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            takeDamage(10);
+            TakeDamage(10);
         }
 
         string healthTextValue = health.ToString();
@@ -40,8 +41,24 @@ public class EaseHealthBar : MonoBehaviour
 
     }
 
-    void takeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         health -= damage;
+
+        if (health <= 0)
+        {
+            health = 0;
+            isDead = true;
+        }
+    }
+
+    public void Heal(float amount)
+    {
+        health += amount;
+
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
     }
 }
