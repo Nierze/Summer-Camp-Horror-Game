@@ -66,6 +66,13 @@ public class PlayerController : MonoBehaviour
             UnityEngine.Debug.Log("Attacked");
         }
 
+        /////////////////////////////////////////
+        // Defend Handler
+        if (inputManager.GetDefend())
+        {
+            UnityEngine.Debug.Log("Defended");
+        }
+
 
 
     }

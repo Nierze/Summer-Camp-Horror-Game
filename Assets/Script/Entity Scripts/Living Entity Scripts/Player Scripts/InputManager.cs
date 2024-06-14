@@ -56,6 +56,12 @@ public class InputManager : MonoBehaviour
         return playerControls.Player.Sprint.ReadValue<float>() > 0;
     }
 
+    public bool GetDefend()
+    {
+        return playerControls.Player.Defend.ReadValue<float>() > 0;
+    }
+
+
     public bool GetAttack()
     {
         return playerControls.Player.Attack.triggered;
