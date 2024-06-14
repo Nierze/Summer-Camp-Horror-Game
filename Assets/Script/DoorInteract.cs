@@ -10,12 +10,12 @@ public class DoorInteract : MonoBehaviour
     public GameObject openHitbox;
     public bool state;
     public float rotationSpeed = 1f;
-
+    private bool playerInRange = false;
     private Quaternion targetRotation;
 
     void Start()
     {
-        doorRotation = GetComponent<Transform>();
+        //doorRotation = GetComponent<Transform>();
         doorRotation.rotation = Quaternion.Euler(0, 0, 0);
         state = false;
 
@@ -31,32 +31,41 @@ public class DoorInteract : MonoBehaviour
 
     void Update()
     {
-        //if (state)
-        //{
-        //    doorRotation.rotation = Quaternion.Euler(new Vector3(0, -rotationSpeed * Time.deltaTime, 0));
-        //}
-        /*
-        if (state)
+        if (playerInRange)
         {
-            targetRotation = Quaternion.Euler(0, -240, 0);
+            if (Input.GetKeyDown("f") && !state)
+            {
+                UnityEngine.Debug.Log("Open");
+                doorRotation.rotation = Quaternion.Euler(new Vector3(0, -240, 0));
+                state = true;
+            }
+            else
+            {
+                if (Input.GetKeyDown("f"))
+                {
+                    UnityEngine.Debug.Log("Close");
+                    doorRotation.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                    state = false;
+                }
+            }
         }
-        else
-        {
-            targetRotation = Quaternion.Euler(0, 0, 0);
-        }
-
-        doorRotation.rotation = Quaternion.RotateTowards(doorRotation.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        */
+        
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            UnityEngine.Debug.Log("Open");
-            doorRotation.rotation = Quaternion.Euler(new Vector3(0, -240, 0));
-            state = true;
+            playerInRange = true;
+
         }
     }
 
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+        }
+    }
 }
