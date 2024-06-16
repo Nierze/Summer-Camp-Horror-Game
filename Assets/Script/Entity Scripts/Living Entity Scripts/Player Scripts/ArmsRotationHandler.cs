@@ -4,6 +4,7 @@ using Cinemachine;
 public class ArmsRotationHandler : MonoBehaviour
 {
     public CinemachineVirtualCamera virtualCamera; // Reference to your Cinemachine virtual camera
+    public Transform pivotPoint; // Reference to the pivot point of the camera
 
     private void LateUpdate() 
     {
@@ -12,8 +13,7 @@ public class ArmsRotationHandler : MonoBehaviour
             // Get the camera's rotation
             Quaternion cameraRotation = virtualCamera.State.FinalOrientation;
 
-            // Apply the rotation ONLY to the Y-axis (vertical axis)
-            transform.rotation = Quaternion.Euler(cameraRotation.eulerAngles.x, cameraRotation.eulerAngles.y, cameraRotation.eulerAngles.z); 
+            pivotPoint.rotation = Quaternion.Euler(new Vector3(cameraRotation.eulerAngles.x, cameraRotation.eulerAngles.y, 0f));
         }
     }
 }
