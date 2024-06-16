@@ -15,6 +15,8 @@ public class DoorInteract : MonoBehaviour
     private Quaternion targetRotation;
 
     private Vector3 temp;
+
+    public float duration = 1.0f;
     void Start()
     {
         //doorRotation = GetComponent<Transform>();
@@ -32,28 +34,47 @@ public class DoorInteract : MonoBehaviour
         }
     }
 
+    // void Update()
+    // {
+    //     if (playerInRange)
+    //     {
+    //         if (Input.GetKeyDown("f") && !state)
+    //         {
+    //             //UnityEngine.Debug.Log("Open");
+    //             doorRotation.rotation = Quaternion.Euler(new Vector3(0, 120, 0));
+    //             state = true;
+    //         }
+    //         else
+    //         {
+    //             if (Input.GetKeyDown("f"))
+    //             {
+    //                 //UnityEngine.Debug.Log("Close");
+    //                 doorRotation.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+    //                 state = false;
+    //             }
+    //         }
+    //     }
+
+    // }
+
     void Update()
     {
         if (playerInRange)
         {
-            if (Input.GetKeyDown("f") && !state)
+            if (Input.GetKeyDown("f"))
             {
-                //UnityEngine.Debug.Log("Open");
-                doorRotation.rotation = Quaternion.Euler(new Vector3(0, 120, 0));
-                state = true;
-            }
-            else
-            {
-                if (Input.GetKeyDown("f"))
+                if (!state)
                 {
-                    //UnityEngine.Debug.Log("Close");
-                    doorRotation.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                    StartCoroutine(RotateDoor(new Vector3(0, 120, 0)));
+                    state = true;
+                }
+                else
+                {
+                    StartCoroutine(RotateDoor(new Vector3(0, 0, 0)));
                     state = false;
                 }
             }
         }
-        //doorRotation.rotation *= Quaternion.Euler(new Vector3(0, rotationSpeed * Time.deltaTime, 0));
-
     }
 
     void OnTriggerEnter(Collider other)
@@ -82,5 +103,21 @@ public class DoorInteract : MonoBehaviour
 
         state = true;
         return state;
+    }
+
+    private IEnumerator RotateDoor(Vector3 targetRotation)
+    {
+        Quaternion startRotation = doorRotation.rotation;
+        Quaternion endRotation = Quaternion.Euler(targetRotation);
+        float timeElapsed = 0;
+
+        while (timeElapsed < duration)
+        {
+            doorRotation.rotation = Quaternion.Lerp(startRotation, endRotation, timeElapsed / duration);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        doorRotation.rotation = endRotation;
     }
 }
