@@ -19,7 +19,6 @@ public class DoorInteract : MonoBehaviour
     public float duration = 1.0f;
     void Start()
     {
-        //doorRotation = GetComponent<Transform>();
         rotationSpeed = 45f;
         doorRotation.rotation = Quaternion.Euler(0, 0, 0);
         state = false;
@@ -33,29 +32,6 @@ public class DoorInteract : MonoBehaviour
             targetRotation = doorRotation.rotation;
         }
     }
-
-    // void Update()
-    // {
-    //     if (playerInRange)
-    //     {
-    //         if (Input.GetKeyDown("f") && !state)
-    //         {
-    //             //UnityEngine.Debug.Log("Open");
-    //             doorRotation.rotation = Quaternion.Euler(new Vector3(0, 120, 0));
-    //             state = true;
-    //         }
-    //         else
-    //         {
-    //             if (Input.GetKeyDown("f"))
-    //             {
-    //                 //UnityEngine.Debug.Log("Close");
-    //                 doorRotation.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-    //                 state = false;
-    //             }
-    //         }
-    //     }
-
-    // }
 
     void Update()
     {
@@ -93,18 +69,7 @@ public class DoorInteract : MonoBehaviour
             playerInRange = false;
         }
     }
-
-    bool CloseDoor(bool state)
-    {
-        while (!state)
-        {
-            
-        }
-
-        state = true;
-        return state;
-    }
-
+    
     private IEnumerator RotateDoor(Vector3 targetRotation)
     {
         Quaternion startRotation = doorRotation.rotation;
