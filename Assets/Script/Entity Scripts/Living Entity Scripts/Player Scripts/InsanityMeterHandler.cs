@@ -73,7 +73,7 @@ public class InsanityMeterHandler : MonoBehaviour
         insanityMeter.anchorMax = new Vector2((currentInsanityPercent * percentUnit) / 100f, insanityMeter.anchorMax.y);
 
         // Debug
-        Debug.Log("Insanity: " + currentInsanityPercent);
+        //Debug.Log("Insanity: " + currentInsanityPercent);
 
         // Fade
         if (currentInsanityBuildUp == 0) {
