@@ -28,6 +28,10 @@ public class PlayerController : MonoBehaviour
     private float sprintSpeedMultiplier = 2f;
     private bool isRunning = false;
 
+
+    [SerializeField]
+    private Animator animator;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -63,6 +67,7 @@ public class PlayerController : MonoBehaviour
 
         if (inputManager.GetAttack())
         {
+            animator.Play("Take 001");
             UnityEngine.Debug.Log("Attacked");
         }
 
