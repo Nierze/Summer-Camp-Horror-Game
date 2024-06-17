@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class ScannableInteraction : MonoBehaviour
 {
-    public ScanReveal reveal;
+    public ScanReveal[] reveal;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Scannable"))
         {
-            UnityEngine.Debug.Log(new Vector3(other.transform.position.x, other.transform.position.y, other.transform.position.z));
-            reveal.Reveal(true);
+            ScanReveal scanRevealComponent = other.GetComponent<ScanReveal>();
+            if (scanRevealComponent != null)
+            {
+                scanRevealComponent.Reveal(true);
+            }
         }
     }
 }
