@@ -9,9 +9,12 @@ public class TiyanakAttackPattern : MonoBehaviour
     [SerializeField] public string difficulty = "easy";
     private int decision = 0;
 
+    public Transform target;
+    private UnityEngine.AI.NavMeshAgent agent;
+
     void Start()
     {
-        
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -23,6 +26,7 @@ public class TiyanakAttackPattern : MonoBehaviour
             // UnityEngine.Debug.Log(playerAttackDetected);
             playerAttackDetected = false;
         }
+        
     }
 
     void AttackDetected(string difficulty)
@@ -41,6 +45,7 @@ public class TiyanakAttackPattern : MonoBehaviour
                     
                     case 4: 
                         UnityEngine.Debug.Log("Normal Attack");
+                        NormalAttack();
                     break;
 
                     case 5:
@@ -62,6 +67,7 @@ public class TiyanakAttackPattern : MonoBehaviour
                     
                     case 3: case 4: 
                         UnityEngine.Debug.Log("Normal Attack");
+                        NormalAttack();
                     break;
 
                     case 5: case 6:
@@ -86,6 +92,7 @@ public class TiyanakAttackPattern : MonoBehaviour
                     
                     case 2: case 3: case 4: 
                         UnityEngine.Debug.Log("Normal Attack");
+                        NormalAttack();
                     break;
 
                     case 5: case 6: case 7:
@@ -106,7 +113,10 @@ public class TiyanakAttackPattern : MonoBehaviour
         decision = 0;
     }
 
-    void NormalAttack(){}
+    void NormalAttack()
+    {
+        agent.destination = target.position;
+    }
 
     void LungeAttack(){}
 
