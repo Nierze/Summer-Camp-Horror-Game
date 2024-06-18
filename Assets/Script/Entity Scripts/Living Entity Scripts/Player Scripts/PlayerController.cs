@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
 
         if (inputManager.GetAttack())
         {
+            TiyanakAttackPattern.playerAttackDetected = true;
             animator.Play("Take 001");
             UnityEngine.Debug.Log("Attacked");
         }
