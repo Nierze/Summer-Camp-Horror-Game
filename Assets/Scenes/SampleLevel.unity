@@ -4527,6 +4527,7 @@ GameObject:
   - component: {fileID: 1301132810}
   - component: {fileID: 1301132809}
   - component: {fileID: 1301132808}
+  - component: {fileID: 1301132815}
   m_Layer: 6
   m_Name: Temp Enemy Mob
   m_TagString: Untagged
@@ -4687,6 +4688,18 @@ Transform:
   - {fileID: 1687763935}
   m_Father: {fileID: 1993887942}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1301132815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301132807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6cf35f03b0ce4e4792c9c646257e5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1409411590 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5817718790978333509, guid: 405a0307524d5d24b8aac52858803697,
