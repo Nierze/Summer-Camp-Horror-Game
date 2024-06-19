@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UnityEngine;
 
 public class TerrainScanner : MonoBehaviour
@@ -12,13 +13,14 @@ public class TerrainScanner : MonoBehaviour
     {
         if (!AreaScanner.scanning && (Input.GetMouseButton(2) || Input.GetKeyDown("q")) )
         {
-            SpawnTerrainScanner();
+            //SpawnTerrainScanner();
         } 
     }
 
-    public void SpawnTerrainScanner()
+    public void SpawnTerrainScanner(Vector3 castPosition)
     {
-        GameObject terrainScanner = Instantiate(TerrainScannerPrefab, gameObject.transform.position, Quaternion.identity) as GameObject;
+        //GameObject terrainScanner = Instantiate(TerrainScannerPrefab, gameObject.transform.position, Quaternion.identity) as GameObject;
+        GameObject terrainScanner = Instantiate(TerrainScannerPrefab, castPosition, Quaternion.identity) as GameObject;
         ParticleSystem terrainScannerPS = terrainScanner.transform.GetChild(0).GetComponent<ParticleSystem>();
 
         if(terrainScannerPS != null)
