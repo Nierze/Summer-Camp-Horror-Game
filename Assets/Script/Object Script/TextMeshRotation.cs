@@ -1,3 +1,4 @@
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,28 +21,29 @@ public class TextMeshRotation : MonoBehaviour
         transform.rotation = textRotation;
     }
 }
+*/
 
 
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
+ using System.Collections;
+ using System.Collections.Generic;
+ using UnityEngine;
 
-// public class TextMeshRotation : MonoBehaviour
-// {
-//     private RectTransform cameraRotation;
-//     private GameObject cameraObject;
-//     private Transform cameraTransform;
-//     void Start()
-//     {
-//         cameraObject = GameObject.FindWithTag("MainCamera");
-//         cameraTransform = cameraObject.transform;
-//         cameraRotation = GetComponent<RectTransform>();
+ public class TextMeshRotation : MonoBehaviour
+ {
+     private RectTransform cameraRotation;
+     private GameObject cameraObject;
+     private Transform cameraTransform;
+     void Start()
+     {
+         cameraObject = GameObject.FindWithTag("MainCamera");
+         cameraTransform = cameraObject.transform;
+         cameraRotation = GetComponent<RectTransform>();
 
-//     }
+     }
 
-//     void Update()
-//     {
-//         Quaternion rotation = cameraTransform.rotation;
-//         transform.rotation = rotation;
-//     }
-// }
+     void Update()
+     {
+         Quaternion rotation = cameraTransform.rotation;
+         transform.rotation = rotation;
+     }
+ }
