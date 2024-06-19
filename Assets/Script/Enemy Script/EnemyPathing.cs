@@ -15,7 +15,7 @@ public class EnemyPathing : MonoBehaviour
     void Start()
     {
         hostileRange = GetComponent<GameObject>();
-        movementSpeed = 5.0f;
+        movementSpeed = 50.0f;
     }
 
     void Update()

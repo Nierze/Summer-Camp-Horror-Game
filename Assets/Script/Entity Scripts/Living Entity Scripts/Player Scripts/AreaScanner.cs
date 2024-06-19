@@ -13,9 +13,20 @@ public class AreaScanner : MonoBehaviour
     {
         if (!scanning && (Input.GetMouseButton(2) || Input.GetKeyDown("q")) )
         {
-            initiateScan.SpawnTerrainScanner();
+            StartCoroutine(multiPulses());
             Instantiate(scanRange, gameObject.transform.position, Quaternion.identity);
         }
     }
+    
+    private IEnumerator multiPulses()
+    {
+        initiateScan.SpawnTerrainScanner();
+        yield return new WaitForSeconds(1f);
+        initiateScan.SpawnTerrainScanner();
+        yield return new WaitForSeconds(1f);
+        initiateScan.SpawnTerrainScanner();
+        yield return new WaitForSeconds(1f);
 
+    }
+    
 }
