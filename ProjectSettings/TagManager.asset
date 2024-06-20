@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Flashlight
   - Scannable
+  - Selectable
   layers:
   - Default
   - TransparentFX
