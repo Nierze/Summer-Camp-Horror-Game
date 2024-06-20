@@ -1,51 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Diagnostics;
-using System.Security.Cryptography;
 using UnityEngine;
 
-public class OutlineSelection : MonoBehaviour
+public class MouseRayCast : MonoBehaviour
 {
     public MaterialControl[] highlightables;
+    public bool enableMouseRayCast = true;
 
     void Update()
     {
-        InteractRaycast();
+        if(enableMouseRayCast) InteractRaycast();
     }
 
     void InteractRaycast()
     {
-        Vector3 cameraPosition = transform.position;
-        Vector3 forwardDirection = transform.forward;
-
-        Ray interactionRay = new Ray(cameraPosition, forwardDirection);
+        Ray interactionRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit interactionRayHit;
         float interactionRayLength = 50.0f;
 
-        Vector3 interactionRayEndpoint = forwardDirection * interactionRayLength;
-        UnityEngine.Debug.DrawLine(cameraPosition, interactionRayEndpoint, Color.red);
+        UnityEngine.Debug.DrawRay(interactionRay.origin, interactionRay.direction * interactionRayLength, Color.red);
 
-        bool hitFound = Physics.Raycast(interactionRay, out interactionRayHit, interactionRayLength);
-        if (hitFound)
+        if (Physics.Raycast(interactionRay, out interactionRayHit, interactionRayLength))
         {
-            
             GameObject hitGameobject = interactionRayHit.transform.gameObject;
             if (hitGameobject.CompareTag("Selectable"))
             {
                 MaterialControl highlight = hitGameobject.GetComponent<MaterialControl>();
                 string hitFeedback = hitGameobject.name;
                 highlight.EnableMaterial();
+
                 if (Input.GetMouseButtonDown(0))
                 {
-                    switch(hitFeedback)
+                    switch (hitFeedback)
                     {
                         case "Bulletin Board Selectable":
                             UnityEngine.Debug.Log("Bulletin Board Action");
+
+                            //enableMouseRayCast = false;
                         break;
                     }
                 }
             }
         }
-    } 
+    }
 }
