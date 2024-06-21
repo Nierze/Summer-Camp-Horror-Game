@@ -37,7 +37,6 @@ public class MouseRayCast : MonoBehaviour
                     {
                         case "Bulletin Board Selectable":
                             UnityEngine.Debug.Log("Bulletin Board Action");
-                            inAction = true;
                             camMove.MoveToBoard();
 
                             //enableMouseRayCast = false;
