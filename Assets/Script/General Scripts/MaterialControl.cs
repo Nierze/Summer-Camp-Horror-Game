@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MaterialControl : MonoBehaviour
 {
-    public GameObject parent;
+    public GameObject parentObject;
     private MeshRenderer meshRenderer;
     public Material transparentMaterial;
     private Material originalMaterial;
@@ -13,7 +13,8 @@ public class MaterialControl : MonoBehaviour
 
     void Start()
     {
-        meshRenderer = parent.GetComponent<MeshRenderer>();
+        parentObject = transform.parent.gameObject;
+        meshRenderer = parentObject.GetComponent<MeshRenderer>();
         originalMaterial = meshRenderer.materials[1];
     }
     
