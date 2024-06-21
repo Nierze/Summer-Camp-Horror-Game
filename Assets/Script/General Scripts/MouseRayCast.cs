@@ -7,6 +7,7 @@ public class MouseRayCast : MonoBehaviour
     public bool enableMouseRayCast = true;
 
     public CamMoveAnimator camMove;
+    public static bool inAction = false;
 
     void Update()
     {
@@ -28,7 +29,7 @@ public class MouseRayCast : MonoBehaviour
             {
                 MaterialControl highlight = hitGameobject.GetComponent<MaterialControl>();
                 string hitFeedback = hitGameobject.name;
-                highlight.EnableMaterial();
+                if(!inAction) highlight.EnableMaterial();
 
                 if (Input.GetMouseButtonDown(0))
                 {
@@ -36,12 +37,15 @@ public class MouseRayCast : MonoBehaviour
                     {
                         case "Bulletin Board Selectable":
                             UnityEngine.Debug.Log("Bulletin Board Action");
+                            inAction = true;
                             camMove.MoveToBoard();
+
                             //enableMouseRayCast = false;
                         break;
                     }
                 }
             }
+            
         }
     }
 }
