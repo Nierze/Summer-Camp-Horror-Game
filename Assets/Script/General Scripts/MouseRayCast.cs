@@ -6,6 +6,8 @@ public class MouseRayCast : MonoBehaviour
     public MaterialControl[] highlightables;
     public bool enableMouseRayCast = true;
 
+    public CamMoveAnimator camMove;
+
     void Update()
     {
         if(enableMouseRayCast) InteractRaycast();
@@ -34,7 +36,7 @@ public class MouseRayCast : MonoBehaviour
                     {
                         case "Bulletin Board Selectable":
                             UnityEngine.Debug.Log("Bulletin Board Action");
-
+                            camMove.MoveToBoard();
                             //enableMouseRayCast = false;
                         break;
                     }
