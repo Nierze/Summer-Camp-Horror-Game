@@ -840,7 +840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25cbd01d3342bbb4989261f196882749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 548084855}
+  parentObject: {fileID: 548084855}
   transparentMaterial: {fileID: 0}
 --- !u!1 &678696959
 GameObject:
