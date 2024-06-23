@@ -68,14 +68,14 @@ public class PlayerController : MonoBehaviour
         if (inputManager.GetAttack())
         {
             TiyanakAttackPattern.playerAttackDetected = true;
-            UnityEngine.Debug.Log("Attacked");
+            //UnityEngine.Debug.Log("Attacked");
         }
 
         /////////////////////////////////////////
         // Defend Handler
         if (inputManager.GetDefend())
         {
-            UnityEngine.Debug.Log("Defended");
+            //UnityEngine.Debug.Log("Defended");
         }
 
 

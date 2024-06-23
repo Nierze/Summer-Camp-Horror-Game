@@ -10,12 +10,12 @@ public class EnemyPathing : MonoBehaviour
 {
     public NavMeshAgent agent;
     public GameObject hostileRange;
-    public float movementSpeed;
-
+    public float movementSpeed = 15f;
+    public GameObject playerPos;
     void Start()
     {
         hostileRange = GetComponent<GameObject>();
-        movementSpeed = 50.0f;
+        //movementSpeed = 20.0f;
     }
 
     void Update()
@@ -29,16 +29,26 @@ public class EnemyPathing : MonoBehaviour
             }
         }
 
-        agent.speed = movementSpeed;
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            DefaultMovement();
+        }
     }
 
-    void OnTriggerEnter(Collider other)
+    // void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.CompareTag("Player"))
+    //     {
+    //         UnityEngine.Debug.Log("Player entered the hostile range!");
+    //         //movementSpeed *= 2;
+    //     }
+    // }
+
+    void DefaultMovement()
     {
-        if (other.CompareTag("Player"))
-        {
-            UnityEngine.Debug.Log("Player entered the hostile range!");
-            //movementSpeed *= 2;
-        }
-        
+        Vector3 newPosition = playerPos.transform.position; // Example new position
+        agent.SetDestination(newPosition);
+
     }
+
 }

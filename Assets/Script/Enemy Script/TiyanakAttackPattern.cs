@@ -13,7 +13,7 @@ public class TiyanakAttackPattern : MonoBehaviour
     private int decision = 0;
 
     public Transform target;
-    private UnityEngine.AI.NavMeshAgent agent;
+    //private UnityEngine.AI.NavMeshAgent agent;
 
     public bool actionPhase = false;
 
@@ -21,25 +21,67 @@ public class TiyanakAttackPattern : MonoBehaviour
     public Rigidbody rb;
     public bool isLunging = false;
     public Vector3 lungeTarget;
+    public float dashSpeed;
+    public float dashTime;
+    public float radius;
+    public float distance;
+    //NavMesh
+    public UnityEngine.AI.NavMeshAgent agent;
+    public float movementSpeed = 15f;
+    public GameObject playerPos;
+    public GameObject hostileRange;
+
+    //timer
+    public float timer = 0f;
 
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+        hostileRange = GetComponent<GameObject>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
+        // timer += Time.deltaTime;
+        // if(timer >= 3f)
+        // {
+        //     DefaultMovement();
+        //     UnityEngine.Debug.Log("no attack detected");
+        //     timer = 0f;
+        // }
+        radius = 5f;
+        distance = Vector3.Distance(transform.position, playerPos.transform.position);
+
         if(playerAttackDetected && !actionPhase)
         {
-            AttackDetected(difficulty);
-            // UnityEngine.Debug.Log(playerAttackDetected);
-
+            actionPhase = true;
+            UnityEngine.Debug.Log(actionPhase);
             playerAttackDetected = false;
+            AttackDetected(difficulty);
+            
         }
+        
+        // else if (distance <= radius && !actionPhase)
+        // {
+        //     //UnityEngine.Debug.Log("distance = " + distance);
+        //     //UnityEngine.Debug.Log("radius = " + radius);
+        //     //UnityEngine.Debug.Log("In enemy melee range");
+        //     UnityEngine.Debug.Log("Attacks!");
+        //     actionPhase = true;
+        //     StartCoroutine(tempCooldown(1));
+        // }
 
-        if (isLunging) { LungeAttack(); StartCoroutine(EndLunge());  }
+        // else if(transform.position == playerPos.transform.position)
+        // {
+        //     UnityEngine.Debug.Log("In enemy melee range");
+        // }
+        
+        else if(!actionPhase)
+        {
+            DefaultMovement();
+        }
 
     }
 
@@ -48,28 +90,90 @@ public class TiyanakAttackPattern : MonoBehaviour
         switch(difficulty)
         {
             case "easy":
-                // UnityEngine.Debug.Log("difficulty is set to " + difficulty);
                 decision = UnityEngine.Random.Range(1, 6);
-                // UnityEngine.Debug.Log("decision = " + decision);
+                //actionPhase = true;
                 switch(decision)
                 {
-                    case 1: case 2: case 3:
+                    case 1: case 2: case 3: case 5:
+                        actionPhase = true;
                         UnityEngine.Debug.Log("Do nothing");
+                        // DefaultMovement();
+                        StartCoroutine(LungeAttack());
+                        StartCoroutine(tempCooldown(2));
+                        DefaultMovement();
                     break;
                     
                     case 4: 
                         UnityEngine.Debug.Log("Normal Attack");
-                        NormalAttack();
+                        actionPhase = true;
+                        //NormalAttack();
+                        StartCoroutine(LungeAttack());
+                        StartCoroutine(tempCooldown(2));
+                        DefaultMovement();
                     break;
 
-                    case 5:
-                        UnityEngine.Debug.Log("Retreat");
-                    break;
+                    // case 5:
+                    //     UnityEngine.Debug.Log("Retreat");
+                    //     actionPhase = true;
+                    //     StartCoroutine(tempCooldown(3));
+                    // break;
                 }
 
             break;
 
-            case "normal":
+            
+        }
+
+        decision = 0;
+    }
+
+    void DefaultMovement()
+    {
+        Vector3 newPosition = playerPos.transform.position;
+        agent.SetDestination(newPosition);
+
+    }
+
+    void NormalAttack()
+    {
+        agent.destination = target.position;
+    }
+
+    void Retreat(){}
+
+    void Evade() { }
+
+    private IEnumerator EndLunge()
+    {
+        yield return new WaitForSeconds(2f);
+        isLunging = false;
+    }
+
+    private IEnumerator LungeAttack()
+    {
+        float startTime = Time.time;
+        
+        // transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, playerPos.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+
+        while (Time.time <= startTime + dashTime && !(distance <= radius))
+        {
+            transform.position += transform.forward * dashSpeed * Time.deltaTime;
+            yield return null; // Yield to the next frame
+        }
+        Debug.Log("Lunge attack completed.");
+
+    }
+
+    private IEnumerator tempCooldown(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        actionPhase = false;
+    }
+}
+
+/*
+
+case "normal":
                 // UnityEngine.Debug.Log("difficulty is set to " + difficulty);
                 decision = UnityEngine.Random.Range(1, 8);
                 // UnityEngine.Debug.Log("decision = " + decision);
@@ -135,31 +239,5 @@ public class TiyanakAttackPattern : MonoBehaviour
                     break;
                 }
             break;
-        }
 
-        decision = 0;
-    }
-
-    void NormalAttack()
-    {
-        agent.destination = target.position;
-    }
-
-    void LungeAttack()
-    {
-        actionPhase = true;
-        transform.position = Vector3.Lerp(transform.position, lungeTarget, Time.deltaTime);
-    }
-
-    void Retreat(){}
-
-    void Evade() { }
-
-    private IEnumerator EndLunge()
-    {
-        yield return new WaitForSeconds(2f);
-        isLunging = false;
-        actionPhase = false;
-    }
-
-}
+*/
