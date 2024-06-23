@@ -13,7 +13,7 @@ public class TiyanakAttackPattern : MonoBehaviour
     private int decision = 0;
 
     public Transform target;
-    private UnityEngine.AI.NavMeshAgent agent;
+    //private UnityEngine.AI.NavMeshAgent agent;
 
     public bool actionPhase = false;
 
@@ -21,16 +21,38 @@ public class TiyanakAttackPattern : MonoBehaviour
     public Rigidbody rb;
     public bool isLunging = false;
     public Vector3 lungeTarget;
+    public float dashSpeed;
+    public float dashTime;
+
+    //NavMesh
+    public UnityEngine.AI.NavMeshAgent agent;
+    public float movementSpeed = 15f;
+    public GameObject playerPos;
+    public GameObject hostileRange;
+
+    //timer
+    public float timer = 0f;
 
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+        hostileRange = GetComponent<GameObject>();
     }
 
 
     void Update()
     {
+        // timer += Time.deltaTime;
+        // if(timer >= 3f)
+        // {
+        //     DefaultMovement();
+        //     UnityEngine.Debug.Log("no attack detected");
+        //     timer = 0f;
+        // }
+        float radius = 5f;
+        float distance = Vector3.Distance(transform.position, playerPos.transform.position);
+
         if(playerAttackDetected && !actionPhase)
         {
             AttackDetected(difficulty);
@@ -38,8 +60,25 @@ public class TiyanakAttackPattern : MonoBehaviour
             UnityEngine.Debug.Log(actionPhase);
             playerAttackDetected = false;
         }
-
-        //if (isLunging) { LungeAttack(); StartCoroutine(EndLunge());  }
+        
+        else if (distance <= radius && !actionPhase)
+        {
+            //UnityEngine.Debug.Log("distance = " + distance);
+            //UnityEngine.Debug.Log("radius = " + radius);
+            //UnityEngine.Debug.Log("In enemy melee range");
+            UnityEngine.Debug.Log("Attacks!");
+            actionPhase = true;
+            StartCoroutine(tempCooldown(1));
+        }
+        // else if(transform.position == playerPos.transform.position)
+        // {
+        //     UnityEngine.Debug.Log("In enemy melee range");
+        // }
+        
+        else if(!actionPhase)
+        {
+            //DefaultMovement();
+        }
 
     }
 
@@ -54,21 +93,24 @@ public class TiyanakAttackPattern : MonoBehaviour
                 {
                     case 1: case 2: case 3:
                         actionPhase = true;
-                        UnityEngine.Debug.Log("Do nothing"); //default movement
-                        StartCoroutine(tempCooldown());
+                        UnityEngine.Debug.Log("Do nothing");
+                        // DefaultMovement();
+                        LungeAttack();
+                        StartCoroutine(tempCooldown(1));
                     break;
                     
                     case 4: 
                         UnityEngine.Debug.Log("Normal Attack");
                         actionPhase = true;
-                        NormalAttack();
-                        StartCoroutine(tempCooldown());
+                        //NormalAttack();
+                        LungeAttack();
+                        StartCoroutine(tempCooldown(1));
                     break;
 
                     case 5:
                         UnityEngine.Debug.Log("Retreat");
                         actionPhase = true;
-                        StartCoroutine(tempCooldown());
+                        StartCoroutine(tempCooldown(1));
                     break;
                 }
 
@@ -82,6 +124,8 @@ public class TiyanakAttackPattern : MonoBehaviour
 
     void DefaultMovement()
     {
+        Vector3 newPosition = playerPos.transform.position;
+        agent.SetDestination(newPosition);
 
     }
 
@@ -92,9 +136,18 @@ public class TiyanakAttackPattern : MonoBehaviour
 
     void LungeAttack()
     {
-        transform.position = Vector3.Lerp(transform.position, lungeTarget, Time.deltaTime);
-    }
+        float startTime = Time.time;
 
+        while (Time.time < startTime + dashTime)
+        {
+            transform.position += transform.forward * dashSpeed * Time.deltaTime;
+        }
+
+    }
+        // while(Time.time < startTime + dashTime)
+        // {
+        //     dashSpeed * Time.deltaTime;
+        // }
     void Retreat(){}
 
     void Evade() { }
@@ -105,9 +158,9 @@ public class TiyanakAttackPattern : MonoBehaviour
         isLunging = false;
     }
 
-    private IEnumerator tempCooldown()
+    private IEnumerator tempCooldown(float duration)
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(duration);
         actionPhase = false;
     }
 }
