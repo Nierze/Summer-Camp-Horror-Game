@@ -11,10 +11,10 @@ public class TerrainScanner : MonoBehaviour
 
     void Start()
     {
-        if (!AreaScanner.scanning && (Input.GetMouseButton(2) || Input.GetKeyDown("q")) )
-        {
-            //SpawnTerrainScanner();
-        } 
+        // if (!AreaScanner.scanning && (Input.GetMouseButton(2) || Input.GetKeyDown("q")) )
+        // {
+        //     //SpawnTerrainScanner();
+        // } 
     }
 
     public void SpawnTerrainScanner(Vector3 castPosition)

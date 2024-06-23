@@ -29,8 +29,8 @@ public class PlayerController : MonoBehaviour
     private bool isRunning = false;
 
 
-    [SerializeField]
-    private Animator animator;
+    // [SerializeField]
+    // private Animator animator;
 
     private void Start()
     {
@@ -68,7 +68,6 @@ public class PlayerController : MonoBehaviour
         if (inputManager.GetAttack())
         {
             TiyanakAttackPattern.playerAttackDetected = true;
-            animator.Play("Take 001");
             UnityEngine.Debug.Log("Attacked");
         }
 
@@ -78,7 +77,6 @@ public class PlayerController : MonoBehaviour
         {
             UnityEngine.Debug.Log("Defended");
         }
-
 
 
     }
