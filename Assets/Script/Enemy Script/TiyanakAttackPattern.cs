@@ -23,7 +23,8 @@ public class TiyanakAttackPattern : MonoBehaviour
     public Vector3 lungeTarget;
     public float dashSpeed;
     public float dashTime;
-
+    public float radius;
+    public float distance;
     //NavMesh
     public UnityEngine.AI.NavMeshAgent agent;
     public float movementSpeed = 15f;
@@ -50,26 +51,28 @@ public class TiyanakAttackPattern : MonoBehaviour
         //     UnityEngine.Debug.Log("no attack detected");
         //     timer = 0f;
         // }
-        float radius = 5f;
-        float distance = Vector3.Distance(transform.position, playerPos.transform.position);
+        radius = 5f;
+        distance = Vector3.Distance(transform.position, playerPos.transform.position);
 
         if(playerAttackDetected && !actionPhase)
         {
-            AttackDetected(difficulty);
             actionPhase = true;
             UnityEngine.Debug.Log(actionPhase);
             playerAttackDetected = false;
+            AttackDetected(difficulty);
+            
         }
         
-        else if (distance <= radius && !actionPhase)
-        {
-            //UnityEngine.Debug.Log("distance = " + distance);
-            //UnityEngine.Debug.Log("radius = " + radius);
-            //UnityEngine.Debug.Log("In enemy melee range");
-            UnityEngine.Debug.Log("Attacks!");
-            actionPhase = true;
-            StartCoroutine(tempCooldown(1));
-        }
+        // else if (distance <= radius && !actionPhase)
+        // {
+        //     //UnityEngine.Debug.Log("distance = " + distance);
+        //     //UnityEngine.Debug.Log("radius = " + radius);
+        //     //UnityEngine.Debug.Log("In enemy melee range");
+        //     UnityEngine.Debug.Log("Attacks!");
+        //     actionPhase = true;
+        //     StartCoroutine(tempCooldown(1));
+        // }
+
         // else if(transform.position == playerPos.transform.position)
         // {
         //     UnityEngine.Debug.Log("In enemy melee range");
@@ -96,7 +99,8 @@ public class TiyanakAttackPattern : MonoBehaviour
                         UnityEngine.Debug.Log("Do nothing");
                         // DefaultMovement();
                         StartCoroutine(LungeAttack());
-                        StartCoroutine(tempCooldown(3));
+                        StartCoroutine(tempCooldown(2));
+                        DefaultMovement();
                     break;
                     
                     case 4: 
@@ -104,7 +108,8 @@ public class TiyanakAttackPattern : MonoBehaviour
                         actionPhase = true;
                         //NormalAttack();
                         StartCoroutine(LungeAttack());
-                        StartCoroutine(tempCooldown(3));
+                        StartCoroutine(tempCooldown(2));
+                        DefaultMovement();
                     break;
 
                     // case 5:
@@ -134,21 +139,6 @@ public class TiyanakAttackPattern : MonoBehaviour
         agent.destination = target.position;
     }
 
-    // void LungeAttack()
-    // {
-    //     float startTime = Time.time;
-
-    //     while (Time.time <= startTime + dashTime)
-    //     {
-    //         transform.position += transform.forward * dashSpeed * Time.deltaTime;
-            
-    //     }
-
-    // }
-        // while(Time.time < startTime + dashTime)
-        // {
-        //     dashSpeed * Time.deltaTime;
-        // }
     void Retreat(){}
 
     void Evade() { }
@@ -159,27 +149,25 @@ public class TiyanakAttackPattern : MonoBehaviour
         isLunging = false;
     }
 
-    private IEnumerator tempCooldown(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        actionPhase = false;
-    }
-
     private IEnumerator LungeAttack()
     {
         float startTime = Time.time;
+        
+        // transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, playerPos.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
 
-        while (Time.time <= startTime + dashTime)
+        while (Time.time <= startTime + dashTime && !(distance <= radius))
         {
             transform.position += transform.forward * dashSpeed * Time.deltaTime;
             yield return null; // Yield to the next frame
         }
-
-        // Optionally, perform actions after the dash is completed
         Debug.Log("Lunge attack completed.");
 
-        // Example: Restart the coroutine or perform other actions
-        // StartCoroutine(LungeAttack()); // Uncomment if you want to restart
+    }
+
+    private IEnumerator tempCooldown(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        actionPhase = false;
     }
 }
 

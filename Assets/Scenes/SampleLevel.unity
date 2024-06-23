@@ -2555,7 +2555,7 @@ Transform:
   m_Children:
   - {fileID: 1681423748}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -11.677, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &545437677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4880,6 +4880,8 @@ MonoBehaviour:
   lungeTarget: {x: 0, y: 0, z: 0}
   dashSpeed: 0
   dashTime: 0
+  radius: 0
+  distance: 0
   agent: {fileID: 0}
   movementSpeed: 15
   playerPos: {fileID: 0}
@@ -6713,7 +6715,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2039227929}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.897, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6871,7 +6873,6 @@ GameObject:
   - component: {fileID: 2095025262}
   - component: {fileID: 2095025261}
   - component: {fileID: 2095025260}
-  - component: {fileID: 2095025259}
   - component: {fileID: 2095025257}
   - component: {fileID: 2095025256}
   - component: {fileID: 2095025255}
@@ -6945,29 +6946,15 @@ MonoBehaviour:
   rb: {fileID: 0}
   isLunging: 0
   lungeTarget: {x: 0, y: 0, z: 0}
-  dashSpeed: 40
+  dashSpeed: 50
   dashTime: 0.5
+  radius: 0
+  distance: 0
   agent: {fileID: 0}
   movementSpeed: 15
   playerPos: {fileID: 1051753608}
   hostileRange: {fileID: 1977519847}
   timer: 0
---- !u!114 &2095025259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2095025253}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92343741fccb9f54bad621131157c228, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 2095025264}
-  hostileRange: {fileID: 1977519847}
-  movementSpeed: 0
-  playerPos: {fileID: 1051753608}
 --- !u!54 &2095025260
 Rigidbody:
   m_ObjectHideFlags: 0
