@@ -28,18 +28,18 @@ public class TiyanakAttackPattern : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if(playerAttackDetected && !actionPhase)
         {
             AttackDetected(difficulty);
-            // UnityEngine.Debug.Log(playerAttackDetected);
-
+            actionPhase = true;
+            UnityEngine.Debug.Log(actionPhase);
             playerAttackDetected = false;
         }
 
-        if (isLunging) { LungeAttack(); StartCoroutine(EndLunge());  }
+        //if (isLunging) { LungeAttack(); StartCoroutine(EndLunge());  }
 
     }
 
@@ -48,28 +48,73 @@ public class TiyanakAttackPattern : MonoBehaviour
         switch(difficulty)
         {
             case "easy":
-                // UnityEngine.Debug.Log("difficulty is set to " + difficulty);
                 decision = UnityEngine.Random.Range(1, 6);
-                // UnityEngine.Debug.Log("decision = " + decision);
+                //actionPhase = true;
                 switch(decision)
                 {
                     case 1: case 2: case 3:
-                        UnityEngine.Debug.Log("Do nothing");
+                        actionPhase = true;
+                        UnityEngine.Debug.Log("Do nothing"); //default movement
+                        StartCoroutine(tempCooldown());
                     break;
                     
                     case 4: 
                         UnityEngine.Debug.Log("Normal Attack");
+                        actionPhase = true;
                         NormalAttack();
+                        StartCoroutine(tempCooldown());
                     break;
 
                     case 5:
                         UnityEngine.Debug.Log("Retreat");
+                        actionPhase = true;
+                        StartCoroutine(tempCooldown());
                     break;
                 }
 
             break;
 
-            case "normal":
+            
+        }
+
+        decision = 0;
+    }
+
+    void DefaultMovement()
+    {
+
+    }
+
+    void NormalAttack()
+    {
+        agent.destination = target.position;
+    }
+
+    void LungeAttack()
+    {
+        transform.position = Vector3.Lerp(transform.position, lungeTarget, Time.deltaTime);
+    }
+
+    void Retreat(){}
+
+    void Evade() { }
+
+    private IEnumerator EndLunge()
+    {
+        yield return new WaitForSeconds(2f);
+        isLunging = false;
+    }
+
+    private IEnumerator tempCooldown()
+    {
+        yield return new WaitForSeconds(3f);
+        actionPhase = false;
+    }
+}
+
+/*
+
+case "normal":
                 // UnityEngine.Debug.Log("difficulty is set to " + difficulty);
                 decision = UnityEngine.Random.Range(1, 8);
                 // UnityEngine.Debug.Log("decision = " + decision);
@@ -135,31 +180,5 @@ public class TiyanakAttackPattern : MonoBehaviour
                     break;
                 }
             break;
-        }
 
-        decision = 0;
-    }
-
-    void NormalAttack()
-    {
-        agent.destination = target.position;
-    }
-
-    void LungeAttack()
-    {
-        actionPhase = true;
-        transform.position = Vector3.Lerp(transform.position, lungeTarget, Time.deltaTime);
-    }
-
-    void Retreat(){}
-
-    void Evade() { }
-
-    private IEnumerator EndLunge()
-    {
-        yield return new WaitForSeconds(2f);
-        isLunging = false;
-        actionPhase = false;
-    }
-
-}
+*/

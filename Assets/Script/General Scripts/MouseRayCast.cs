@@ -32,8 +32,8 @@ public class MouseRayCast : MonoBehaviour
 
                 if (highlight != null)
                 {
-                    Debug.Log("highlight = " + highlight);
-                    Debug.Log("hitFeedback = " + hitFeedback);
+                    //Debug.Log("highlight = " + highlight);
+                    //Debug.Log("hitFeedback = " + hitFeedback);
 
                     if (!inAction && currentHighlight != highlight)
                     {
@@ -50,7 +50,7 @@ public class MouseRayCast : MonoBehaviour
                         switch (hitFeedback)
                         {
                             case "Bulletin Board Selectable":
-                                Debug.Log("Bulletin Board Action");
+                                //Debug.Log("Bulletin Board Action");
                                 camMove.MoveToBoard(highlight);
                                 break;
                         }
