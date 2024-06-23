@@ -25,8 +25,9 @@ public class CamMoveAnimator : MonoBehaviour
         }
     }
 
-    public void MoveToBoard()
+    public void MoveToBoard(MaterialControl highlight)
     {
+        //highlight.DisableMaterial();
         MouseRayCast.inAction = true;
         state = true;
         StartCoroutine(delay(boardCanvas, state));

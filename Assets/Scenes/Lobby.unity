@@ -755,22 +755,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -5539764629200458662, guid: 9ee30c1a2edb4f04f96f9115ce45c70d, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -6872139702424568233, guid: 9ee30c1a2edb4f04f96f9115ce45c70d,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 668773376}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ee30c1a2edb4f04f96f9115ce45c70d, type: 3}
---- !u!1 &548084855 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -658445816637125598, guid: 9ee30c1a2edb4f04f96f9115ce45c70d,
-    type: 3}
-  m_PrefabInstance: {fileID: 433088169}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &548084856 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -6872139702424568233, guid: 9ee30c1a2edb4f04f96f9115ce45c70d,
+--- !u!23 &548084857 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8297317333018259234, guid: 9ee30c1a2edb4f04f96f9115ce45c70d,
     type: 3}
   m_PrefabInstance: {fileID: 433088169}
   m_PrefabAsset: {fileID: 0}
@@ -801,11 +791,11 @@ Transform:
   m_GameObject: {fileID: 668773375}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 0.14688611, y: 0.09999999, z: 0.0013333339}
+  m_LocalPosition: {x: -12.580684, y: 10.130187, z: -12.616997}
+  m_LocalScale: {x: 10.500006, y: 7.499999, z: 0.10000007}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 548084856}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &668773378
 BoxCollider:
@@ -840,7 +830,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25cbd01d3342bbb4989261f196882749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentObject: {fileID: 548084855}
+  parentObject: {fileID: 0}
+  meshRenderer: {fileID: 548084857}
   transparentMaterial: {fileID: 0}
 --- !u!1 &678696959
 GameObject:
@@ -2279,6 +2270,7 @@ SceneRoots:
   - {fileID: 678696963}
   - {fileID: 176043615}
   - {fileID: 7616790633809494226}
+  - {fileID: 668773376}
   - {fileID: 433088169}
   - {fileID: 1572224292}
   - {fileID: 986268111}
