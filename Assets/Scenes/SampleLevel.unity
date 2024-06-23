@@ -6945,8 +6945,8 @@ MonoBehaviour:
   rb: {fileID: 0}
   isLunging: 0
   lungeTarget: {x: 0, y: 0, z: 0}
-  dashSpeed: 20
-  dashTime: 0.25
+  dashSpeed: 40
+  dashTime: 0.5
   agent: {fileID: 0}
   movementSpeed: 15
   playerPos: {fileID: 1051753608}

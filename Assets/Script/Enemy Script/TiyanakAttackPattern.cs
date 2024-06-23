@@ -77,7 +77,7 @@ public class TiyanakAttackPattern : MonoBehaviour
         
         else if(!actionPhase)
         {
-            //DefaultMovement();
+            DefaultMovement();
         }
 
     }
@@ -91,27 +91,27 @@ public class TiyanakAttackPattern : MonoBehaviour
                 //actionPhase = true;
                 switch(decision)
                 {
-                    case 1: case 2: case 3:
+                    case 1: case 2: case 3: case 5:
                         actionPhase = true;
                         UnityEngine.Debug.Log("Do nothing");
                         // DefaultMovement();
-                        LungeAttack();
-                        StartCoroutine(tempCooldown(1));
+                        StartCoroutine(LungeAttack());
+                        StartCoroutine(tempCooldown(3));
                     break;
                     
                     case 4: 
                         UnityEngine.Debug.Log("Normal Attack");
                         actionPhase = true;
                         //NormalAttack();
-                        LungeAttack();
-                        StartCoroutine(tempCooldown(1));
+                        StartCoroutine(LungeAttack());
+                        StartCoroutine(tempCooldown(3));
                     break;
 
-                    case 5:
-                        UnityEngine.Debug.Log("Retreat");
-                        actionPhase = true;
-                        StartCoroutine(tempCooldown(1));
-                    break;
+                    // case 5:
+                    //     UnityEngine.Debug.Log("Retreat");
+                    //     actionPhase = true;
+                    //     StartCoroutine(tempCooldown(3));
+                    // break;
                 }
 
             break;
@@ -134,16 +134,17 @@ public class TiyanakAttackPattern : MonoBehaviour
         agent.destination = target.position;
     }
 
-    void LungeAttack()
-    {
-        float startTime = Time.time;
+    // void LungeAttack()
+    // {
+    //     float startTime = Time.time;
 
-        while (Time.time < startTime + dashTime)
-        {
-            transform.position += transform.forward * dashSpeed * Time.deltaTime;
-        }
+    //     while (Time.time <= startTime + dashTime)
+    //     {
+    //         transform.position += transform.forward * dashSpeed * Time.deltaTime;
+            
+    //     }
 
-    }
+    // }
         // while(Time.time < startTime + dashTime)
         // {
         //     dashSpeed * Time.deltaTime;
@@ -162,6 +163,23 @@ public class TiyanakAttackPattern : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         actionPhase = false;
+    }
+
+    private IEnumerator LungeAttack()
+    {
+        float startTime = Time.time;
+
+        while (Time.time <= startTime + dashTime)
+        {
+            transform.position += transform.forward * dashSpeed * Time.deltaTime;
+            yield return null; // Yield to the next frame
+        }
+
+        // Optionally, perform actions after the dash is completed
+        Debug.Log("Lunge attack completed.");
+
+        // Example: Restart the coroutine or perform other actions
+        // StartCoroutine(LungeAttack()); // Uncomment if you want to restart
     }
 }
 
