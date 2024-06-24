@@ -7,6 +7,10 @@ public class InEnemyRange : MonoBehaviour
     public TiyanakAttackPattern playerInRange;
     public EaseHealthBar targetHealthbar;
 
+    public void Update()
+    {
+        //if (playerInRange.playerInRange) StartCoroutine(Attack());
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -14,7 +18,8 @@ public class InEnemyRange : MonoBehaviour
         {
             UnityEngine.Debug.Log("In Range, Attacks!");
             playerInRange.playerInRange = true;
-            targetHealthbar.TakeDamage(10);
+            StartCoroutine(Attack());
+            //targetHealthbar.TakeDamage(10);
         }
     }
 
@@ -25,5 +30,11 @@ public class InEnemyRange : MonoBehaviour
             UnityEngine.Debug.Log("Outside Range");
             playerInRange.playerInRange = false;
         }
+    }
+
+    private IEnumerator Attack()
+    {
+        yield return new WaitForSeconds(3f);
+        if(playerInRange.playerInRange) targetHealthbar.TakeDamage(10);
     }
 }

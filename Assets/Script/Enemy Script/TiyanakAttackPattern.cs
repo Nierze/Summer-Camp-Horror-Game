@@ -89,6 +89,7 @@ public class TiyanakAttackPattern : MonoBehaviour
 
     }
 
+    /*
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -96,7 +97,7 @@ public class TiyanakAttackPattern : MonoBehaviour
             UnityEngine.Debug.Log("In Range, Attacks!");
             healthBar.TakeDamage(10);
         }
-    }
+    }*/
 
     /*void OnTriggerExit(Collider other)
     {
