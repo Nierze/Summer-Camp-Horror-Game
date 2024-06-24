@@ -89,25 +89,6 @@ public class TiyanakAttackPattern : MonoBehaviour
 
     }
 
-    /*
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            UnityEngine.Debug.Log("In Range, Attacks!");
-            healthBar.TakeDamage(10);
-        }
-    }*/
-
-    /*void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            UnityEngine.Debug.Log("Player is outside of the range");
-            UnityEngine.Debug.Log("Cannot attack player");
-        }
-    }*/
-
     void AttackDetected(string difficulty)
     {
         switch(difficulty)
@@ -178,8 +159,6 @@ public class TiyanakAttackPattern : MonoBehaviour
     {
         float startTime = Time.time;
         
-        // transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, playerPos.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
-
         while (Time.time <= startTime + dashTime && !(distance <= radius))
         {
             transform.position += transform.forward * dashSpeed * Time.deltaTime;
