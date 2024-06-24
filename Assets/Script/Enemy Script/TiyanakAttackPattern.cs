@@ -159,7 +159,7 @@ public class TiyanakAttackPattern : MonoBehaviour
     {
         float startTime = Time.time;
         
-        while (Time.time <= startTime + dashTime && !(distance <= radius))
+        while (Time.time <= startTime + dashTime )//&& !(distance <= radius))
         {
             transform.position += transform.forward * dashSpeed * Time.deltaTime;
             yield return null; // Yield to the next frame
