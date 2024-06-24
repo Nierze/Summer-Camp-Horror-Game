@@ -6,20 +6,26 @@ public class InEnemyRange : MonoBehaviour
 {
     public TiyanakAttackPattern playerInRange;
     public EaseHealthBar targetHealthbar;
+    public float timer = 0f;
 
     public void Update()
     {
-        //if (playerInRange.playerInRange) StartCoroutine(Attack());
+        timer += Time.deltaTime;
+        if (timer >= 3f)
+        {
+            UnityEngine.Debug.Log("Successive attack");
+            StartCoroutine(Attack());
+            timer = 0f;
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            timer = 0f;
             UnityEngine.Debug.Log("In Range, Attacks!");
             playerInRange.playerInRange = true;
-            StartCoroutine(Attack());
-            //targetHealthbar.TakeDamage(10);
         }
     }
 
