@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour
     private bool isRunning = false;
 
 
+
+    public GameObject followTransform;
+
+
     // [SerializeField]
     // private Animator animator;
 
