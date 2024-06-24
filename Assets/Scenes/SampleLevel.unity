@@ -3272,6 +3272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInRange: {fileID: 2095025257}
+  targetHealthbar: {fileID: 1635150383}
 --- !u!4 &767490219 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0a665653db6b93941ad1d8d0a9955be2,
