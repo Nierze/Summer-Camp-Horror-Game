@@ -34,11 +34,15 @@ public class TiyanakAttackPattern : MonoBehaviour
     //timer
     public float timer = 0f;
 
+    //Deal Damage
+    public bool playerInRange = false;
+    public EaseHealthBar healthBar;
+
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
-        hostileRange = GetComponent<GameObject>();
+        //hostileRange = GetComponent<GameObject>();
     }
 
 
@@ -89,7 +93,8 @@ public class TiyanakAttackPattern : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            UnityEngine.Debug.Log("In range!");
+            UnityEngine.Debug.Log("In Range, Attacks!");
+            healthBar.TakeDamage(10);
         }
     }
 
@@ -115,6 +120,7 @@ public class TiyanakAttackPattern : MonoBehaviour
                         actionPhase = true;
                         UnityEngine.Debug.Log("Do nothing");
                         // DefaultMovement();
+                        //healthBar.TakeDamage(10); //
                         StartCoroutine(LungeAttack());
                         StartCoroutine(tempCooldown(2));
                         DefaultMovement();
@@ -124,6 +130,7 @@ public class TiyanakAttackPattern : MonoBehaviour
                         UnityEngine.Debug.Log("Normal Attack");
                         actionPhase = true;
                         //NormalAttack();
+                        //healthBar.TakeDamage(10); //
                         StartCoroutine(LungeAttack());
                         StartCoroutine(tempCooldown(2));
                         DefaultMovement();

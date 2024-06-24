@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class toberemoved : MonoBehaviour
+public class InEnemyRange : MonoBehaviour
 {
     public TiyanakAttackPattern playerInRange;
+    public EaseHealthBar targetHealthbar;
+
 
     void OnTriggerEnter(Collider other)
     {
@@ -12,6 +14,7 @@ public class toberemoved : MonoBehaviour
         {
             UnityEngine.Debug.Log("In Range, Attacks!");
             playerInRange.playerInRange = true;
+            targetHealthbar.TakeDamage(10);
         }
     }
 
@@ -22,6 +25,5 @@ public class toberemoved : MonoBehaviour
             UnityEngine.Debug.Log("Outside Range");
             playerInRange.playerInRange = false;
         }
-
     }
 }

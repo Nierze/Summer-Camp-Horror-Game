@@ -3143,27 +3143,15 @@ GameObject:
   - component: {fileID: 755363620}
   - component: {fileID: 755363619}
   - component: {fileID: 755363618}
-  - component: {fileID: 755363617}
   - component: {fileID: 755363622}
+  - component: {fileID: 755363623}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Attack Range Working
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &755363617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 755363616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5752d6332275bbb4b9d65992b2772df4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &755363618
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3243,12 +3231,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755363616}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 42.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2095025254}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &755363622
 SphereCollider:
@@ -3271,6 +3259,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2.829319
   m_Center: {x: 0, y: 0, z: 0.024417877}
+--- !u!114 &755363623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755363616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d79355c974424a4aadae68a420d0aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInRange: {fileID: 2095025257}
 --- !u!4 &767490219 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0a665653db6b93941ad1d8d0a9955be2,
@@ -5132,6 +5133,8 @@ MonoBehaviour:
   playerPos: {fileID: 0}
   hostileRange: {fileID: 0}
   timer: 0
+  playerInRange: 0
+  healthBar: {fileID: 0}
 --- !u!114 &1301132816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6912,59 +6915,6 @@ Transform:
   - {fileID: 417561489}
   m_Father: {fileID: 281924503}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1977519847
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1977519848}
-  - component: {fileID: 1977519849}
-  m_Layer: 6
-  m_Name: Enemy Hostile Range
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1977519848
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1977519847}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2095025254}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1977519849
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1977519847}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1993887941
 GameObject:
   m_ObjectHideFlags: 0
@@ -7210,72 +7160,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keyCode1: 27
   _keyCode2: 112
---- !u!1 &2055614198
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2055614199}
-  - component: {fileID: 2055614201}
-  - component: {fileID: 2055614200}
-  m_Layer: 6
-  m_Name: Attack range
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2055614199
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2055614198}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 0, z: 0.86}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2095025254}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &2055614200
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2055614198}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 3.6572495
-  m_Center: {x: 0, y: 0, z: 0.40325928}
---- !u!114 &2055614201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2055614198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5752d6332275bbb4b9d65992b2772df4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2095025253
 GameObject:
   m_ObjectHideFlags: 0
@@ -7313,8 +7197,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2055614199}
-  - {fileID: 1977519848}
+  - {fileID: 755363621}
   - {fileID: 257917302}
   - {fileID: 52149458}
   - {fileID: 1509306313}
@@ -7372,8 +7255,10 @@ MonoBehaviour:
   agent: {fileID: 0}
   movementSpeed: 15
   playerPos: {fileID: 1051753608}
-  hostileRange: {fileID: 2055614198}
+  hostileRange: {fileID: 0}
   timer: 0
+  playerInRange: 0
+  healthBar: {fileID: 1635150383}
 --- !u!54 &2095025260
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8217,4 +8102,3 @@ SceneRoots:
   - {fileID: 2047080826}
   - {fileID: 162613615}
   - {fileID: 8358014511200726522}
-  - {fileID: 755363621}
