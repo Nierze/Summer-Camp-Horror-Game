@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Light light;
 
-
     private InputManager inputManager;
     private Transform cameraTransform;
 
@@ -28,13 +27,9 @@ public class PlayerController : MonoBehaviour
     private float sprintSpeedMultiplier = 2f;
     private bool isRunning = false;
 
-
-
     public GameObject followTransform;
 
-
-    // [SerializeField]
-    // private Animator animator;
+    public float rotationPower = 3f;
 
     private void Start()
     {
@@ -43,7 +38,6 @@ public class PlayerController : MonoBehaviour
         cameraTransform = Camera.main.transform;
         light.transform.position = cameraTransform.position;
         playerSpeed = 20.0f;
-       
     }
 
     void Update()
@@ -53,14 +47,13 @@ public class PlayerController : MonoBehaviour
         // {
         //     playerVelocity.y = 0f;
         // }
-        
 
         /////////////////////////////////////////
         // Movement Handler
         if (inputManager.GetSprint())
         {
             Run();
-        }      
+        }
         else
         {
             Walk();
@@ -81,8 +74,6 @@ public class PlayerController : MonoBehaviour
         {
             //UnityEngine.Debug.Log("Defended");
         }
-
-
     }
 
     void Walk()
@@ -92,7 +83,7 @@ public class PlayerController : MonoBehaviour
         move = cameraTransform.forward * move.z + cameraTransform.right * move.x;
         move.y = -1f;
         controller.Move(move * Time.deltaTime * playerSpeed);
-
+        UpdateFollowTransformRotation();
     }
 
     void Run()
@@ -102,6 +93,30 @@ public class PlayerController : MonoBehaviour
         move = cameraTransform.forward * move.z + cameraTransform.right * move.x;
         move.y = -1f;
         controller.Move(move * Time.deltaTime * (playerSpeed * sprintSpeedMultiplier));
+        UpdateFollowTransformRotation();
+    }
 
+    void UpdateFollowTransformRotation()
+    {
+        Vector2 look = inputManager.GetMouseDelta();
+        followTransform.transform.rotation *= Quaternion.AngleAxis(look.x * rotationPower, Vector3.up);
+        followTransform.transform.rotation *= Quaternion.AngleAxis(look.y * rotationPower, Vector3.right);
+
+        var angles = followTransform.transform.localEulerAngles;
+        angles.z = 0;
+
+        var angle = followTransform.transform.localEulerAngles.x;
+
+        //Clamp the Up/Down rotation
+        if (angle > 180 && angle < 340)
+        {
+            angles.x = 340;
+        }
+        else if (angle < 180 && angle > 40)
+        {
+            angles.x = 40;
+        }
+
+        followTransform.transform.localEulerAngles = angles;
     }
 }
