@@ -12,6 +12,7 @@ public class EnemyPathing : MonoBehaviour
     public GameObject hostileRange;
     public float movementSpeed = 15f;
     public GameObject playerPos;
+
     void Start()
     {
         hostileRange = GetComponent<GameObject>();
@@ -35,14 +36,14 @@ public class EnemyPathing : MonoBehaviour
         }
     }
 
-    // void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.CompareTag("Player"))
-    //     {
-    //         UnityEngine.Debug.Log("Player entered the hostile range!");
-    //         //movementSpeed *= 2;
-    //     }
-    // }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            UnityEngine.Debug.Log("Player entered the hostile range!");
+            //movementSpeed *= 2;
+        }
+    }
 
     void DefaultMovement()
     {
