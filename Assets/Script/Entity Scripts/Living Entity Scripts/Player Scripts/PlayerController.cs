@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 look = inputManager.GetMouseDelta();
         followTransform.transform.rotation *= Quaternion.AngleAxis(look.x * rotationPower, Vector3.up);
-        followTransform.transform.rotation *= Quaternion.AngleAxis(look.y * rotationPower, Vector3.right);
+        followTransform.transform.rotation *= Quaternion.AngleAxis(-look.y * rotationPower, Vector3.right);
 
         var angles = followTransform.transform.localEulerAngles;
         angles.z = 0;
