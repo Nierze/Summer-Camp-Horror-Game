@@ -8299,7 +8299,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   isLunging: 0
   lungeTarget: {x: 0, y: 0, z: 0}
-  dashSpeed: 50
+  dashSpeed: 100
   dashTime: 0.5
   radius: 0
   distance: 0
