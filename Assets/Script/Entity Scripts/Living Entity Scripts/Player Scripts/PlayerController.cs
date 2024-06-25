@@ -31,8 +31,16 @@ public class PlayerController : MonoBehaviour
 
     public float rotationPower = 3f;
 
+    private float inputMagnitude;
+
+    private Animator animator;
+
+    public float playerCurrentSpeed;
+
+
     private void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         controller = GetComponent<CharacterController>();
         inputManager = InputManager.Instance;
         cameraTransform = Camera.main.transform;
@@ -42,6 +50,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        
         // groundedPlayer = controller.isGrounded;
         // if (groundedPlayer && playerVelocity.y < 0)
         // {
@@ -74,6 +83,9 @@ public class PlayerController : MonoBehaviour
         {
             //UnityEngine.Debug.Log("Defended");
         }
+
+
+        playerCurrentSpeed = controller.velocity.magnitude;
     }
 
     void Walk()
@@ -83,6 +95,10 @@ public class PlayerController : MonoBehaviour
         move = cameraTransform.forward * move.z + cameraTransform.right * move.x;
         move.y = -1f;
         controller.Move(move * Time.deltaTime * playerSpeed);
+        animator.SetFloat("Magnitude", 0.5f);
+        // Rotate the player's orientation to face the movement direction
+
+        
         UpdateFollowTransformRotation();
     }
 
@@ -119,4 +135,6 @@ public class PlayerController : MonoBehaviour
 
         followTransform.transform.localEulerAngles = angles;
     }
+
+
 }
