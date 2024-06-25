@@ -927,7 +927,7 @@ Transform:
   m_GameObject: {fileID: 159129046}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -38.8, y: 6.7939997, z: 71.3}
+  m_LocalPosition: {x: 27.3, y: 6.494, z: 125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2759,7 +2759,7 @@ Transform:
   m_GameObject: {fileID: 545437673}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -38.8, y: 6.7939997, z: 71.3}
+  m_LocalPosition: {x: 27.3, y: 6.494, z: 125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4205,7 +4205,7 @@ Transform:
   m_GameObject: {fileID: 1051753608}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -38.8, y: 3, z: 71.3}
+  m_LocalPosition: {x: 27.3, y: 2.7, z: 125}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8228,6 +8228,7 @@ GameObject:
   - component: {fileID: 2095025256}
   - component: {fileID: 2095025255}
   - component: {fileID: 2095025264}
+  - component: {fileID: 2095025265}
   m_Layer: 6
   m_Name: Temp Enemy Mob 2
   m_TagString: Scannable
@@ -8244,7 +8245,7 @@ Transform:
   m_GameObject: {fileID: 2095025253}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 42.95, y: 8.55, z: 88.3}
+  m_LocalPosition: {x: 44.87, y: 11.2, z: 153.8}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8432,6 +8433,19 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2095025265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095025253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b8a8d8e796eae24cbf18c84ee80675a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisEnemy: {fileID: 0}
 --- !u!1 &2100850460
 GameObject:
   m_ObjectHideFlags: 0
@@ -9149,10 +9163,10 @@ SceneRoots:
   - {fileID: 1479797969}
   - {fileID: 1178033535}
   - {fileID: 2015029611}
-  - {fileID: 1993887942}
   - {fileID: 2047080826}
   - {fileID: 162613615}
   - {fileID: 8358014511200726522}
   - {fileID: 1649944551}
   - {fileID: 1477603192}
   - {fileID: 1420380943}
+  - {fileID: 1993887942}
