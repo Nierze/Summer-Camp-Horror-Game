@@ -5,10 +5,12 @@ public class EnemyRayCast : MonoBehaviour
     //Ray
     private Ray enemyRay;
     private RaycastHit enemyRayHit;
-    private float interactionRayLength = 50.0f;
+    private float interactionRayLength = 200.0f;
 
     //not yet used
     public GameObject thisEnemy;
+
+    public TiyanakAttackPattern playerDetector;
 
     void Start()
     {
@@ -31,9 +33,11 @@ public class EnemyRayCast : MonoBehaviour
             GameObject hitGameObject = enemyRayHit.transform.gameObject;
             if (hitGameObject.CompareTag("Player"))
             {
-                
+                //UnityEngine.Debug.Log("player detected");
+                playerDetector.playerDetected = true;
             }
         }
+        else playerDetector.playerDetected = false;
 
     }
 }
