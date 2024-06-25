@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Threading;
+using Unity.AI.Navigation;
+using UnityEngine.AI;
 using UnityEngine;
+
 
 public class DoorInteract : MonoBehaviour
 {
+    public NavMeshSurface navSurface;
+
     public Transform doorRotation;
     public GameObject openHitbox;
     public bool state;
@@ -17,6 +22,7 @@ public class DoorInteract : MonoBehaviour
     private Vector3 temp;
 
     public float duration = 1.0f;
+
     void Start()
     {
         rotationSpeed = 45f;
@@ -83,6 +89,7 @@ public class DoorInteract : MonoBehaviour
             yield return null;
         }
 
+        navSurface.BuildNavMesh();
         doorRotation.rotation = endRotation;
     }
 }
