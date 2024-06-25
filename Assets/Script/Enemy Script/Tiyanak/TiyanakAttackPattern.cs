@@ -16,16 +16,19 @@ public class TiyanakAttackPattern : MonoBehaviour
     //private UnityEngine.AI.NavMeshAgent agent;
 
     public bool actionPhase = false;
-
+    public bool enableMove = true;
     //temp lunge
     public Rigidbody rb;
     public bool isLunging = false;
     public Vector3 lungeTarget;
+    public Vector3 jump;
+    public float jumpForce = 12.0f;
     public float dashSpeed = 100f;
     public float dashTime = 0.5f;
     public float radius;
     public float distance;
     private float lungeStartTime = -1f;
+    public bool playerDetected = false;
 
     //NavMesh
     public UnityEngine.AI.NavMeshAgent agent;
@@ -44,6 +47,9 @@ public class TiyanakAttackPattern : MonoBehaviour
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+
+        //jump = new Vector3(0.0f, 2.0f, 0.0f);
+
         //hostileRange = GetComponent<GameObject>();
     }
 
@@ -53,54 +59,55 @@ public class TiyanakAttackPattern : MonoBehaviour
         radius = 5f;
         distance = Vector3.Distance(transform.position, playerPos.transform.position);
 
-        if(playerAttackDetected && !actionPhase)
+        if (playerAttackDetected && !actionPhase)
         {
             actionPhase = true;
-            UnityEngine.Debug.Log(actionPhase);
             playerAttackDetected = false;
+            enableMove = false;
+            UnityEngine.Debug.Log(actionPhase);
             AttackDetected(difficulty);
             
         }
-               
-        else if(!actionPhase)
+        
+        if (enableMove)
         {
+            //transform.LookAt(playerPos.transform.position);
+            agent.isStopped = false;
             //DefaultMovement();
-        }
-
-        /*
-        if (lungeStartTime >= 0f && Time.time <= lungeStartTime + dashTime)
-        {
-            Vector3 directionToPlayer = (playerPos.transform.position - transform.position).normalized;
-
-            transform.position += directionToPlayer * dashSpeed * Time.deltaTime;
-
         }
         else
         {
-            lungeStartTime = -1f;
-        }*/
+            agent.isStopped = true;
+        }
+
     }
 
     void AttackDetected(string difficulty)
     {
-        switch(difficulty)
+        switch (difficulty)
         {
             case "easy":
-                decision = UnityEngine.Random.Range(1, 6);
-                //actionPhase = true;
-                switch(decision)
+                /*if(!playerDetected) decision = UnityEngine.Random.Range(1, 6);
+                else decision = UnityEngine.Random.Range(5, 6);*/
+
+                decision = UnityEngine.Random.Range(5, 6);
+
+                dashSpeed = 100f; dashTime = 0.5f;
+                
+                switch (decision)
                 {
                     case 1: case 2: case 3: case 4:
-                        actionPhase = true;
-                        //UnityEngine.Debug.Log("Do nothing");
-                        // DefaultMovement();
+                        UnityEngine.Debug.Log("runs towards the player");
                         //healthBar.TakeDamage(10); //
 
-                        StartCoroutine(LungeAttack());
-                        dashSpeed = 100f; dashTime = 0.5f;
-                        StartCoroutine(tempCooldown(2));
+                        //StartCoroutine(LungeAttack());
+                        
                         //DefaultMovement();
-                    break;
+                        StartCoroutine(tempCooldown(1));
+                        //DefaultMovement();
+
+                        
+                        break;
 
                     // case 4:
                     //     UnityEngine.Debug.Log("Retreat");
@@ -109,28 +116,22 @@ public class TiyanakAttackPattern : MonoBehaviour
                     // break;
 
                     case 5:
-                        //UnityEngine.Debug.Log("Normal Attack");
-                        actionPhase = true;
-                        //NormalAttack();
+                        UnityEngine.Debug.Log("dashes towards the player");
                         //healthBar.TakeDamage(10); //
 
                         StartCoroutine(LungeAttack());
-                        dashSpeed = 100f; dashTime = 0.5f;
-                        StartCoroutine(tempCooldown(2));
-                        //DefaultMovement();
                     break;
                 }
 
             break;
-
             
         }
-
         decision = 0;
     }
 
     void DefaultMovement()
     {
+        transform.LookAt(playerPos.transform.position);
         Vector3 newPosition = playerPos.transform.position;
         agent.SetDestination(newPosition);
 
@@ -145,23 +146,12 @@ public class TiyanakAttackPattern : MonoBehaviour
 
     void Evade() { }
 
-    private IEnumerator EndLunge()
-    {
-        yield return new WaitForSeconds(2f);
-        isLunging = false;
-    }
-
-    void StartLungeAttack()
-    {
-        transform.LookAt(playerPos.transform.position);
-
-        lungeStartTime = Time.time;
-    }
-
     private IEnumerator LungeAttack()
     {
-        transform.LookAt(playerPos.transform.position);
         yield return new WaitForSeconds(1f);
+        transform.LookAt(playerPos.transform.position);
+        yield return new WaitForSeconds(0.5f);
+
         float startTime = Time.time;
         //UnityEngine.Debug.Log("dist = " + Vector3.Distance(transform.position, playerPos.transform.position));
         //UnityEngine.Debug.Log("rad = " + radius);
@@ -170,20 +160,27 @@ public class TiyanakAttackPattern : MonoBehaviour
 
         //dashSpeed = (dashSpeed * (int)(dist / 40) < 1) ? dashSpeed = 100f : dashSpeed = dashSpeed *= (int)(dist / 40);
         dashTime = (dashSpeed * (int)(dist / 40) < 1) ? dashTime = 0.5f : dashTime *= (int)(dist / 40);
-        
 
         while (Time.time <= startTime + dashTime && (Vector3.Distance(transform.position, playerPos.transform.position) + 6f) > radius)
         {
             transform.position += transform.forward * dashSpeed * Time.deltaTime;
-
             yield return null;
         }
+
+        yield return StartCoroutine(tempCooldown(1));
     }
 
     private IEnumerator tempCooldown(float duration)
     {
+        UnityEngine.Debug.Log("in cooldown");
         yield return new WaitForSeconds(duration);
         actionPhase = false;
+        enableMove = true;
+
+        //UnityEngine.Debug.Log("start count to 5 seconds");
+        //yield return new WaitForSeconds(5f);
+        //UnityEngine.Debug.Log("moving after 5 seconds");
+        //DefaultMovement();
     }
 
 }
