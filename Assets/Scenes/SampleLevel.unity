@@ -4291,6 +4291,7 @@ GameObject:
   - component: {fileID: 1051753610}
   - component: {fileID: 1051753609}
   - component: {fileID: 1051753615}
+  - component: {fileID: 1051753616}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -4305,7 +4306,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051753608}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee16f02d6bcaafc479e2e9a625705103, type: 3}
   m_Name: 
@@ -4317,6 +4318,7 @@ MonoBehaviour:
   sprintSpeedMultiplier: 2
   followTransform: {fileID: 2039227929}
   rotationPower: 3
+  playerCurrentSpeed: 0
 --- !u!143 &1051753610
 CharacterController:
   m_ObjectHideFlags: 0
@@ -4390,6 +4392,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1051753616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051753608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8726acd871900941abc8413b78de890, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 1051753610}
+  groundedPlayer: 1
+  playerSpeed: 10
+  light: {fileID: 1681423750}
+  sprintSpeedMultiplier: 2
+  followTransform: {fileID: 2039227929}
+  rotationPower: 3
+  playerCurrentSpeed: 0
 --- !u!1 &1071306911
 GameObject:
   m_ObjectHideFlags: 0
