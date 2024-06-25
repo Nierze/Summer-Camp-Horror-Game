@@ -96,9 +96,7 @@ public class PlayerController : MonoBehaviour
         move.y = -1f;
         controller.Move(move * Time.deltaTime * playerSpeed);
         animator.SetFloat("Magnitude", 0.5f);
-        // Rotate the player's orientation to face the movement direction
 
-        
         UpdateFollowTransformRotation();
     }
 
