@@ -11,6 +11,7 @@ public class InEnemyRange : MonoBehaviour
     public void Update()
     {
         timer += Time.deltaTime;
+        //UnityEngine.Debug.Log(timer);
         if (timer >= 3f)
         {
             //UnityEngine.Debug.Log("Successive attack");
