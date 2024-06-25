@@ -13,7 +13,7 @@ public class InEnemyRange : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= 3f)
         {
-            UnityEngine.Debug.Log("Successive attack");
+            //UnityEngine.Debug.Log("Successive attack");
             StartCoroutine(Attack());
             timer = 0f;
         }
@@ -24,7 +24,7 @@ public class InEnemyRange : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             timer = 0f;
-            UnityEngine.Debug.Log("In Range, Attacks!");
+            //UnityEngine.Debug.Log("In Range, Attacks!");
             playerInRange.playerInRange = true;
         }
     }
@@ -33,7 +33,7 @@ public class InEnemyRange : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            UnityEngine.Debug.Log("Outside Range");
+            //UnityEngine.Debug.Log("Outside Range");
             playerInRange.playerInRange = false;
         }
     }

@@ -48,13 +48,6 @@ public class TiyanakAttackPattern : MonoBehaviour
 
     void Update()
     {
-        // timer += Time.deltaTime;
-        // if(timer >= 3f)
-        // {
-        //     DefaultMovement();
-        //     UnityEngine.Debug.Log("no attack detected");
-        //     timer = 0f;
-        // }
         radius = 5f;
         distance = Vector3.Distance(transform.position, playerPos.transform.position);
 
@@ -66,25 +59,10 @@ public class TiyanakAttackPattern : MonoBehaviour
             AttackDetected(difficulty);
             
         }
-        
-        // else if (distance <= radius && !actionPhase)
-        // {
-        //     //UnityEngine.Debug.Log("distance = " + distance);
-        //     //UnityEngine.Debug.Log("radius = " + radius);
-        //     //UnityEngine.Debug.Log("In enemy melee range");
-        //     UnityEngine.Debug.Log("Attacks!");
-        //     actionPhase = true;
-        //     StartCoroutine(tempCooldown(1));
-        // }
-
-        // else if(transform.position == playerPos.transform.position)
-        // {
-        //     UnityEngine.Debug.Log("In enemy melee range");
-        // }
-        
+               
         else if(!actionPhase)
         {
-            DefaultMovement();
+            //DefaultMovement();
         }
 
     }
@@ -98,31 +76,31 @@ public class TiyanakAttackPattern : MonoBehaviour
                 //actionPhase = true;
                 switch(decision)
                 {
-                    case 1: case 2: case 3: case 5:
+                    case 1: case 2: case 3: case 4:
                         actionPhase = true;
-                        UnityEngine.Debug.Log("Do nothing");
+                        //UnityEngine.Debug.Log("Do nothing");
                         // DefaultMovement();
                         //healthBar.TakeDamage(10); //
                         StartCoroutine(LungeAttack());
                         StartCoroutine(tempCooldown(2));
-                        DefaultMovement();
+                        //DefaultMovement();
                     break;
-                    
-                    case 4: 
-                        UnityEngine.Debug.Log("Normal Attack");
+
+                    // case 4:
+                    //     UnityEngine.Debug.Log("Retreat");
+                    //     actionPhase = true;
+                    //     StartCoroutine(tempCooldown(3));
+                    // break;
+
+                    case 5:
+                        //UnityEngine.Debug.Log("Normal Attack");
                         actionPhase = true;
                         //NormalAttack();
                         //healthBar.TakeDamage(10); //
                         StartCoroutine(LungeAttack());
                         StartCoroutine(tempCooldown(2));
-                        DefaultMovement();
+                        //DefaultMovement();
                     break;
-
-                    // case 5:
-                    //     UnityEngine.Debug.Log("Retreat");
-                    //     actionPhase = true;
-                    //     StartCoroutine(tempCooldown(3));
-                    // break;
                 }
 
             break;
@@ -157,15 +135,15 @@ public class TiyanakAttackPattern : MonoBehaviour
 
     private IEnumerator LungeAttack()
     {
+        transform.LookAt(playerPos.transform.position);
+        yield return new WaitForSeconds(1f);
         float startTime = Time.time;
         
-        while (Time.time <= startTime + dashTime )//&& !(distance <= radius))
+        while (Time.time <= startTime + dashTime && Vector3.Distance(transform.position, playerPos.transform.position) > radius)
         {
             transform.position += transform.forward * dashSpeed * Time.deltaTime;
-            yield return null; // Yield to the next frame
+            yield return null;
         }
-        Debug.Log("Lunge attack completed.");
-
     }
 
     private IEnumerator tempCooldown(float duration)
@@ -177,7 +155,7 @@ public class TiyanakAttackPattern : MonoBehaviour
 }
 
 /*
-
+rb.AddForce(Vector3.forward * (dashSpeed * 10), ForceMode.Impulse);
 case "normal":
                 // UnityEngine.Debug.Log("difficulty is set to " + difficulty);
                 decision = UnityEngine.Random.Range(1, 8);
