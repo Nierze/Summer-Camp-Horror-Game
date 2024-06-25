@@ -43,6 +43,15 @@ public class TiyanakAttackPattern : MonoBehaviour
     public bool playerInRange = false;
     public EaseHealthBar healthBar;
 
+    //Evade
+    public float dashDistance = 15f;  // Distance to dash
+    public float dashDuration = 0.2f;  // Duration of the dash
+    private bool isDashing = false;
+    private float dashTimeLeft;
+
+    private Vector3 dashStartPos;
+    private Vector3 dashEndPos;
+
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -90,13 +99,13 @@ public class TiyanakAttackPattern : MonoBehaviour
                 /*if(!playerDetected) decision = UnityEngine.Random.Range(1, 6);
                 else decision = UnityEngine.Random.Range(5, 6);*/
 
-                decision = UnityEngine.Random.Range(5, 6);
+                decision = UnityEngine.Random.Range(4, 5);
 
                 dashSpeed = 100f; dashTime = 0.5f;
                 
                 switch (decision)
                 {
-                    case 1: case 2: case 3: case 4:
+                    case 1: case 2: case 3: //case 4:
                         UnityEngine.Debug.Log("runs towards the player");
                         //healthBar.TakeDamage(10); //
 
@@ -109,11 +118,12 @@ public class TiyanakAttackPattern : MonoBehaviour
                         
                         break;
 
-                    // case 4:
-                    //     UnityEngine.Debug.Log("Retreat");
-                    //     actionPhase = true;
-                    //     StartCoroutine(tempCooldown(3));
-                    // break;
+                    case 4:
+                        UnityEngine.Debug.Log("temp Evade");
+                        actionPhase = true;
+                        //StartCoroutine(tempCooldown(3));
+                        StartCoroutine(Evade());
+                    break;
 
                     case 5:
                         UnityEngine.Debug.Log("dashes towards the player");
@@ -143,8 +153,31 @@ public class TiyanakAttackPattern : MonoBehaviour
     }
 
     void Retreat(){}
+    private IEnumerator Evade()
+    {
+        actionPhase = true;
+        isDashing = true;
+        transform.LookAt(playerPos.transform.position);
 
-    void Evade() { }
+        Vector3 dashStartPos = transform.position;
+        //Vector3 dashDirection = -transform.right;
+        Vector3 dashDirection = UnityEngine.Random.Range(0, 2) == 0 ? transform.right : -transform.right;
+        Vector3 dashEndPos = dashStartPos + dashDirection * dashDistance;
+
+        float dashTimeLeft = dashDuration;
+
+        while (dashTimeLeft > 0)
+        {
+            float dashProgress = 1 - (dashTimeLeft / dashDuration);
+            transform.position = Vector3.Lerp(dashStartPos, dashEndPos, dashProgress);
+            dashTimeLeft -= Time.deltaTime;
+            yield return null;
+        }
+
+        isDashing = false;
+        yield return StartCoroutine(tempCooldown(0.5f));
+    }
+
     /*
     private IEnumerator LungeAttack()
     {
