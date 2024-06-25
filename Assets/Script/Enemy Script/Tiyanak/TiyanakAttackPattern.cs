@@ -21,10 +21,12 @@ public class TiyanakAttackPattern : MonoBehaviour
     public Rigidbody rb;
     public bool isLunging = false;
     public Vector3 lungeTarget;
-    public float dashSpeed;
-    public float dashTime;
+    public float dashSpeed = 100f;
+    public float dashTime = 0.5f;
     public float radius;
     public float distance;
+    private float lungeStartTime = -1f;
+
     //NavMesh
     public UnityEngine.AI.NavMeshAgent agent;
     public float movementSpeed = 15f;
@@ -65,6 +67,18 @@ public class TiyanakAttackPattern : MonoBehaviour
             //DefaultMovement();
         }
 
+        /*
+        if (lungeStartTime >= 0f && Time.time <= lungeStartTime + dashTime)
+        {
+            Vector3 directionToPlayer = (playerPos.transform.position - transform.position).normalized;
+
+            transform.position += directionToPlayer * dashSpeed * Time.deltaTime;
+
+        }
+        else
+        {
+            lungeStartTime = -1f;
+        }*/
     }
 
     void AttackDetected(string difficulty)
@@ -81,7 +95,9 @@ public class TiyanakAttackPattern : MonoBehaviour
                         //UnityEngine.Debug.Log("Do nothing");
                         // DefaultMovement();
                         //healthBar.TakeDamage(10); //
+
                         StartCoroutine(LungeAttack());
+                        dashSpeed = 100f; dashTime = 0.5f;
                         StartCoroutine(tempCooldown(2));
                         //DefaultMovement();
                     break;
@@ -97,7 +113,9 @@ public class TiyanakAttackPattern : MonoBehaviour
                         actionPhase = true;
                         //NormalAttack();
                         //healthBar.TakeDamage(10); //
+
                         StartCoroutine(LungeAttack());
+                        dashSpeed = 100f; dashTime = 0.5f;
                         StartCoroutine(tempCooldown(2));
                         //DefaultMovement();
                     break;
@@ -133,15 +151,31 @@ public class TiyanakAttackPattern : MonoBehaviour
         isLunging = false;
     }
 
+    void StartLungeAttack()
+    {
+        transform.LookAt(playerPos.transform.position);
+
+        lungeStartTime = Time.time;
+    }
+
     private IEnumerator LungeAttack()
     {
         transform.LookAt(playerPos.transform.position);
         yield return new WaitForSeconds(1f);
         float startTime = Time.time;
+        //UnityEngine.Debug.Log("dist = " + Vector3.Distance(transform.position, playerPos.transform.position));
+        //UnityEngine.Debug.Log("rad = " + radius);
+
+        float dist = Vector3.Distance(transform.position, playerPos.transform.position);
+
+        //dashSpeed = (dashSpeed * (int)(dist / 40) < 1) ? dashSpeed = 100f : dashSpeed = dashSpeed *= (int)(dist / 40);
+        dashTime = (dashSpeed * (int)(dist / 40) < 1) ? dashTime = 0.5f : dashTime *= (int)(dist / 40);
         
-        while (Time.time <= startTime + dashTime && Vector3.Distance(transform.position, playerPos.transform.position) > radius)
+
+        while (Time.time <= startTime + dashTime && (Vector3.Distance(transform.position, playerPos.transform.position) + 6f) > radius)
         {
             transform.position += transform.forward * dashSpeed * Time.deltaTime;
+
             yield return null;
         }
     }
