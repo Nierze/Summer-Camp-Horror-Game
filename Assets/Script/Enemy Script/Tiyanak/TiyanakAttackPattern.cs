@@ -73,7 +73,7 @@ public class TiyanakAttackPattern : MonoBehaviour
         {
             //transform.LookAt(playerPos.transform.position);
             agent.isStopped = false;
-            //DefaultMovement();
+            DefaultMovement();
         }
         else
         {
@@ -131,7 +131,7 @@ public class TiyanakAttackPattern : MonoBehaviour
 
     void DefaultMovement()
     {
-        transform.LookAt(playerPos.transform.position);
+        //transform.LookAt(playerPos.transform.position);
         Vector3 newPosition = playerPos.transform.position;
         agent.SetDestination(newPosition);
 
@@ -145,30 +145,77 @@ public class TiyanakAttackPattern : MonoBehaviour
     void Retreat(){}
 
     void Evade() { }
-
+    /*
     private IEnumerator LungeAttack()
     {
         yield return new WaitForSeconds(1f);
+
         transform.LookAt(playerPos.transform.position);
         yield return new WaitForSeconds(0.5f);
 
-        float startTime = Time.time;
-        //UnityEngine.Debug.Log("dist = " + Vector3.Distance(transform.position, playerPos.transform.position));
-        //UnityEngine.Debug.Log("rad = " + radius);
-
         float dist = Vector3.Distance(transform.position, playerPos.transform.position);
+        float dashTime = Mathf.Max(0.5f, dist / 40f);
 
-        //dashSpeed = (dashSpeed * (int)(dist / 40) < 1) ? dashSpeed = 100f : dashSpeed = dashSpeed *= (int)(dist / 40);
-        dashTime = (dashSpeed * (int)(dist / 40) < 1) ? dashTime = 0.5f : dashTime *= (int)(dist / 40);
+        float startTime = Time.time;
+        float jumpHeight = 6f;
+        float verticalSpeed = 2f * jumpHeight / dashTime;
 
-        while (Time.time <= startTime + dashTime && (Vector3.Distance(transform.position, playerPos.transform.position) + 6f) > radius)
+        Vector3 startPosition = transform.position;
+        Vector3 targetPosition = playerPos.transform.position;
+
+        while (Time.time <= startTime + dashTime && Vector3.Distance(transform.position, playerPos.transform.position) + 6f > radius)
         {
-            transform.position += transform.forward * dashSpeed * Time.deltaTime;
+            float verticalOffset = Mathf.Sin((Time.time - startTime) / dashTime * Mathf.PI) * jumpHeight;
+            float progress = (Time.time - startTime) / dashTime;
+            Vector3 newPosition = Vector3.Lerp(startPosition, targetPosition, progress);
+            newPosition.y += verticalOffset;
+
+            transform.position = newPosition;
+
             yield return null;
         }
 
         yield return StartCoroutine(tempCooldown(1));
     }
+    */
+
+    private IEnumerator LungeAttack()
+    {
+        yield return new WaitForSeconds(1f);
+
+        // Rotate towards the player position
+        transform.LookAt(playerPos.transform.position);
+        yield return new WaitForSeconds(0.5f);
+
+        // Calculate dash parameters based on distance
+        float dist = Vector3.Distance(transform.position, playerPos.transform.position);
+        float dashSpeedIncrement = 50f;
+        float dashSpeed = 100f + Mathf.Floor(dist / 40f) * dashSpeedIncrement; // Increase dashSpeed by 50 for every 40 units away
+
+        float dashTime = Mathf.Max(0.5f, dist / dashSpeed); // Calculate dashTime based on dashSpeed
+        float startTime = Time.time;
+        float jumpHeight = 6f;
+
+        Vector3 startPosition = transform.position;
+        Vector3 targetPosition = playerPos.transform.position;
+
+        while (Time.time <= startTime + dashTime && Vector3.Distance(transform.position, playerPos.transform.position) + 6f > radius)
+        {
+            float verticalOffset = Mathf.Sin((Time.time - startTime) / dashTime * Mathf.PI) * jumpHeight;
+            float progress = (Time.time - startTime) / dashTime;
+            Vector3 newPosition = Vector3.Lerp(startPosition, targetPosition, progress);
+            newPosition.y += verticalOffset;
+
+            transform.position = newPosition;
+
+            yield return null;
+        }
+
+        yield return StartCoroutine(tempCooldown(1));
+    }
+
+
+
 
     private IEnumerator tempCooldown(float duration)
     {
