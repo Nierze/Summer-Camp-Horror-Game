@@ -9,7 +9,10 @@ public class NewPlayerController : MonoBehaviour
     /////////////////////////////////////////
     /// Player Speed variables
     [SerializeField] private float movementSpeed = 5f;
+    [SerializeField] private float sprintSpeedMultiplier = 2f;
     private float velocity;
+
+
 
     public Camera mainCamera;
 
@@ -21,13 +24,16 @@ public class NewPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        bool isSprinting = NewInputManager.Instance.GetSprint();
+        Move(isSprinting);
 
-        Debug.Log(mainCamera.transform.forward.normalized);
-        Debug.Log(mainCamera.transform.right.normalized);
+        
+
+        // Debug.Log(mainCamera.transform.forward.normalized);
+        // Debug.Log(mainCamera.transform.right.normalized);
     }
 
-    void Move()
+    void Move(bool isSprinting)
     {
         // Get input from the player
         Vector2 movement = NewInputManager.Instance.GetPlayerMovement();
@@ -43,7 +49,6 @@ public class NewPlayerController : MonoBehaviour
         forward.y = 0f;
         right.y = 0f;
 
-    
         forward.Normalize();
         right.Normalize();
 
@@ -60,6 +65,7 @@ public class NewPlayerController : MonoBehaviour
 
         /////////////////////////////////////////
         /// Player Movement
-        transform.position += desiredMoveDirection * movementSpeed * Time.deltaTime;
+        transform.position += (!isSprinting) ? desiredMoveDirection * movementSpeed * Time.deltaTime 
+        : desiredMoveDirection * movementSpeed * sprintSpeedMultiplier * Time.deltaTime;
     }
 }
