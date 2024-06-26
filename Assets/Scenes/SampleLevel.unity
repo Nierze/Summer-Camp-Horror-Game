@@ -4727,6 +4727,7 @@ MonoBehaviour:
   fpsCam: {fileID: 545437675}
   impactEffect: {fileID: 6014617016561301071, guid: 4ee3d67e576eb314dae5f8a7f550f1a5,
     type: 3}
+  player: {fileID: 545437673}
 --- !u!1 &1071306911
 GameObject:
   m_ObjectHideFlags: 0
@@ -6778,6 +6779,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Baby Mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e79c2d2a180f5ee428dc5f05b412d104,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
