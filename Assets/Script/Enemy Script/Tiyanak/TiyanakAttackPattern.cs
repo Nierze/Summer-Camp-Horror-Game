@@ -96,10 +96,10 @@ public class TiyanakAttackPattern : MonoBehaviour
         switch (difficulty)
         {
             case "easy":
-                /*if(!playerDetected) decision = UnityEngine.Random.Range(1, 6);
-                else decision = UnityEngine.Random.Range(5, 6);*/
+                if(!playerDetected) decision = UnityEngine.Random.Range(1, 5);
+                else decision = UnityEngine.Random.Range(1, 6);
 
-                decision = UnityEngine.Random.Range(4, 5);
+                //decision = UnityEngine.Random.Range(1, 6);
 
                 dashSpeed = 100f; dashTime = 0.5f;
                 
@@ -111,7 +111,7 @@ public class TiyanakAttackPattern : MonoBehaviour
 
                         //StartCoroutine(LungeAttack());
                         
-                        //DefaultMovement();
+                        DefaultMovement();
                         StartCoroutine(tempCooldown(1));
                         //DefaultMovement();
 
@@ -177,40 +177,6 @@ public class TiyanakAttackPattern : MonoBehaviour
         isDashing = false;
         yield return StartCoroutine(tempCooldown(0.5f));
     }
-
-    /*
-    private IEnumerator LungeAttack()
-    {
-        yield return new WaitForSeconds(1f);
-
-        transform.LookAt(playerPos.transform.position);
-        yield return new WaitForSeconds(0.5f);
-
-        float dist = Vector3.Distance(transform.position, playerPos.transform.position);
-        float dashTime = Mathf.Max(0.5f, dist / 40f);
-
-        float startTime = Time.time;
-        float jumpHeight = 6f;
-        float verticalSpeed = 2f * jumpHeight / dashTime;
-
-        Vector3 startPosition = transform.position;
-        Vector3 targetPosition = playerPos.transform.position;
-
-        while (Time.time <= startTime + dashTime && Vector3.Distance(transform.position, playerPos.transform.position) + 6f > radius)
-        {
-            float verticalOffset = Mathf.Sin((Time.time - startTime) / dashTime * Mathf.PI) * jumpHeight;
-            float progress = (Time.time - startTime) / dashTime;
-            Vector3 newPosition = Vector3.Lerp(startPosition, targetPosition, progress);
-            newPosition.y += verticalOffset;
-
-            transform.position = newPosition;
-
-            yield return null;
-        }
-
-        yield return StartCoroutine(tempCooldown(1));
-    }
-    */
 
     private IEnumerator LungeAttack()
     {
