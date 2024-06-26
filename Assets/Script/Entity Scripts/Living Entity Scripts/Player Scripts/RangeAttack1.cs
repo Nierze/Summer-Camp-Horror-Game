@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class RangeAttack1 : MonoBehaviour
 {
-    public float range = 100f;
+    public float range = 500f;
     public float impactForce = 60f;
     public float fireRate = 15f;
 
@@ -18,7 +18,7 @@ public class RangeAttack1 : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire)
+        if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown("j")) && Time.time >= nextTimeToFire)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
             Shoot();
