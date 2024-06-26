@@ -9,30 +9,35 @@ public class NewPlayerController : MonoBehaviour
     /////////////////////////////////////////
     /// Player Speed variables
     [SerializeField] private float movementSpeed = 5f;
+    [SerializeField] private float sprintSpeedMultiplier = 2f;
+    [SerializeField] private CharacterController controller;
     private float velocity;
+
+
 
     public Camera mainCamera;
 
     void Start()
     {
-        
+        controller = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        bool isSprinting = NewInputManager.Instance.GetSprint();
+        Move(isSprinting);
 
-        Debug.Log(mainCamera.transform.forward);
-        Debug.Log(mainCamera.transform.right);
+        
+
+        // Debug.Log(mainCamera.transform.forward.normalized);
+        // Debug.Log(mainCamera.transform.right.normalized);
     }
 
-    void Move()
+    void Move(bool isSprinting)
     {
         Vector2 movement = NewInputManager.Instance.GetPlayerMovement();
 
-        /////////////////////////////////////////
-        /// Calculate the movement direction relative to the camera
         Vector3 forward = mainCamera.transform.forward;
         Vector3 right = mainCamera.transform.right;
 
@@ -44,8 +49,6 @@ public class NewPlayerController : MonoBehaviour
 
         Vector3 desiredMoveDirection = forward * movement.y + right * movement.x;
 
-        /////////////////////////////////////////
-        /// Player Rotation
         if (desiredMoveDirection != Vector3.zero)
         {
             float characterFacing = Mathf.Atan2(desiredMoveDirection.x, desiredMoveDirection.z) * Mathf.Rad2Deg;
@@ -53,8 +56,9 @@ public class NewPlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
         }
 
-        /////////////////////////////////////////
-        /// Player Movement
-        transform.position += desiredMoveDirection * movementSpeed * Time.deltaTime;
+        float currentSpeed = isSprinting ? movementSpeed * sprintSpeedMultiplier : movementSpeed;
+        Vector3 movementF = desiredMoveDirection * currentSpeed * Time.deltaTime;
+
+        controller.Move(movementF);
     }
 }

@@ -53,6 +53,11 @@ public class NewInputManager : MonoBehaviour
     {
         return playerControls.Ground.Look.ReadValue<Vector2>();
     }
+
+    public bool GetSprint()
+    {
+        return playerControls.Ground.Sprint.ReadValue<float>() > 0;
+    }
     
 
     /////////////////////////////////////////////////////////////
@@ -67,4 +72,5 @@ public class NewInputManager : MonoBehaviour
     {
         playerControls.Disable();
     }
+    
 }
