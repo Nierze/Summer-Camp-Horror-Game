@@ -23,22 +23,27 @@ public class NewPlayerController : MonoBehaviour
     {
         Move();
 
-        Debug.Log(mainCamera.transform.forward);
-        Debug.Log(mainCamera.transform.right);
+        Debug.Log(mainCamera.transform.forward.normalized);
+        Debug.Log(mainCamera.transform.right.normalized);
     }
 
     void Move()
     {
+        // Get input from the player
         Vector2 movement = NewInputManager.Instance.GetPlayerMovement();
 
         /////////////////////////////////////////
-        /// Calculate the movement direction relative to the camera
+        /// Move player in the camera direction
+        
+        // Create new vectors for the forward and side directions
         Vector3 forward = mainCamera.transform.forward;
         Vector3 right = mainCamera.transform.right;
 
+        // Set the y value of both to 0 so the player doesn't move up or down
         forward.y = 0f;
         right.y = 0f;
 
+    
         forward.Normalize();
         right.Normalize();
 
