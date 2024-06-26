@@ -35,6 +35,15 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""6ef6f4b6-f7e1-41cd-b35d-086e4f8da467"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -92,6 +101,17 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""20e3569a-cec1-4f04-9c52-b46f802a0a1f"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -101,6 +121,7 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
         // Ground
         m_Ground = asset.FindActionMap("Ground", throwIfNotFound: true);
         m_Ground_Movement = m_Ground.FindAction("Movement", throwIfNotFound: true);
+        m_Ground_Look = m_Ground.FindAction("Look", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -163,11 +184,13 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Ground;
     private List<IGroundActions> m_GroundActionsCallbackInterfaces = new List<IGroundActions>();
     private readonly InputAction m_Ground_Movement;
+    private readonly InputAction m_Ground_Look;
     public struct GroundActions
     {
         private @NewPlayerControls m_Wrapper;
         public GroundActions(@NewPlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Ground_Movement;
+        public InputAction @Look => m_Wrapper.m_Ground_Look;
         public InputActionMap Get() { return m_Wrapper.m_Ground; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -180,6 +203,9 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
         }
 
         private void UnregisterCallbacks(IGroundActions instance)
@@ -187,6 +213,9 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
         }
 
         public void RemoveCallbacks(IGroundActions instance)
@@ -207,5 +236,6 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
     public interface IGroundActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
     }
 }
