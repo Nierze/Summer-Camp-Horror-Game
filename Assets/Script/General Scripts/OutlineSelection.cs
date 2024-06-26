@@ -7,13 +7,37 @@ using UnityEngine;
 
 public class OutlineSelection : MonoBehaviour
 {
-    public MaterialControl[] highlightables;
+    //public MaterialControl[] highlightables;
+
 
     void Update()
     {
         InteractRaycast();
     }
 
+    void InteractRaycast()
+    {
+        Ray interactionRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit interactionRayHit;
+        float interactionRayLength = 50.0f;
+
+        UnityEngine.Debug.DrawRay(interactionRay.origin, interactionRay.direction * interactionRayLength, Color.red);
+
+        if (Physics.Raycast(interactionRay, out interactionRayHit, interactionRayLength))
+        {
+            GameObject hitGameObject = interactionRayHit.transform.gameObject;
+            if (hitGameObject.CompareTag("Enemy"))
+            {
+                //UnityEngine.Debug.Log("enemy hit");
+                //UnityEngine.Debug.Log(hitGameObject.transform.position);
+            }
+        }
+    }
+
+}
+
+
+/*
     void InteractRaycast()
     {
         Vector3 cameraPosition = transform.position;
@@ -31,11 +55,18 @@ public class OutlineSelection : MonoBehaviour
         {
             
             GameObject hitGameobject = interactionRayHit.transform.gameObject;
-            if (hitGameobject.CompareTag("Selectable"))
+            if (hitGameobject.CompareTag("Enemy"))
             {
-                MaterialControl highlight = hitGameobject.GetComponent<MaterialControl>();
+                UnityEngine.Debug.Log("enemy hit");
+            }
+        }
+    }*/
+
+/*
+ MaterialControl highlight = hitGameobject.GetComponent<MaterialControl>();
                 string hitFeedback = hitGameobject.name;
                 highlight.EnableMaterial();
+
                 if (Input.GetMouseButtonDown(0))
                 {
                     switch(hitFeedback)
@@ -45,7 +76,4 @@ public class OutlineSelection : MonoBehaviour
                         break;
                     }
                 }
-            }
-        }
-    } 
-}
+ */

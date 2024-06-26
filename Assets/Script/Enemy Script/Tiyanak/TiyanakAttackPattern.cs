@@ -99,7 +99,7 @@ public class TiyanakAttackPattern : MonoBehaviour
                 if(!playerDetected) decision = UnityEngine.Random.Range(1, 5);
                 else decision = UnityEngine.Random.Range(1, 6);
 
-                //decision = UnityEngine.Random.Range(1, 6);
+                //decision = UnityEngine.Random.Range(3, 6);
 
                 dashSpeed = 100f; dashTime = 0.5f;
                 
