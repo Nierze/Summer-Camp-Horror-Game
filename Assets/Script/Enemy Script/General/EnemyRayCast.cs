@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyRayCast : MonoBehaviour
@@ -8,22 +9,23 @@ public class EnemyRayCast : MonoBehaviour
     private float interactionRayLength = 200.0f;
 
     //not yet used
-    public GameObject thisEnemy;
+    //public GameObject thisEnemy;
 
     public TiyanakAttackPattern playerDetector;
 
     void Start()
     {
-        thisEnemy = GetComponent<GameObject>();
+        //thisEnemy = GetComponent<GameObject>();
     }
 
     
     void Update()
     {
-        EnemyInteractRaycast();
+        //EnemyInteractRaycast();
+
     }
 
-    void EnemyInteractRaycast()
+    /*void EnemyInteractRaycast()
     {
         enemyRay = new Ray(transform.position, transform.forward);
         Debug.DrawRay(enemyRay.origin, enemyRay.direction * interactionRayLength, Color.red);
@@ -38,6 +40,33 @@ public class EnemyRayCast : MonoBehaviour
             }
         }
         else playerDetector.playerDetected = false;
+    }*/
 
+    void OnDrawGizmos()
+    {
+        float maxDistance = 100f;
+        RaycastHit hit;
+
+        bool isHit = Physics.Raycast(transform.position, transform.forward, out hit, maxDistance);
+        if (isHit)
+        {
+            GameObject hitGameObject = hit.transform.gameObject;
+            if (hitGameObject.CompareTag("Player"))
+            {
+                
+                Gizmos.color = Color.red;
+                Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
+            }
+            else
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawRay(transform.position, transform.forward * maxDistance);
+            }
+        }
+        else
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawRay(transform.position, transform.forward * maxDistance);
+        }
     }
 }
