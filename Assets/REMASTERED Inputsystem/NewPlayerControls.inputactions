@@ -1,5 +1,5 @@
 {
-    "name": "NewPlayerController",
+    "name": "NewPlayerControls",
     "maps": [
         {
             "name": "Ground",
@@ -9,6 +9,15 @@
                     "name": "Movement",
                     "type": "PassThrough",
                     "id": "bca292d8-fdf6-4fc4-a0f2-609fa8c64a20",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Look",
+                    "type": "PassThrough",
+                    "id": "6ef6f4b6-f7e1-41cd-b35d-086e4f8da467",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -70,6 +79,17 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "20e3569a-cec1-4f04-9c52-b46f802a0a1f",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
