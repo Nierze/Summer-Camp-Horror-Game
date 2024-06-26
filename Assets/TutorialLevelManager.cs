@@ -6,19 +6,20 @@ public class TutorialLevelManager : MonoBehaviour
 {
     public void Start()
     {
-        Cursor.visible = false;
+        Cursor.visible = true;
+        //Cursor.visible = false;
     }
 
     // Update is called once per frame
     public void Pause()
     {
-        Cursor.visible = true;
+        //Cursor.visible = true;
         Time.timeScale = 0;
     }
 
     public void Unpause()
     {
-        Cursor.visible = false;
+        //Cursor.visible = false;
         Time.timeScale = 1;
     }
 }
