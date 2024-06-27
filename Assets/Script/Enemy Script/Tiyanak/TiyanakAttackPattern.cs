@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class TiyanakAttackPattern : MonoBehaviour
 {
-    public static bool playerAttackDetected = false;
+    public bool playerAttackDetected = false;
     
     [SerializeField] public string difficulty = "easy";
     private int decision = 0;

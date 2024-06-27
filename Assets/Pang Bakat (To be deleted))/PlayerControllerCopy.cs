@@ -37,6 +37,8 @@ public class PlayerControllerCopy : MonoBehaviour
 
     public float playerCurrentSpeed;
 
+    public TiyanakAttackPattern playerInRange;
+
 
     private void Start()
     {
@@ -73,7 +75,7 @@ public class PlayerControllerCopy : MonoBehaviour
 
         if (inputManager.GetAttack())
         {
-            TiyanakAttackPattern.playerAttackDetected = true;
+            playerInRange.playerAttackDetected = true;
             //UnityEngine.Debug.Log("Attacked");
         }
 
