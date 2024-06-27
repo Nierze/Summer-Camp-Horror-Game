@@ -12,6 +12,8 @@ public class EnemyRayCast : MonoBehaviour
     //public GameObject thisEnemy;
 
     public TiyanakAttackPattern playerDetector;
+    public PugotAttackPattern playerDetector2;
+    //public EnemyAttackPattern playerDetector;
 
     void Start()
     {

@@ -7,21 +7,125 @@ using UnityEngine;
 
 public class PugotAttackPattern : MonoBehaviour
 {
-    //public bool playerAttackDetected;
+    public bool playerAttackDetected = false;
 
     [SerializeField] public string difficulty = "easy";
+    private int decision = 0;
 
     public UnityEngine.AI.NavMeshAgent agent;
     public Transform target;
+    public bool actionPhase = false;
+    public bool enableMove = true;
+
+    public Rigidbody rb;
+
+    //Skull Projectile
+    public GameObject skullProjectile;
+    public Transform spawnPoint;
+    public float projectileSpeed;
+
+    //Camera Shake
+    public CameraShake cameraShaker;
 
     void Start()
     {
-        
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+        if (playerAttackDetected && !actionPhase)
+        {
+            actionPhase = true;
+            playerAttackDetected = false;
+            enableMove = false;
+            AttackDetected(difficulty);
+        }
+
+        if (enableMove)
+        {
+            agent.isStopped = false;
+            DefaultMovement();
+        }
+        else
+        {
+            agent.isStopped = true;
+        }
+    }
+
+    void AttackDetected(string difficulty)
+    {
+        switch (difficulty)
+        {
+            case "easy":
+
+                //decision = UnityEngine.Random.Range(3, 8);
+                decision = UnityEngine.Random.Range(1, 4);
+                switch (decision)
+                {
+                    case 1: case 2: case 3:
+                        UnityEngine.Debug.Log("Pugot: Ground Slam");
+                        StartCoroutine(cameraShaker.Shake(1f, .3f));
+                        actionPhase = false;
+                        enableMove = true;
+                        //StartCoroutine(Cooldown(3f));
+                        //DefaultMovement();
+                        break;
+
+                    case 4: case 5:
+                        UnityEngine.Debug.Log("Pugot: Throw Skulls");
+
+                        StartCoroutine(ThrowSkulls());
+                    break;
+
+                    case 6:
+                        UnityEngine.Debug.Log("Pugot: Sprint");
+                        StartCoroutine(Cooldown(3f));
+                        //DefaultMovement();
+                    break;
+
+                    case 7:
+                        UnityEngine.Debug.Log("Pugot: Devour Tree");
+                        StartCoroutine(Cooldown(3f));
+                        //DefaultMovement();
+                    break;
+                }
+            break;
+        }
+    }
+
+    void DefaultMovement()
+    {
+        Vector3 newPosition = target.position;
+        agent.SetDestination(newPosition);
+    }
+
+    /*void ThrowSkulls()
+    {
+        transform.LookAt(target.transform.position);
+        GameObject skullObject = Instantiate(skullProjectile, spawnPoint.transform.position, spawnPoint.transform.rotation) as GameObject;
+        Destroy(skullObject, 5f);
+    }*/
+
+    private IEnumerator ThrowSkulls()
+    {
+        yield return new WaitForSeconds(0.5f);
+        transform.LookAt(target.transform.position);
+        yield return new WaitForSeconds(0.1f);
+
+        GameObject skullObject = Instantiate(skullProjectile, spawnPoint.transform.position, spawnPoint.transform.rotation) as GameObject;
+        Destroy(skullObject, 5f);
+        yield return StartCoroutine(Cooldown(2f));
+    }
+
+    private IEnumerator Cooldown(float duration)
+    {
+        UnityEngine.Debug.Log("Next actoin in cooldown for " + duration + " seconds.");
+        yield return new WaitForSeconds(duration);
+        actionPhase = false;
+        enableMove = true;
     }
 }
