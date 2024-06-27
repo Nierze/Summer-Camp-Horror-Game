@@ -39,10 +39,18 @@ public class PugotAttackPattern : MonoBehaviour
     public bool playerInRange = false;
     public EaseHealthBar healthBar;
 
+    //Devour Heal
+    public EnemyHealth devourHeal;
+    public GameObject[] trees;
+    private GameObject nearestTree;
+    public Vector3 targetTree;
+    private float nearestDistance = Mathf.Infinity;
+
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+        trees = GameObject.FindGameObjectsWithTag("Tree");
     }
 
     // Update is called once per frame
@@ -80,7 +88,8 @@ public class PugotAttackPattern : MonoBehaviour
             case "easy":
 
                 //decision = UnityEngine.Random.Range(3, 8);
-                decision = UnityEngine.Random.Range(6, 7);
+                decision = UnityEngine.Random.Range(7, 8);
+
                 switch (decision)
                 {
                     case 1: case 2: case 3:
@@ -107,6 +116,9 @@ public class PugotAttackPattern : MonoBehaviour
 
                     case 7:
                         UnityEngine.Debug.Log("Pugot: Devour Tree");
+
+                        targetTree = DevourTree();
+                        UnityEngine.Debug.Log(targetTree);
                         StartCoroutine(Cooldown(3f));
                         //DefaultMovement();
                     break;
@@ -126,6 +138,22 @@ public class PugotAttackPattern : MonoBehaviour
         agent.speed = 200;
         agent.SetDestination(targetPosition);
         
+    }
+
+    Vector3 DevourTree()
+    {
+        foreach(GameObject tree in trees)
+        {
+            float distance = Vector3.Distance(transform.position, tree.transform.position);
+
+            if (distance < nearestDistance)
+            {
+                nearestTree = tree; 
+                nearestDistance = distance;
+            }
+        }
+
+        return nearestTree.transform.position;
     }
 
     /*void ThrowSkulls()
