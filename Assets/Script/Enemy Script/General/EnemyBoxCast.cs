@@ -6,6 +6,8 @@ using UnityEngine;
 public class EnemyBoxCast : MonoBehaviour
 {
     public TiyanakAttackPattern playerDetector;
+    public PugotAttackPattern playerDetector2;
+    //public EnemyAttackPattern playerDetector;
 
     void OnDrawGizmos()
     {

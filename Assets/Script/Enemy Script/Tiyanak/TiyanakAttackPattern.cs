@@ -17,6 +17,7 @@ public class TiyanakAttackPattern : MonoBehaviour
 
     public bool actionPhase = false;
     public bool enableMove = true;
+
     //temp lunge
     public Rigidbody rb;
     public bool isLunging = false;
@@ -36,7 +37,7 @@ public class TiyanakAttackPattern : MonoBehaviour
     public GameObject playerPos;
     public GameObject hostileRange;
 
-    //timer
+    //timer di pa nagagamit
     public float timer = 0f;
 
     //Deal Damage

@@ -16,10 +16,15 @@ public class RangeAttack1 : MonoBehaviour
 
     private float nextTimeToFire = 0f;
 
+    public TiyanakAttackPattern playerInRange;
+    public PugotAttackPattern playerInRange2;
+
     void Update()
     {
         if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown("j")) && Time.time >= nextTimeToFire)
         {
+            playerInRange.playerAttackDetected = true;
+            playerInRange2.playerAttackDetected = true;
             nextTimeToFire = Time.time + 1f / fireRate;
             Shoot();
         }
@@ -30,7 +35,7 @@ public class RangeAttack1 : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-            UnityEngine.Debug.Log(hit.transform.name);
+            //UnityEngine.Debug.Log(hit.transform.name);
 
             if (hit.rigidbody != null)
             {
