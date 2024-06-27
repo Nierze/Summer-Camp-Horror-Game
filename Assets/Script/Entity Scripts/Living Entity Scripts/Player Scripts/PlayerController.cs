@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
     public float playerCurrentSpeed;
 
+    public TiyanakAttackPattern playerInRange;
 
     private void Start()
     {
@@ -73,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
         if (inputManager.GetAttack())
         {
-            TiyanakAttackPattern.playerAttackDetected = true;
+            playerInRange.playerAttackDetected = true;
             //UnityEngine.Debug.Log("Attacked");
         }
 
