@@ -8,9 +8,12 @@ using UnityEngine;
 public class PugotAttackPattern : MonoBehaviour
 {
     public bool playerAttackDetected = false;
+    public bool playerDetected = false;
 
     [SerializeField] public string difficulty = "easy";
     private int decision = 0;
+
+    public GameObject player;
 
     public UnityEngine.AI.NavMeshAgent agent;
     public Transform target;
@@ -27,6 +30,15 @@ public class PugotAttackPattern : MonoBehaviour
     //Camera Shake
     public CameraShake cameraShaker;
 
+    //Sprint
+    private bool isSprinting = false;
+    public Vector3 sprintTargetPosition;
+    [SerializeField] public float additionalDistance;
+
+    //Deal Damage
+    public bool playerInRange = false;
+    public EaseHealthBar healthBar;
+
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -36,7 +48,6 @@ public class PugotAttackPattern : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (playerAttackDetected && !actionPhase)
         {
             actionPhase = true;
@@ -45,7 +56,7 @@ public class PugotAttackPattern : MonoBehaviour
             AttackDetected(difficulty);
         }
 
-        if (enableMove)
+        /*if (enableMove)
         {
             agent.isStopped = false;
             DefaultMovement();
@@ -53,7 +64,13 @@ public class PugotAttackPattern : MonoBehaviour
         else
         {
             agent.isStopped = true;
+        }*/
+
+        if (isSprinting)
+        {
+            Sprint(sprintTargetPosition);
         }
+
     }
 
     void AttackDetected(string difficulty)
@@ -63,15 +80,13 @@ public class PugotAttackPattern : MonoBehaviour
             case "easy":
 
                 //decision = UnityEngine.Random.Range(3, 8);
-                decision = UnityEngine.Random.Range(1, 4);
+                decision = UnityEngine.Random.Range(6, 7);
                 switch (decision)
                 {
                     case 1: case 2: case 3:
                         UnityEngine.Debug.Log("Pugot: Ground Slam");
                         StartCoroutine(cameraShaker.Shake(1f, .3f));
-                        actionPhase = false;
-                        enableMove = true;
-                        //StartCoroutine(Cooldown(3f));
+                        StartCoroutine(Cooldown(3f));
                         //DefaultMovement();
                         break;
 
@@ -83,6 +98,9 @@ public class PugotAttackPattern : MonoBehaviour
 
                     case 6:
                         UnityEngine.Debug.Log("Pugot: Sprint");
+                        transform.LookAt(target.position);
+                        isSprinting = true;
+                        sprintTargetPosition = target.position + agent.transform.forward * additionalDistance;
                         StartCoroutine(Cooldown(3f));
                         //DefaultMovement();
                     break;
@@ -103,11 +121,23 @@ public class PugotAttackPattern : MonoBehaviour
         agent.SetDestination(newPosition);
     }
 
+    void Sprint(Vector3 targetPosition)
+    {
+        agent.speed = 200;
+        agent.SetDestination(targetPosition);
+        
+    }
+
     /*void ThrowSkulls()
     {
         transform.LookAt(target.transform.position);
         GameObject skullObject = Instantiate(skullProjectile, spawnPoint.transform.position, spawnPoint.transform.rotation) as GameObject;
         Destroy(skullObject, 5f);
+    }*/
+
+    /*private IEnumerator Sprint()
+    {
+        
     }*/
 
     private IEnumerator ThrowSkulls()
@@ -125,6 +155,8 @@ public class PugotAttackPattern : MonoBehaviour
     {
         UnityEngine.Debug.Log("Next actoin in cooldown for " + duration + " seconds.");
         yield return new WaitForSeconds(duration);
+        agent.speed = 15f;
+        isSprinting = false;
         actionPhase = false;
         enableMove = true;
     }

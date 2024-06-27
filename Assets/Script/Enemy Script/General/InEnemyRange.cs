@@ -5,6 +5,7 @@ using UnityEngine;
 public class InEnemyRange : MonoBehaviour
 {
     public TiyanakAttackPattern playerInRange;
+    public PugotAttackPattern playerInRange2;
     public EaseHealthBar targetHealthbar;
     public float timer = 0f;
 
@@ -27,6 +28,7 @@ public class InEnemyRange : MonoBehaviour
             timer = 0f;
             //UnityEngine.Debug.Log("In Range, Attacks!");
             playerInRange.playerInRange = true;
+            playerInRange2.playerInRange = true;
         }
     }
 
@@ -36,6 +38,8 @@ public class InEnemyRange : MonoBehaviour
         {
             //UnityEngine.Debug.Log("Outside Range");
             playerInRange.playerInRange = false;
+            playerInRange2.playerInRange = false;
+
         }
     }
 
@@ -43,5 +47,7 @@ public class InEnemyRange : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         if(playerInRange.playerInRange) targetHealthbar.TakeDamage(10);
+        if (playerInRange2.playerInRange) targetHealthbar.TakeDamage(10);
+
     }
 }

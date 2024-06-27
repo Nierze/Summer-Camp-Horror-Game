@@ -23,6 +23,7 @@ public class EnemyBoxCast : MonoBehaviour
             {
                 UnityEngine.Debug.Log("player detected");
                 playerDetector.playerDetected = true;
+                playerDetector2.playerDetected = true;
                 Gizmos.color = Color.red;
                 Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
                 Gizmos.DrawWireCube(transform.position + transform.forward * hit.distance, boxSize);
@@ -36,6 +37,7 @@ public class EnemyBoxCast : MonoBehaviour
         else
         {
             playerDetector.playerDetected = false;
+            playerDetector2.playerDetected = false;
             Gizmos.color = Color.green;
             Gizmos.DrawRay(transform.position, transform.forward * maxDistance);
         }
