@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 public class NewInputManager : MonoBehaviour
 {
 
+
+    /////////////////////////////////////////////////////////////
+    /// Singleton Pattern
     private static NewInputManager instance;
     public static NewInputManager Instance
     {
@@ -15,18 +18,17 @@ public class NewInputManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private float movementSpeed = 5f;
-
-
-
-
-
+    /////////////////////////////////////////////////////////////
+    /// Player Controller
 
     private NewPlayerControls playerControls;
     private InputAction movementAction;
 
+    /////////////////////////////////////////////////////////////
+    /// Awake Method
     private void Awake()
     {
+        // Singleton Pattern
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
@@ -36,6 +38,7 @@ public class NewInputManager : MonoBehaviour
             instance = this;
         }
 
+        // Player Controller
         playerControls = new NewPlayerControls();
         Cursor.visible = false;
     }
@@ -57,6 +60,11 @@ public class NewInputManager : MonoBehaviour
     public bool GetSprint()
     {
         return playerControls.Ground.Sprint.ReadValue<float>() > 0;
+    }
+
+    public bool GetJump()
+    {
+        return playerControls.Ground.Jump.triggered;
     }
     
 

@@ -53,6 +53,15 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""70d65d4b-a54f-46e8-afdf-117e2f9fc2b1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +141,17 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""306a2295-62dd-4864-88a7-1a335df29f1c"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +163,7 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
         m_Ground_Movement = m_Ground.FindAction("Movement", throwIfNotFound: true);
         m_Ground_Look = m_Ground.FindAction("Look", throwIfNotFound: true);
         m_Ground_Sprint = m_Ground.FindAction("Sprint", throwIfNotFound: true);
+        m_Ground_Jump = m_Ground.FindAction("Jump", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,6 +228,7 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Ground_Movement;
     private readonly InputAction m_Ground_Look;
     private readonly InputAction m_Ground_Sprint;
+    private readonly InputAction m_Ground_Jump;
     public struct GroundActions
     {
         private @NewPlayerControls m_Wrapper;
@@ -214,6 +236,7 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Ground_Movement;
         public InputAction @Look => m_Wrapper.m_Ground_Look;
         public InputAction @Sprint => m_Wrapper.m_Ground_Sprint;
+        public InputAction @Jump => m_Wrapper.m_Ground_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Ground; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -232,6 +255,9 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
         }
 
         private void UnregisterCallbacks(IGroundActions instance)
@@ -245,6 +271,9 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
         }
 
         public void RemoveCallbacks(IGroundActions instance)
@@ -267,5 +296,6 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
 }

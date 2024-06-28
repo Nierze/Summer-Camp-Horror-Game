@@ -4,40 +4,62 @@ using UnityEngine;
 
 public class NewPlayerController : MonoBehaviour
 {
-    // [SerializeField] private Transform CameraFollow;
-
     /////////////////////////////////////////
-    /// Player Speed variables
+    /// Player Movement variables
+    
+    [Header("Player Movement")]
     [SerializeField] private float movementSpeed = 5f;
     [SerializeField] private float sprintSpeedMultiplier = 2f;
-    [SerializeField] private CharacterController controller;
-    private float velocity;
+    [SerializeField] private float jumpPower = 1f;
+    private float rotateVelocity;
 
+    /////////////////////////////////////////
+    /// Animation variables
+    private float animationSpeed;
+    private float animationSpeedVelocity;
+    [SerializeField] private float animationSmoothTime = 0.2f;
 
-
+    /////////////////////////////////////////
+    /// Character components
+    private CharacterController controller;
+    private Animator animator;
     public Camera mainCamera;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //////////////////////////////////////////////////////
+        /// Movement handler
         bool isSprinting = NewInputManager.Instance.GetSprint();
         Move(isSprinting);
+        Jump();
 
-        
 
-        // Debug.Log(mainCamera.transform.forward.normalized);
-        // Debug.Log(mainCamera.transform.right.normalized);
+
+        //////////////////////////////////////////////////////
+        /// Gravity handler
+        Vector3 gravityHandler = Physics.gravity * Time.deltaTime;
+        controller.Move(gravityHandler);
+
+
+        //////////////////////////////////////////////////////
+        /// Debug stuffs
+
+        Debug.Log(controller.isGrounded);
     }
 
     void Move(bool isSprinting)
     {
         Vector2 movement = NewInputManager.Instance.GetPlayerMovement();
 
+        //////////////////////////////////////////////////////
+        /// Variables used to move player in camera direction
         Vector3 forward = mainCamera.transform.forward;
         Vector3 right = mainCamera.transform.right;
 
@@ -47,18 +69,45 @@ public class NewPlayerController : MonoBehaviour
         forward.Normalize();
         right.Normalize();
 
+        //////////////////////////////////////////////////////
+        /// Rotate player to face the direction of movement
         Vector3 desiredMoveDirection = forward * movement.y + right * movement.x;
 
         if (desiredMoveDirection != Vector3.zero)
         {
             float characterFacing = Mathf.Atan2(desiredMoveDirection.x, desiredMoveDirection.z) * Mathf.Rad2Deg;
-            float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, characterFacing, ref velocity, 0.05f);
+            float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, characterFacing, ref rotateVelocity, 0.05f);
             transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
         }
 
-        float currentSpeed = isSprinting ? movementSpeed * sprintSpeedMultiplier : movementSpeed;
-        Vector3 movementF = desiredMoveDirection * currentSpeed * Time.deltaTime;
+        //////////////////////////////////////////////////////
+        /// Sprint handler
+        float totalSpeed = isSprinting ? movementSpeed * sprintSpeedMultiplier : movementSpeed;
 
+        //////////////////////////////////////////////////////
+        /// Move player + computed speed
+        Vector3 movementF = desiredMoveDirection * totalSpeed * Time.deltaTime;
+
+        //////////////////////////////////////////////////////
+        /// Move player
         controller.Move(movementF);
+
+        //////////////////////////////////////////////////////
+        /// Animation handler
+        float maxSpeed = movementSpeed * sprintSpeedMultiplier;
+        float targetAnimationSpeed = controller.velocity.magnitude / maxSpeed;
+
+        // animation smoothing
+        animationSpeed = Mathf.SmoothDamp(animationSpeed, targetAnimationSpeed, ref animationSpeedVelocity, animationSmoothTime);
+        animator.SetFloat("Magnitude", animationSpeed);
+    }
+
+    void Jump() 
+    {
+        if (controller.isGrounded && NewInputManager.Instance.GetJump())
+        {
+            Vector3 jump = Vector3.up * jumpPower;
+            controller.Move(jump);
+        }
     }
 }
