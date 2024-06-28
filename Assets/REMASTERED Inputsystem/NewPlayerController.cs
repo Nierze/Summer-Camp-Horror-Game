@@ -6,7 +6,7 @@ public class NewPlayerController : MonoBehaviour
 {
     /////////////////////////////////////////
     /// Player Movement variables
-    
+
     [Header("Player Movement")]
     [SerializeField] private float movementSpeed = 5f;
     [SerializeField] private float sprintSpeedMultiplier = 2f;
@@ -25,6 +25,11 @@ public class NewPlayerController : MonoBehaviour
     private Animator animator;
     public Camera mainCamera;
 
+    /////////////////////////////////////////
+    /// Test variables
+    private Vector3 velocity;
+    [SerializeField] private float gravity = -9.81f;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -38,19 +43,17 @@ public class NewPlayerController : MonoBehaviour
         /// Movement handler
         bool isSprinting = NewInputManager.Instance.GetSprint();
         Move(isSprinting);
-        Jump();
 
-
+        //////////////////////////////////////////////////////
+        /// Jump handler
+        HandleJump();
 
         //////////////////////////////////////////////////////
         /// Gravity handler
-        Vector3 gravityHandler = Physics.gravity * Time.deltaTime;
-        controller.Move(gravityHandler);
-
+        ApplyGravity();
 
         //////////////////////////////////////////////////////
         /// Debug stuffs
-
         Debug.Log(controller.isGrounded);
     }
 
@@ -89,7 +92,10 @@ public class NewPlayerController : MonoBehaviour
         Vector3 movementF = desiredMoveDirection * totalSpeed * Time.deltaTime;
 
         //////////////////////////////////////////////////////
-        /// Move player
+        /// Apply gravity to movement
+        movementF.y = velocity.y * Time.deltaTime;
+
+        // Move player
         controller.Move(movementF);
 
         //////////////////////////////////////////////////////
@@ -97,17 +103,32 @@ public class NewPlayerController : MonoBehaviour
         float maxSpeed = movementSpeed * sprintSpeedMultiplier;
         float targetAnimationSpeed = controller.velocity.magnitude / maxSpeed;
 
-        // animation smoothing
+        // Animation smoothing
         animationSpeed = Mathf.SmoothDamp(animationSpeed, targetAnimationSpeed, ref animationSpeedVelocity, animationSmoothTime);
         animator.SetFloat("Magnitude", animationSpeed);
     }
 
-    void Jump() 
+    void HandleJump()
     {
-        if (controller.isGrounded && NewInputManager.Instance.GetJump())
+        if (controller.isGrounded && velocity.y < 0)
         {
-            Vector3 jump = Vector3.up * jumpPower;
-            controller.Move(jump);
+            velocity.y = -2f; // Small downward velocity when grounded
         }
+
+        if (checkGrounded() && NewInputManager.Instance.GetJump())
+        {
+            velocity.y = Mathf.Sqrt(jumpPower * -2f * gravity);
+        }
+    }
+
+    void ApplyGravity()
+    {
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+    }
+
+    bool checkGrounded()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, controller.height / 2 + 0.1f);
     }
 }
