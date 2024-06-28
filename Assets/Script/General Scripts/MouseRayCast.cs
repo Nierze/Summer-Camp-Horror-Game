@@ -52,9 +52,22 @@ public class MouseRayCast : MonoBehaviour
                             case "Bulletin Board Selectable":
                                 //Debug.Log("Bulletin Board Action");
                                 camMove.MoveToBoard(highlight);
-                                break;
+                            break;
+
+                            case "Lapppypi":
+                                Debug.Log("Laptop Action");
+                                camMove.MoveToLaptop(highlight);
+                            break;
                         }
                     }
+                }
+            }
+            else
+            {
+                if (currentHighlight != null)
+                {
+                    currentHighlight.DisableMaterial();
+                    currentHighlight = null;
                 }
             }
         }
@@ -68,56 +81,3 @@ public class MouseRayCast : MonoBehaviour
         }
     }
 }
-
-// using System.Diagnostics;
-// using UnityEngine;
-
-// public class MouseRayCast : MonoBehaviour
-// {
-//     public MaterialControl[] highlightables;
-//     public bool enableMouseRayCast = true;
-
-//     public CamMoveAnimator camMove;
-//     public static bool inAction = false;
-
-//     void Update()
-//     {
-//         if(enableMouseRayCast) InteractRaycast();
-//     }
-
-//     void InteractRaycast()
-//     {
-//         Ray interactionRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-//         RaycastHit interactionRayHit;
-//         float interactionRayLength = 50.0f;
-
-//         UnityEngine.Debug.DrawRay(interactionRay.origin, interactionRay.direction * interactionRayLength, Color.red);
-
-//         if (Physics.Raycast(interactionRay, out interactionRayHit, interactionRayLength))
-//         {
-//             GameObject hitGameobject = interactionRayHit.transform.gameObject;
-//             if (hitGameobject.CompareTag("Selectable"))
-//             {
-//                 MaterialControl highlight = hitGameobject.GetComponent<MaterialControl>();
-//                 string hitFeedback = hitGameobject.name;
-//                 UnityEngine.Debug.Log("highlight = " + highlight);
-//                 UnityEngine.Debug.Log("hitFeedback = " + hitFeedback);
-//                 if(!inAction) highlight.EnableMaterial();
-
-//                 if (Input.GetMouseButtonDown(0))
-//                 {
-//                     switch (hitFeedback)
-//                     {
-//                         case "Bulletin Board Selectable":
-//                             UnityEngine.Debug.Log("Bulletin Board Action");
-//                             camMove.MoveToBoard(highlight);
-
-//                             //enableMouseRayCast = false;
-//                         break;
-//                     }
-//                 }
-//             }
-            
-//         }
-//     }
-// }

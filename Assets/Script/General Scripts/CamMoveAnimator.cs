@@ -7,6 +7,8 @@ public class CamMoveAnimator : MonoBehaviour
     public Animator camAnimator;
     public static bool toBoardMove = false;
     public GameObject boardCanvas;
+    public static bool toLaptopMove = false;
+    public GameObject laptopCanvas;
     public bool state = false;
     void Start()
     {
@@ -23,6 +25,14 @@ public class CamMoveAnimator : MonoBehaviour
             StartCoroutine(delay(boardCanvas, state));
             camAnimator.SetBool("MoveToBoard", false);
         }
+        
+        if(Input.GetKeyDown("l"))
+        {
+            MouseRayCast.inAction = false;
+            state = false;
+            StartCoroutine(delay(laptopCanvas, state));
+            camAnimator.SetBool("MoveToLaptop", false);
+        }
     }
 
     public void MoveToBoard(MaterialControl highlight)
@@ -34,9 +44,17 @@ public class CamMoveAnimator : MonoBehaviour
         camAnimator.SetBool("MoveToBoard", true);
     }
 
-    private IEnumerator delay(GameObject boardCanvas, bool state)
+    public void MoveToLaptop(MaterialControl highlight)
+    {
+        MouseRayCast.inAction = true;
+        state = true;
+        StartCoroutine(delay(laptopCanvas, state));
+        camAnimator.SetBool("MoveToLaptop", true);
+    }
+
+    private IEnumerator delay(GameObject CanvasToActive, bool state)
     {
         yield return new WaitForSeconds(1.5f);
-        boardCanvas.SetActive(state);
+        CanvasToActive.SetActive(state);
     }
 }
