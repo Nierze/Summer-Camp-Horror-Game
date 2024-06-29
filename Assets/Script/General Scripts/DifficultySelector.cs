@@ -18,20 +18,23 @@ public class DifficultySelector : MonoBehaviour
     {
         setDifficulty = difficulty.easy.ToString();
         UnityEngine.Debug.Log("difficulty set to " + setDifficulty);
-        SceneManager.LoadScene(1);
+        //SceneManager.LoadScene(1);
+        SceneManager.LoadScene(5); // go to samplelevel scene with set difficulty
     }
 
     public void selectNormal()
     {
         setDifficulty = difficulty.normal.ToString();
         UnityEngine.Debug.Log("difficulty set to " + setDifficulty);
-        SceneManager.LoadScene(1);
+        // SceneManager.LoadScene(1);
+        SceneManager.LoadScene(5); // go to samplelevel scene with set difficulty
     }
 
     public void selectHard()
     {
         setDifficulty = difficulty.hard.ToString();
         UnityEngine.Debug.Log("difficulty set to " + setDifficulty);
-        SceneManager.LoadScene(1);
+        // SceneManager.LoadScene(1);
+        SceneManager.LoadScene(5); // go to samplelevel scene with set difficulty
     }
 }
