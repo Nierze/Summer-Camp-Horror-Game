@@ -51,6 +51,7 @@ public class PugotAttackPattern : MonoBehaviour
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
         trees = GameObject.FindGameObjectsWithTag("Tree");
+        UnityEngine.Debug.Log(DifficultySelector.setDifficulty);
     }
 
     // Update is called once per frame
@@ -124,6 +125,7 @@ public class PugotAttackPattern : MonoBehaviour
                     break;
                 }
             break;
+
         }
     }
 
