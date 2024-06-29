@@ -4037,7 +4037,7 @@ GameObject:
   - component: {fileID: 698957917}
   - component: {fileID: 698957916}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9944,6 +9944,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 100
+  enemyHPBar: {fileID: 4633482750046846103, guid: ddf42ef37467e6245b1cff7ae4a168a3,
+    type: 3}
+  enemyHP: {fileID: 5624946210687546806, guid: ddf42ef37467e6245b1cff7ae4a168a3, type: 3}
+  canvas: {fileID: 1933703434}
 --- !u!114 &1801292401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9951,7 +9955,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1801292386}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a42db22262a8a2d4aa56af16ed5197ed, type: 3}
   m_Name: 
