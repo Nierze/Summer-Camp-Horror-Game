@@ -33,15 +33,16 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    void EnemyTakeDamage(float damage)
+    public void EnemyTakeDamage(float damage)
     {
         currentHealth -= damage;
     }
 
-    void EnemyHealDamage(float healValue)
+    public void EnemyHealDamage(float healValue)
     {
-        if(currentHealth < maxHealth) currentHealth += healValue;
+        enemyHP.Heal(healValue);
+        //if(currentHealth < maxHealth) currentHealth += healValue;
 
-        if(currentHealth > maxHealth) currentHealth = maxHealth;
+        //if(currentHealth > maxHealth) currentHealth = maxHealth;
     }
 }

@@ -41,16 +41,22 @@ public class PugotAttackPattern : MonoBehaviour
 
     //Devour Heal
     public EnemyHealth devourHeal;
-    public GameObject[] trees;
+    public List<GameObject> trees;
     private GameObject nearestTree;
-    public Vector3 targetTree;
+    public GameObject targetTree;
     private float nearestDistance = Mathf.Infinity;
+    public bool isDevourTree = false;
+
+    //HP
+    public EnemyHealth enemyHp;
 
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
-        trees = GameObject.FindGameObjectsWithTag("Tree");
+        // trees = GameObject.FindGameObjectsWithTag("Tree");
+        trees = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tree"));
+        enemyHp = GetComponent<EnemyHealth>();
         UnityEngine.Debug.Log(DifficultySelector.setDifficulty);
     }
 
@@ -78,6 +84,11 @@ public class PugotAttackPattern : MonoBehaviour
         if (isSprinting)
         {
             Sprint(sprintTargetPosition);
+        }
+
+        if(isDevourTree)
+        {
+            MoveToTree(targetTree);
         }
 
     }
@@ -118,14 +129,14 @@ public class PugotAttackPattern : MonoBehaviour
                     case 7:
                         UnityEngine.Debug.Log("Pugot: Devour Tree");
 
-                        targetTree = DevourTree();
-                        UnityEngine.Debug.Log(targetTree);
-                        StartCoroutine(Cooldown(3f));
+                        if(targetTree == null) targetTree = DevourTree();
+                        isDevourTree = true;
+                        //UnityEngine.Debug.Log(targetTree);
+                        
                         //DefaultMovement();
                     break;
                 }
             break;
-
         }
     }
 
@@ -142,7 +153,31 @@ public class PugotAttackPattern : MonoBehaviour
         
     }
 
-    Vector3 DevourTree()
+    void MoveToTree(GameObject targetTreePos)
+    {
+        agent.SetDestination(targetTreePos.transform.position);
+
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        {
+            if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+            {
+                // UnityEngine.Debug.Log("not in range");
+            }
+            else
+            {
+                // UnityEngine.Debug.Log("in range");
+                enemyHp.EnemyHealDamage(10f);
+                isDevourTree = false;
+                StartCoroutine(Cooldown(3f));
+                Destroy(targetTree, 1f);
+                targetTree = null;
+                trees.Remove(targetTree);
+                trees = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tree"));
+            }
+        }
+    }
+
+    GameObject DevourTree()
     {
         foreach(GameObject tree in trees)
         {
@@ -155,7 +190,8 @@ public class PugotAttackPattern : MonoBehaviour
             }
         }
 
-        return nearestTree.transform.position;
+        // return nearestTree.transform.position;
+        return nearestTree;
     }
 
     /*void ThrowSkulls()
