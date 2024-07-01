@@ -40,7 +40,7 @@ public class PugotAttackPattern : MonoBehaviour
     public EaseHealthBar healthBar;
 
     //Devour Heal
-    public EnemyHealth devourHeal;
+    public EntityStats devourHeal;
     public List<GameObject> trees;
     private GameObject nearestTree;
     public GameObject targetTree;
@@ -61,8 +61,9 @@ public class PugotAttackPattern : MonoBehaviour
         {
             UnityEngine.Debug.Log("tree = " + tree);
         }
-        
-        enemyHp = GetComponent<EnemyHealth>();
+
+        //enemyHp = GetComponent<EnemyHealth>();
+        devourHeal = GetComponent<EntityStats>();
         //UnityEngine.Debug.Log(DifficultySelector.setDifficulty);
     }
 
@@ -92,7 +93,7 @@ public class PugotAttackPattern : MonoBehaviour
             Sprint(sprintTargetPosition);
         }
 
-        if (isDevourTree)
+        if (isDevourTree && actionPhase == true)
         {
             MoveToTree(targetTree);
         }
@@ -189,26 +190,16 @@ public class PugotAttackPattern : MonoBehaviour
                     UnityEngine.Debug.Log(tree);
                 }*/
 
-                enemyHp.EnemyHealDamage(10f);
+                devourHeal.heal(10f);
                 isDevourTree = false;
-                targetTree.SetActive(false); // Assuming you deactivate the tree object
+                targetTree.SetActive(false);
                 trees.Remove(targetTree);
-                nearestDistance = Mathf.Infinity; // Method to remove the tree from the list
-                StartCoroutine(Cooldown(5f)); // Cooldown after devouring
-
-                //Destroy(targetTree, 1f);
-                //targetTree = null;
-                //trees.Remove(targetTree);
-                //trees = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tree"));
+                nearestDistance = Mathf.Infinity;
+                
+                //StartCoroutine(Cooldown(5f)); // Cooldown after devouring
             }
         }
     }
-
-    /*void RemoveTree(GameObject treeToRemove)
-    {
-        trees.Remove(treeToRemove);
-        nearestDistance = Mathf.Infinity; // Reset nearest distance for next search
-    }*/
 
     GameObject DevourTree()
     {

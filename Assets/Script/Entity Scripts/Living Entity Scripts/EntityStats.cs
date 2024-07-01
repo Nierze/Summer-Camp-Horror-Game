@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class EntityStats : MonoBehaviour
 {
-    [SerializeField] private float flatHP = 100;
+    [SerializeField] private float maxHP;
+    [SerializeField] private float baseHP = 100;
+    [SerializeField] private float currentHP;
     [SerializeField] private float mulHP = 1f;
     [SerializeField] private float flatATK = 10;
     [SerializeField] private float mulATK = 1f;
     [SerializeField] private float dmgReduction = 0f;
+ 
 
 
     void Awake()
     {
-        computeMaxHP();
+        maxHP = baseHP * mulHP;
+        currentHP = maxHP;
     }
 
     /////////////////////////////////////////////////////////////////
@@ -22,34 +26,49 @@ public class EntityStats : MonoBehaviour
     public void takeDamage(float damage)
     {
         float finalDamage = damage - (damage * dmgReduction);
-        flatHP -= finalDamage;
+        currentHP -= finalDamage;
     }
 
     public void dealDamage(float damage, EntityStats target)
     {
         float finalDamage = damage - (damage * target.DMGReduction);
-        target.FlatHP -= finalDamage;
+        target.currentHP -= finalDamage;
     }
 
     public void heal(float healAmount)
     {
-        flatHP += healAmount;
+        currentHP += healAmount;
+        if (currentHP > maxHP) currentHP = maxHP;
     }   
 
     private void computeMaxHP()
     {
-        flatHP = flatHP * mulHP;
+        currentHP = currentHP * mulHP;
     }
 
 
     /////////////////////////////////////////////////////////////////
     /// Getters and Setters
   
-    // Getter and Setter for FlatHP
-    public float FlatHP
+    // Getter and Setter for BaseHP
+    public float BaseHP
     {
-        get { return flatHP; }
-        set { flatHP = value; }
+        get { return baseHP; }
+        set { baseHP = value; }
+    }
+
+    // Getter and Setter for CurrentHP
+    public float CurrentHP
+    {
+        get { return currentHP; }
+        set { currentHP = value; }
+    }
+
+    // Getter and Setter for MaxHP
+    public float MaxHP
+    {
+        get { return maxHP; }
+        set { maxHP = value; }
     }
 
     // Getter and Setter for MulHP
