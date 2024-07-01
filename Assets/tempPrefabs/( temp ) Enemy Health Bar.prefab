@@ -261,7 +261,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2574018892491997867}
-  - component: {fileID: 3442992312313377711}
   - component: {fileID: 5624946210687546806}
   m_Layer: 5
   m_Name: ( temp ) Enemy Health Bar
@@ -292,24 +291,6 @@ RectTransform:
   m_AnchoredPosition: {x: 700, y: 150}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3442992312313377711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4633482750046846103}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7059acbec1ea95d4bafdd6f557cf6a76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthSlider: {fileID: 3719389963627143855}
-  easeHealthSlider: {fileID: 6484561013598755475}
-  maxHealth: 100
-  health: 0
-  healthText: {fileID: 8819562292858588386}
-  isDead: 0
 --- !u!114 &5624946210687546806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,6 +309,7 @@ MonoBehaviour:
   health: 0
   healthText: {fileID: 8819562292858588386}
   isDead: 0
+  host: {fileID: 0}
 --- !u!1 &5057065165383604272
 GameObject:
   m_ObjectHideFlags: 0

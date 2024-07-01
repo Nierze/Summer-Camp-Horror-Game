@@ -11,6 +11,7 @@ public class ProjectileBehaviour1 : MonoBehaviour
     public float throwUpwardForce;
     Rigidbody rb; 
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -23,4 +24,5 @@ public class ProjectileBehaviour1 : MonoBehaviour
         Vector3 forceToAdd = cam.transform.forward * throwForce + transform.up * throwUpwardForce;
         rb.AddForce(forceToAdd, ForceMode.Impulse);
     }
+
 }

@@ -21,7 +21,7 @@ public class EnemyBoxCast : MonoBehaviour
             GameObject hitGameObject = hit.transform.gameObject;
             if (hitGameObject.CompareTag("Player"))
             {
-                UnityEngine.Debug.Log("player detected");
+                //UnityEngine.Debug.Log("player detected");
                 playerDetector.playerDetected = true;
                 playerDetector2.playerDetected = true;
                 Gizmos.color = Color.red;

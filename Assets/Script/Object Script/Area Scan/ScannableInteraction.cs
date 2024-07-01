@@ -8,7 +8,7 @@ public class ScannableInteraction : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Scannable"))
+        if (other.CompareTag("Scannable") || other.CompareTag("CanHold") || other.CompareTag("CanTake"))
         {
             ScanReveal scanRevealComponent = other.GetComponent<ScanReveal>();
             if (scanRevealComponent != null)
