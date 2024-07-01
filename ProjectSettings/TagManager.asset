@@ -9,6 +9,9 @@ TagManager:
   - Selectable
   - Enemy
   - Tree
+  - CanBePickUP
+  - CanTake
+  - CanHold
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - Water
   - UI
   - EnemyLayer
-  - 
+  - Pickable
   - 
   - 
   - 

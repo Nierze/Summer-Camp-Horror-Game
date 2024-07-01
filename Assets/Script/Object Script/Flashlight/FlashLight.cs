@@ -131,8 +131,13 @@ public class FlashLight : MonoBehaviour
             batteryImage.sprite = battery100;
         }
     }
-    public void ReplaceBattery (float amout)
+    public void AddBattery (float amout)
     {
-        m_Light.intensity += amout;
+        Battery += amout;
+
+        if (Battery >= 100)
+        {
+            Battery = 100;
+        }
     }
 }
