@@ -16,6 +16,25 @@ public class EntityStats : MonoBehaviour
 
     void Awake()
     {
+        UnityEngine.Debug.Log("entity stats diff = " + DifficultySelector.setDifficulty);
+        switch (DifficultySelector.setDifficulty)
+        {
+            case "easy":
+                mulHP = 0.75f;
+            break;
+
+            case "normal":
+                mulHP = 1f;
+            break;
+
+            case "hard":
+                mulHP = 2f;
+            break;
+
+            default:
+                mulHP = 1f;
+            break;
+        }
         maxHP = baseHP * mulHP;
         currentHP = maxHP;
     }

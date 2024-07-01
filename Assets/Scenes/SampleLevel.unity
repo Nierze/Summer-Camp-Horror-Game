@@ -10523,7 +10523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 100
-  baseHP: 300
+  baseHP: 100
   currentHP: 0
   mulHP: 1
   flatATK: 10
