@@ -34,19 +34,26 @@ public class NewPlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        animator.SetBool("Grounded", true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //////////////////////////////////////////////////////
-        /// Movement handler
-        bool isSprinting = NewInputManager.Instance.GetSprint();
-        Move(isSprinting);
 
         //////////////////////////////////////////////////////
         /// Jump handler
         HandleJump();
+
+
+        //////////////////////////////////////////////////////
+        /// Movement handler
+        bool isSprinting = NewInputManager.Instance.GetSprint();
+
+            
+        Move(isSprinting);
+        
+
 
         //////////////////////////////////////////////////////
         /// Gravity handler
@@ -54,7 +61,7 @@ public class NewPlayerController : MonoBehaviour
 
         //////////////////////////////////////////////////////
         /// Debug stuffs
-        Debug.Log(controller.isGrounded);
+        Debug.Log(checkGrounded());
     }
 
     void Move(bool isSprinting)
@@ -110,14 +117,20 @@ public class NewPlayerController : MonoBehaviour
 
     void HandleJump()
     {
-        if (controller.isGrounded && velocity.y < 0)
+        if (checkGrounded() && velocity.y < 0)
         {
-            velocity.y = -2f; // Small downward velocity when grounded
+            animator.SetBool("Jump", false);
+            animator.SetBool("Grounded", true);
+            animator.SetBool("FreeFall", false);
+            //velocity.y = -1f; // Small downward velocity when grounded
         }
 
         if (checkGrounded() && NewInputManager.Instance.GetJump())
         {
             velocity.y = Mathf.Sqrt(jumpPower * -2f * gravity);
+            animator.SetBool("Jump", true);
+            animator.SetBool("Grounded", false);
+            animator.SetBool("FreeFall", true);
         }
     }
 
