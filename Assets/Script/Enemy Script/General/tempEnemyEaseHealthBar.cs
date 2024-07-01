@@ -16,7 +16,7 @@ public class tempEnemyEaseHealthBar : MonoBehaviour
 
     public EntityStats host;
 
-
+    public GameObject projectile;
 
     ////////////////////////////////////
     /// 
@@ -35,6 +35,7 @@ public class tempEnemyEaseHealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        projectile = UnityEngine.GameObject.FindGameObjectWithTag("Projectile");
         currentHPPercentage = (host.CurrentHP / host.MaxHP) * 100;
         if (healthSlider.value != currentHPPercentage)
         {
@@ -61,15 +62,6 @@ public class tempEnemyEaseHealthBar : MonoBehaviour
             UnityEngine.Debug.Log("host hp = " + host.CurrentHP);
 
         }
-
-        // // Sample Take Damage
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     TakeDamage(10);
-        // }
-
-        //string healthTextValue = host.MaxHP.ToString();
-        //healthText.text = healthTextValue;
 
     }
 

@@ -11,8 +11,8 @@ public class EntityStats : MonoBehaviour
     [SerializeField] private float flatATK = 10;
     [SerializeField] private float mulATK = 1f;
     [SerializeField] private float dmgReduction = 0f;
- 
 
+    public CapsuleCollider cc;
 
     void Awake()
     {
@@ -116,5 +116,17 @@ public class EntityStats : MonoBehaviour
     {
         get { return dmgReduction; }
         set { dmgReduction = value; }
+    }
+
+    //////////////////////////////////
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Projectile"))
+        {
+            UnityEngine.Debug.Log("took damage");
+            takeDamage(10f);
+            UnityEngine.Debug.Log("host hp = " + CurrentHP);
+        }
     }
 }
