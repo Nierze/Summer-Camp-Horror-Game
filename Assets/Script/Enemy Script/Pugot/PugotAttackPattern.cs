@@ -107,8 +107,8 @@ public class PugotAttackPattern : MonoBehaviour
         {
             case "easy":
 
-                //decision = UnityEngine.Random.Range(3, 8);
-                if (trees.Count != 0) decision = UnityEngine.Random.Range(7, 8);
+                //decision = UnityEngine.Random.Range(1, 8);
+                if (trees.Count != 0) decision = UnityEngine.Random.Range(1, 8);
                 else
                 {
                     decision = UnityEngine.Random.Range(1, 7);

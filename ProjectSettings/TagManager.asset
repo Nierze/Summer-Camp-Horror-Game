@@ -12,6 +12,7 @@ TagManager:
   - CanBePickUP
   - CanTake
   - CanHold
+  - Projectile
   layers:
   - Default
   - TransparentFX
