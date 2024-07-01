@@ -27,7 +27,6 @@ public class RayCast : MonoBehaviour
                 target = hit.transform.gameObject;
                 Debug.Log(hit.transform.name);
                 canEquip = true;
-                canHold = false;
             }
 
             else if (hit.transform.CompareTag("CanHold"))
