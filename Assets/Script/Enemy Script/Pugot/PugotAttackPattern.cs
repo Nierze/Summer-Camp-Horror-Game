@@ -56,8 +56,14 @@ public class PugotAttackPattern : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         // trees = GameObject.FindGameObjectsWithTag("Tree");
         trees = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tree"));
+
+        foreach (GameObject tree in trees)
+        {
+            UnityEngine.Debug.Log("tree = " + tree);
+        }
+        
         enemyHp = GetComponent<EnemyHealth>();
-        UnityEngine.Debug.Log(DifficultySelector.setDifficulty);
+        //UnityEngine.Debug.Log(DifficultySelector.setDifficulty);
     }
 
     // Update is called once per frame
@@ -86,10 +92,11 @@ public class PugotAttackPattern : MonoBehaviour
             Sprint(sprintTargetPosition);
         }
 
-        if(isDevourTree)
+        if (isDevourTree)
         {
             MoveToTree(targetTree);
         }
+        
 
     }
 
@@ -100,7 +107,12 @@ public class PugotAttackPattern : MonoBehaviour
             case "easy":
 
                 //decision = UnityEngine.Random.Range(3, 8);
-                decision = UnityEngine.Random.Range(7, 8);
+                if (trees.Count != 0) decision = UnityEngine.Random.Range(7, 8);
+                else
+                {
+                    decision = UnityEngine.Random.Range(1, 7);
+                    UnityEngine.Debug.Log("No more trees.");
+                }
 
                 switch (decision)
                 {
@@ -127,14 +139,16 @@ public class PugotAttackPattern : MonoBehaviour
                     break;
 
                     case 7:
-                        UnityEngine.Debug.Log("Pugot: Devour Tree");
+                        //UnityEngine.Debug.Log("Pugot: Devour Tree");
 
-                        if(targetTree == null) targetTree = DevourTree();
-                        isDevourTree = true;
+                        targetTree = DevourTree();
                         //UnityEngine.Debug.Log(targetTree);
-                        
+                        isDevourTree = true;
+                        StartCoroutine(Cooldown(5f));
+                        //UnityEngine.Debug.Log(targetTree);
+
                         //DefaultMovement();
-                    break;
+                        break;
                 }
             break;
         }
@@ -166,20 +180,47 @@ public class PugotAttackPattern : MonoBehaviour
             else
             {
                 // UnityEngine.Debug.Log("in range");
+                /*enemyHp.EnemyHealDamage(10f);
+                isDevourTree = false;
+                targetTree.SetActive(false);
+                trees = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tree"));
+                foreach (GameObject tree in trees)
+                {
+                    UnityEngine.Debug.Log(tree);
+                }*/
+
                 enemyHp.EnemyHealDamage(10f);
                 isDevourTree = false;
-                StartCoroutine(Cooldown(3f));
-                Destroy(targetTree, 1f);
-                targetTree = null;
+                targetTree.SetActive(false); // Assuming you deactivate the tree object
                 trees.Remove(targetTree);
-                trees = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tree"));
+                nearestDistance = Mathf.Infinity; // Method to remove the tree from the list
+                StartCoroutine(Cooldown(5f)); // Cooldown after devouring
+
+                //Destroy(targetTree, 1f);
+                //targetTree = null;
+                //trees.Remove(targetTree);
+                //trees = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tree"));
             }
         }
     }
 
+    /*void RemoveTree(GameObject treeToRemove)
+    {
+        trees.Remove(treeToRemove);
+        nearestDistance = Mathf.Infinity; // Reset nearest distance for next search
+    }*/
+
     GameObject DevourTree()
     {
-        foreach(GameObject tree in trees)
+        GameObject nearestTree = null;
+        float nearestDistance = Mathf.Infinity;
+
+        if (trees.Count == 0)
+        {
+            return null;
+        }
+
+        foreach (GameObject tree in trees)
         {
             float distance = Vector3.Distance(transform.position, tree.transform.position);
 
@@ -219,7 +260,7 @@ public class PugotAttackPattern : MonoBehaviour
 
     private IEnumerator Cooldown(float duration)
     {
-        UnityEngine.Debug.Log("Next actoin in cooldown for " + duration + " seconds.");
+        UnityEngine.Debug.Log("Next action in cooldown for " + duration + " seconds.");
         yield return new WaitForSeconds(duration);
         agent.speed = 15f;
         isSprinting = false;
