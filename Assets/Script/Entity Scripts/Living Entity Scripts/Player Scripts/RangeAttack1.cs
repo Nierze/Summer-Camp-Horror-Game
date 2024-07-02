@@ -8,26 +8,30 @@ public class RangeAttack1 : MonoBehaviour
 {
     public float range = 500f;
     public float impactForce = 60f;
-    public float fireRate = 15f;
+    public float fireRate = 3f;
+    public float timer = 0f;
 
     public Camera fpsCam;
     public GameObject impactEffect;
     public GameObject player;
-
-    private float nextTimeToFire = 0f;
 
     public TiyanakAttackPattern playerInRange;
     public PugotAttackPattern playerInRange2;
 
     void Update()
     {
-        if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown("j")) && Time.time >= nextTimeToFire)
+        if (Input.GetButtonDown("Fire1") || Input.GetKeyDown("j"))
         {
-            playerInRange.playerAttackDetected = true;
-            playerInRange2.playerAttackDetected = true;
-            nextTimeToFire = Time.time + 1f / fireRate;
-            Shoot();
+            if (timer > 3f)
+            {
+                playerInRange.playerAttackDetected = true;
+                playerInRange2.playerAttackDetected = true;
+                Shoot();
+            }
+            
         }
+
+        timer += Time.deltaTime;
     }
 
     void Shoot()
@@ -47,5 +51,6 @@ public class RangeAttack1 : MonoBehaviour
 
             Destroy(impact, 5f);
         }
+        timer = 0f;
     }
 }
