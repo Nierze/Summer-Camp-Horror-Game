@@ -35,7 +35,7 @@ public class RangeAttack1 : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-            UnityEngine.Debug.Log(hit.transform.name);
+            //UnityEngine.Debug.Log(hit.transform.name);
 
             if (hit.rigidbody != null)
             {

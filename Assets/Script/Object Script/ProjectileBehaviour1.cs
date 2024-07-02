@@ -9,8 +9,9 @@ public class ProjectileBehaviour1 : MonoBehaviour
     public GameObject cam;
     public float throwForce;
     public float throwUpwardForce;
-    Rigidbody rb; 
+    Rigidbody rb;
 
+    public EntityStats entity;
 
     void Start()
     {
@@ -25,4 +26,14 @@ public class ProjectileBehaviour1 : MonoBehaviour
         rb.AddForce(forceToAdd, ForceMode.Impulse);
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            GameObject parent = other.transform.parent.gameObject;
+            EntityStats entity = parent.GetComponent<EntityStats>();
+            entity.EnemyTakeDamage();
+            UnityEngine.Debug.Log("Enemy took hit");
+        }
+    }
 }
