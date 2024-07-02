@@ -120,7 +120,14 @@ public class EntityStats : MonoBehaviour
 
     //////////////////////////////////
 
-    void OnTriggerEnter(Collider other)
+    public void EnemyTakeDamage()
+    {
+        UnityEngine.Debug.Log("took damage");
+        takeDamage(10f);
+        UnityEngine.Debug.Log("host hp = " + CurrentHP);
+    }
+
+    /*void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Projectile"))
         {
@@ -128,5 +135,5 @@ public class EntityStats : MonoBehaviour
             takeDamage(10f);
             UnityEngine.Debug.Log("host hp = " + CurrentHP);
         }
-    }
+    }*/
 }
