@@ -127,6 +127,13 @@ public class EntityStats : MonoBehaviour
         UnityEngine.Debug.Log("host hp = " + CurrentHP);
     }
 
+    public void EnemyHeal()
+    {
+        UnityEngine.Debug.Log("heal damage");
+        heal(10f);
+        UnityEngine.Debug.Log("host hp = " + CurrentHP);
+    }
+
     /*void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Projectile"))

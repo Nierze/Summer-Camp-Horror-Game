@@ -73,12 +73,12 @@ public class PlayerControllerCopy : MonoBehaviour
         /////////////////////////////////////////
         // Attack Handler
 
-        if (inputManager.GetAttack())
+        /*if (inputManager.GetAttack())
         {
-            playerInRange.playerAttackDetected = true;
-            playerInRange2.playerAttackDetected = true;
+            //playerInRange.playerAttackDetected = true;
+            //playerInRange2.playerAttackDetected = true;
             //UnityEngine.Debug.Log("Attacked");
-        }
+        }*/
 
         /////////////////////////////////////////
         // Defend Handler
