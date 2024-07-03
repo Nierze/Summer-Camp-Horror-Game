@@ -4,22 +4,21 @@ using UnityEngine;
 
 public class RayCast : MonoBehaviour
 {
-    // Start is called before the first frame update\
     public bool canEquip;
     public bool canHold;
     public RaycastHit hit;
     public GameObject target;
+    public GameObject targetOnHold;
+
     void Start()
     {
         canEquip = false;
         canHold = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         RaycastHit hit;
-
         if (Physics.Raycast(transform.position, transform.forward, out hit, 20))
         {
             if (hit.transform.CompareTag("CanTake"))
@@ -27,20 +26,19 @@ public class RayCast : MonoBehaviour
                 target = hit.transform.gameObject;
                 Debug.Log(hit.transform.name);
                 canEquip = true;
+                canHold = false;
             }
-
             else if (hit.transform.CompareTag("CanHold"))
             {
-                Debug.Log(hit.transform.name);
                 target = hit.transform.gameObject;
-                Debug.Log(target.name);
+                targetOnHold = hit.transform.gameObject;
+                Debug.Log(hit.transform.name);
                 canHold = true;
                 canEquip = false;
             }
-
             else
             {
-                canEquip = false; 
+                canEquip = false;
                 canHold = false;
             }
         }
