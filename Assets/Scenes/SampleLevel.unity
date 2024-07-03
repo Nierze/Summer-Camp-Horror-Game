@@ -2674,7 +2674,7 @@ GameObject:
   - component: {fileID: 368659904}
   m_Layer: 0
   m_Name: Cube (4)
-  m_TagString: Scannable
+  m_TagString: CanBePickUP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6576,6 +6576,7 @@ GameObject:
   - component: {fileID: 1051753616}
   - component: {fileID: 1051753617}
   - component: {fileID: 1051753618}
+  - component: {fileID: 1051753619}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -6732,6 +6733,20 @@ MonoBehaviour:
   player: {fileID: 545437673}
   playerInRange: {fileID: 1542191237}
   playerInRange2: {fileID: 1801292399}
+--- !u!114 &1051753619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051753608}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 216fc7445459d6a43b245e97f9653aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 545437675}
+  highlightables: []
 --- !u!1 &1066284635
 GameObject:
   m_ObjectHideFlags: 0
@@ -8649,11 +8664,11 @@ GameObject:
   - component: {fileID: 1285746019}
   m_Layer: 0
   m_Name: Scannable Object
-  m_TagString: Scannable
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1285746017
 Transform:
   m_ObjectHideFlags: 0
@@ -9482,10 +9497,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4479165893299430313, guid: f003184d53518314f85cd3ed9f8d55fb,
         type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4479165893299430313, guid: f003184d53518314f85cd3ed9f8d55fb,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 8368722655750445499, guid: 758ad5cc9e38f1143885b6d68e92bd2a,
+      objectReference: {fileID: 2100000, guid: f724a0567dfca3f4399c652efb6b17bf, type: 2}
+    - target: {fileID: -4479165893299430313, guid: f003184d53518314f85cd3ed9f8d55fb,
         type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: ab3d19a03dab7894d98803c478792e54, type: 2}
     - target: {fileID: 549411217280115887, guid: f003184d53518314f85cd3ed9f8d55fb,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -9501,6 +9525,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f003184d53518314f85cd3ed9f8d55fb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 6395953084179270617, guid: f003184d53518314f85cd3ed9f8d55fb,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -9509,7 +9538,7 @@ PrefabInstance:
     - target: {fileID: 6683295491337455973, guid: f003184d53518314f85cd3ed9f8d55fb,
         type: 3}
       propertyPath: m_TagString
-      value: Scannable
+      value: Selectable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9619,6 +9648,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2119711283}
+    - targetCorrespondingSourceObject: {fileID: 6683295491337455973, guid: f003184d53518314f85cd3ed9f8d55fb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2119711286}
+    - targetCorrespondingSourceObject: {fileID: 6683295491337455973, guid: f003184d53518314f85cd3ed9f8d55fb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2119711290}
     - targetCorrespondingSourceObject: {fileID: 3810468463089866415, guid: f003184d53518314f85cd3ed9f8d55fb,
         type: 3}
       insertIndex: -1
@@ -14937,7 +14974,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119711274}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
@@ -15034,6 +15071,42 @@ MonoBehaviour:
   meshRenderer: {fileID: 2119711276}
   light: {fileID: 0}
   itemAttributes: {fileID: 1179743624}
+--- !u!65 &2119711286
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119711274}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.09883445, y: 0.03249898, z: 0.055774786}
+  m_Center: {x: 0.000000014915713, y: -0.000000069849186, z: -0.0037088038}
+--- !u!114 &2119711290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119711274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25cbd01d3342bbb4989261f196882749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentObject: {fileID: 2119711274}
+  meshRenderer: {fileID: 2119711276}
+  transparentMaterial: {fileID: 0}
 --- !u!1 &2142439780
 GameObject:
   m_ObjectHideFlags: 0
