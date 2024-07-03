@@ -12,18 +12,18 @@ public class ProjectileBehaviour1 : MonoBehaviour
     Rigidbody rb;
 
     public EntityStats entity;
+    public Vector3 direction;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         cam = UnityEngine.GameObject.FindGameObjectWithTag("MainCamera");
+        direction = cam.transform.forward;
     }
 
     void Update()
     {
-        //rb.velocity = transform.forward * speed;
-        Vector3 forceToAdd = cam.transform.forward * throwForce + transform.up * throwUpwardForce;
-        rb.AddForce(forceToAdd, ForceMode.Impulse);
+        rb.velocity = direction * speed;
     }
 
     void OnTriggerEnter(Collider other)

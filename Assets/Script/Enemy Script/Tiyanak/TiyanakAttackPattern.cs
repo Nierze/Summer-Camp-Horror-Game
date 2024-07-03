@@ -100,13 +100,13 @@ public class TiyanakAttackPattern : MonoBehaviour
                 //if(!playerDetected) decision = UnityEngine.Random.Range(1, 5);
                 //else decision = UnityEngine.Random.Range(1, 6);
 
-                decision = UnityEngine.Random.Range(3, 6);
+                decision = UnityEngine.Random.Range(1, 6);
 
                 dashSpeed = 100f; dashTime = 0.5f;
                 
                 switch (decision)
                 {
-                    case 1: case 2: case 3: //case 4:
+                    case 1: //case 4:
                         UnityEngine.Debug.Log("runs towards the player");
                         //healthBar.TakeDamage(10); //
 
@@ -120,6 +120,8 @@ public class TiyanakAttackPattern : MonoBehaviour
                         break;
 
                     case 4:
+                    case 2:
+                    case 3:
                         UnityEngine.Debug.Log("temp Evade");
                         actionPhase = true;
                         //StartCoroutine(tempCooldown(3));
