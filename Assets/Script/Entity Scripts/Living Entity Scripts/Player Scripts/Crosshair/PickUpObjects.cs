@@ -17,35 +17,46 @@ public class PickUpObjects : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("Slot Full: " + slotFull);
+        Debug.Log("Currently Holding: " + heldObject);
+        Debug.Log("Target On Hold :" + rayCastScript.targetOnHold.name);
         if (rayCastScript != null)
         {
-            // Debug the raycast target
-            if (rayCastScript.targetOnHold != null)
-            {
-                Debug.Log(rayCastScript.targetOnHold.name);
-            }
-
             // Check for equipping items
-            if (rayCastScript.canEquip && Input.GetKeyDown(KeyCode.F))
+            if (rayCastScript.canEquip && Input.GetKeyDown(KeyCode.F) && rayCastScript.canHold == false)
             {
+                Debug.Log("Condition 2");
                 EquipItem();
             }
 
-            // Check for holding items
-            if (rayCastScript.canHold && Input.GetKeyDown(KeyCode.E) && !slotFull)
+            // Check for equipping items and is currently holding an item
+            if (rayCastScript.canEquip && Input.GetKeyDown(KeyCode.F) && rayCastScript.currentlyHolding == true)
             {
+                Debug.Log("Condition 3");
+                heldObject = rayCastScript.targetOnHold;
+                MoveHeldObject();
+            }
+            // Check for holding items
+            if (rayCastScript.canHold && Input.GetKeyDown(KeyCode.E) && !slotFull && rayCastScript.currentlyHolding == false)
+            {
+                Debug.Log("Condition 4");
+                rayCastScript.currentlyHolding = true;
                 HoldItem();
             }
 
             // Check for dropping the held item
             if (Input.GetKeyDown(KeyCode.G) && slotFull)
             {
+                Debug.Log("Slot Full: " + slotFull);
+                slotFull = false;
+                Debug.Log("Condition 5");
                 Drop();
             }
 
             // Keep the held object in place
             if (heldObject != null)
             {
+                Debug.Log("Condition 6");
                 HoldItem();
                 MoveHeldObject();
             }
@@ -54,18 +65,15 @@ public class PickUpObjects : MonoBehaviour
 
     void EquipItem()
     {
-        Debug.Log("Equip Item");
         if (rayCastScript.target.name == "Sample Battery")
         {
             flashLightScript.AddBattery(25f);
             batteryItem.OnPickedUp();
-            Debug.Log("Battery Equipped");
         }
     }
 
     void HoldItem()
     {
-        Debug.Log("Hold Item");
         equipped = true;
         slotFull = true;
         HoldObject();
@@ -85,10 +93,6 @@ public class PickUpObjects : MonoBehaviour
                 rb.isKinematic = true; 
             }
         }
-        else
-        {
-            Debug.Log("Not working");
-        }
     }
 
     void MoveHeldObject()
@@ -99,7 +103,6 @@ public class PickUpObjects : MonoBehaviour
 
     public void Drop()
     {
-        Debug.Log("Drop");
         if (heldObject != null)
         {
             heldObject.transform.parent = null;
@@ -115,5 +118,6 @@ public class PickUpObjects : MonoBehaviour
         }
         equipped = false;
         slotFull = false;
+        rayCastScript.currentlyHolding = false;
     }
 }

@@ -40,8 +40,6 @@ public class FlashLight : MonoBehaviour
     void Update()
     {
         CheckBattery(Battery);
-
-        Debug.Log(Battery);
         if (Battery <= 0)
         {
             m_Light.enabled = false;
@@ -52,7 +50,6 @@ public class FlashLight : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.T))
             {
-                Debug.Log("clicked");
                 if (flashlightActive == false)
                 {
                     Debug.Log("ON");
