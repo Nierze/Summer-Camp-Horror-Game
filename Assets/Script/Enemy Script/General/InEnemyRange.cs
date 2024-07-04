@@ -12,12 +12,22 @@ public class InEnemyRange : MonoBehaviour
     public void Update()
     {
         timer += Time.deltaTime;
-        //UnityEngine.Debug.Log(timer);
-        if (timer >= 3f)
+        //if(playerInRange.inLungeAttack) UnityEngine.Debug.Log("in lunge attack bool = " + playerInRange.inLungeAttack);
+        if (!playerInRange.inLungeAttack)
         {
-            //UnityEngine.Debug.Log("Successive attack");
-            StartCoroutine(Attack());
-            timer = 0f;
+            if (timer >= 3f)
+            {
+                //UnityEngine.Debug.Log("Successive attack");
+                StartCoroutine(Attack());
+                timer = 0f;
+            }
+        }
+
+        if(playerInRange.inLungeAttack)
+        {
+            UnityEngine.Debug.Log("inEnemyRange = " + playerInRange.playerInRange);
+            
+            StartCoroutine(TiyanakLungeAttack());
         }
     }
 
@@ -48,6 +58,18 @@ public class InEnemyRange : MonoBehaviour
         yield return new WaitForSeconds(3f);
         if(playerInRange.playerInRange) targetHealthbar.TakeDamage(10);
         if (playerInRange2.playerInRange) targetHealthbar.TakeDamage(10);
+    }
 
+    private IEnumerator TiyanakLungeAttack()
+    {
+        UnityEngine.Debug.Log("inEnemyRange = " + playerInRange.playerInRange);
+        if (playerInRange.playerInRange)
+        {
+            targetHealthbar.TakeDamage(10);
+            playerInRange.inLungeAttack = false;
+        }
+
+        yield return new WaitForSeconds(0.01f);
+        
     }
 }

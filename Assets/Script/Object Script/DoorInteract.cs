@@ -10,6 +10,7 @@ using UnityEngine;
 public class DoorInteract : MonoBehaviour
 {
     public NavMeshSurface navSurface;
+    public NavMeshSurface sampleSurface;
 
     public Transform doorRotation;
     public GameObject openHitbox;
@@ -25,6 +26,9 @@ public class DoorInteract : MonoBehaviour
 
     void Start()
     {
+        //sampleSurface.enabled = false;
+        sampleSurface.BuildNavMesh();
+
         rotationSpeed = 45f;
         doorRotation.rotation = Quaternion.Euler(0, 0, 0);
         state = false;
@@ -45,6 +49,7 @@ public class DoorInteract : MonoBehaviour
         {
             if (Input.GetKeyDown("f"))
             {
+                sampleSurface.enabled = true;
                 if (!state)
                 {
                     StartCoroutine(RotateDoor(new Vector3(0, 120, 0)));
@@ -88,7 +93,7 @@ public class DoorInteract : MonoBehaviour
             timeElapsed += Time.deltaTime;
             yield return null;
         }
-
+        sampleSurface.BuildNavMesh();
         navSurface.BuildNavMesh();
         doorRotation.rotation = endRotation;
     }
