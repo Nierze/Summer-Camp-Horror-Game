@@ -26,6 +26,7 @@ public class PugotAttackPattern : MonoBehaviour
     public GameObject skullProjectile;
     public Transform spawnPoint;
     public float projectileSpeed;
+    public bool isThrow = false;
 
     //Camera Shake
     public CameraShake cameraShaker;
@@ -34,6 +35,7 @@ public class PugotAttackPattern : MonoBehaviour
     private bool isSprinting = false;
     public Vector3 sprintTargetPosition;
     [SerializeField] public float additionalDistance;
+    public bool inSprintAttack = false;
 
     //Deal Damage
     public bool playerInRange = false;
@@ -51,11 +53,13 @@ public class PugotAttackPattern : MonoBehaviour
     public EnemyHealth enemyHp;
     public float timer = 0f;
 
+    //Anim
+    public Animator anim;
+    public double th;
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
-        // trees = GameObject.FindGameObjectsWithTag("Tree");
         trees = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tree"));
 
         foreach (GameObject tree in trees)
@@ -67,16 +71,16 @@ public class PugotAttackPattern : MonoBehaviour
 
         difficulty = DifficultySelector.setDifficulty;
         if (difficulty == null) difficulty = "easy";
-        /*
-        UnityEngine.Debug.Log("curr hp = " + devourHeal.CurrentHP);
-        UnityEngine.Debug.Log("max hp = " + devourHeal.MaxHP);
-        UnityEngine.Debug.Log("base hp = " + devourHeal.BaseHP);
-        */
+
+        th = (devourHeal.MaxHP - (devourHeal.MaxHP * 0.3));
+        //UnityEngine.Debug.Log("mhp = " + devourHeal.MaxHP);
+        //UnityEngine.Debug.Log("th = " + th);
     }
 
     // Update is called once per frame
     void Update()
     {
+        anim.SetBool("Run", true);
         if (playerAttackDetected && !actionPhase)
         {
             actionPhase = true;
@@ -85,7 +89,7 @@ public class PugotAttackPattern : MonoBehaviour
             AttackDetected(difficulty);  
         }
 
-        if (!isSprinting && !isDevourTree)
+        if (!isSprinting && !isDevourTree && !isThrow)
         {
             if (enableMove)
             {
@@ -117,7 +121,7 @@ public class PugotAttackPattern : MonoBehaviour
         {
             case "easy":
 
-                //decision = UnityEngine.Random.Range(1, 8);
+                //decision = UnityEngine.Random.Range(4, 6);
                 if (trees.Count != 0) decision = UnityEngine.Random.Range(1, 8);
                 else
                 {
@@ -138,12 +142,14 @@ public class PugotAttackPattern : MonoBehaviour
                     case 4:
                     case 5:
                         UnityEngine.Debug.Log("Pugot: Throw Skulls");
+                        isThrow = true;
                         StartCoroutine(ThrowSkulls());
                     break;
 
                     case 6:
                         UnityEngine.Debug.Log("Pugot: Sprint");
                         transform.LookAt(target.position);
+                        inSprintAttack = true;
                         isSprinting = true;
                         enableMove = false;
                         sprintTargetPosition = target.position + agent.transform.forward * additionalDistance;
@@ -152,7 +158,8 @@ public class PugotAttackPattern : MonoBehaviour
                     case 7:
                         UnityEngine.Debug.Log("curr hp = " + devourHeal.CurrentHP);
                         UnityEngine.Debug.Log("max hp = " + devourHeal.MaxHP);
-                        if (devourHeal.CurrentHP < devourHeal.MaxHP)
+                        UnityEngine.Debug.Log("th hp = " + th);
+                        if (devourHeal.CurrentHP < th)
                         {
                             UnityEngine.Debug.Log("Pugot: Devour Tree");
                             targetTree = DevourTree();
@@ -167,13 +174,11 @@ public class PugotAttackPattern : MonoBehaviour
                 }
             break;
 
-            /*case "normal":
-
-                //decision = UnityEngine.Random.Range(1, 8);
+            case "normal":
                 if (trees.Count != 0) decision = UnityEngine.Random.Range(1, 10);
                 else
                 {
-                    decision = UnityEngine.Random.Range(1, 9);
+                    decision = UnityEngine.Random.Range(1, 8);
                     UnityEngine.Debug.Log("No more trees.");
                 }
 
@@ -185,45 +190,51 @@ public class PugotAttackPattern : MonoBehaviour
                         UnityEngine.Debug.Log("Pugot: Ground Slam");
                         StartCoroutine(cameraShaker.Shake(1f, .3f));
                         StartCoroutine(Cooldown(3f));
-                        //DefaultMovement();
                         break;
 
                     case 4:
                     case 5:
-                    case 6:
                         UnityEngine.Debug.Log("Pugot: Throw Skulls");
+                        isThrow = true;
                         StartCoroutine(ThrowSkulls());
                         break;
 
+                    case 6:
                     case 7:
-                    case 8:
                         UnityEngine.Debug.Log("Pugot: Sprint");
                         transform.LookAt(target.position);
+                        inSprintAttack = true;
                         isSprinting = true;
                         enableMove = false;
                         sprintTargetPosition = target.position + agent.transform.forward * additionalDistance;
-                        //DefaultMovement();
-                        break;
+                    break;
 
+                    case 8:
                     case 9:
-                        //UnityEngine.Debug.Log("Pugot: Devour Tree");
-                        if (devourHeal.CurrentHP != devourHeal.MaxHP)
+                        UnityEngine.Debug.Log("curr hp = " + devourHeal.CurrentHP);
+                        UnityEngine.Debug.Log("max hp = " + devourHeal.MaxHP);
+                        UnityEngine.Debug.Log("th hp = " + th);
+
+                        if (devourHeal.CurrentHP < th)
                         {
+                            UnityEngine.Debug.Log("Pugot: Devour Tree");
                             targetTree = DevourTree();
                             isDevourTree = true;
                         }
-                        else StartCoroutine(ThrowSkulls());
+                        else
+                        {
+                            StartCoroutine(ThrowSkulls());
+                            UnityEngine.Debug.Log("Pugot: Throw Skulls (No more trees)");
+                        }
                         break;
                 }
-            break;
+                break;
 
             case "hard":
-
-                //decision = UnityEngine.Random.Range(1, 8);
                 if (trees.Count != 0) decision = UnityEngine.Random.Range(1, 11);
                 else
                 {
-                    decision = UnityEngine.Random.Range(1, 9);
+                    decision = UnityEngine.Random.Range(1, 7);
                     UnityEngine.Debug.Log("No more trees.");
                 }
 
@@ -231,42 +242,60 @@ public class PugotAttackPattern : MonoBehaviour
                 {
                     case 1:
                     case 2:
-                    case 3:
                         UnityEngine.Debug.Log("Pugot: Ground Slam");
+                        anim.SetBool("Run", false);
                         StartCoroutine(cameraShaker.Shake(1f, .3f));
                         StartCoroutine(Cooldown(3f));
-                        //DefaultMovement();
                         break;
 
+                    case 3:
                     case 4:
+                        UnityEngine.Debug.Log("Pugot: Throw Skulls");
+                        isThrow = true;
+                        anim.SetBool("Run", false);
+                        StartCoroutine(ThrowSkulls());
+                        break;
+
                     case 5:
                     case 6:
-                        UnityEngine.Debug.Log("Pugot: Throw Skulls");
-                        StartCoroutine(ThrowSkulls());
+                        UnityEngine.Debug.Log("Pugot: Sprint");
+                        anim.SetBool("Run", false);
+                        transform.LookAt(target.position);
+                        inSprintAttack = true;
+                        isSprinting = true;
+                        enableMove = false;
+                        sprintTargetPosition = target.position + agent.transform.forward * additionalDistance;
                         break;
 
                     case 7:
                     case 8:
-                        UnityEngine.Debug.Log("Pugot: Sprint");
-                        transform.LookAt(target.position);
-                        isSprinting = true;
-                        enableMove = false;
-                        sprintTargetPosition = target.position + agent.transform.forward * additionalDistance;
-                        //DefaultMovement();
-                        break;
-
                     case 9:
                     case 10:
-                        //UnityEngine.Debug.Log("Pugot: Devour Tree");
-                        if (devourHeal.CurrentHP >= devourHeal.MaxHP)
+                        anim.SetBool("Run", false);
+                        UnityEngine.Debug.Log("curr hp = " + devourHeal.CurrentHP);
+                        UnityEngine.Debug.Log("max hp = " + devourHeal.MaxHP);
+                        UnityEngine.Debug.Log("th hp = " + th);
+                        if (devourHeal.CurrentHP < th)
                         {
+                            UnityEngine.Debug.Log("Pugot: Devour Tree");
                             targetTree = DevourTree();
                             isDevourTree = true;
                         }
-                        else StartCoroutine(ThrowSkulls());
+                        else
+                        {
+                            /*StartCoroutine(ThrowSkulls());
+                            UnityEngine.Debug.Log("Pugot: Throw Skulls (No more trees)");*/
+
+                            UnityEngine.Debug.Log("Pugot: Sprint");
+                            transform.LookAt(target.position);
+                            inSprintAttack = true;
+                            isSprinting = true;
+                            enableMove = false;
+                            sprintTargetPosition = target.position + agent.transform.forward * additionalDistance;
+                        }
                         break;
                 }
-            break;*/
+                break;
         }
     }
 
@@ -406,6 +435,7 @@ public class PugotAttackPattern : MonoBehaviour
 
     private IEnumerator ThrowSkulls()
     {
+        anim.SetBool("Run", false);
         yield return new WaitForSeconds(0.5f);
         transform.LookAt(target.transform.position);
         yield return new WaitForSeconds(0.1f);
@@ -425,6 +455,9 @@ public class PugotAttackPattern : MonoBehaviour
         actionPhase = false;
         enableMove = true;
         isDevourTree = false;
+        isThrow = false;
+        anim.SetBool("Run", true);
+
     }
 }
 

@@ -148,3 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skullrb: {fileID: 7514704726343781428}
   projectileSpeed: 5
+  projectileUpwardForce: 0
+  playerHealthObject: {fileID: 0}
+  targetHealthbar: {fileID: 0}
+  self: {fileID: 6014617016561301071}

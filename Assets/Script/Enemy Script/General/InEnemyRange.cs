@@ -29,6 +29,13 @@ public class InEnemyRange : MonoBehaviour
             
             StartCoroutine(TiyanakLungeAttack());
         }
+
+        if (playerInRange2.inSprintAttack)
+        {
+            UnityEngine.Debug.Log("inEnemyRange = " + playerInRange2.playerInRange);
+
+            StartCoroutine(PugotSprintAttack());
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -70,6 +77,17 @@ public class InEnemyRange : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.01f);
-        
+    }
+
+    private IEnumerator PugotSprintAttack()
+    {
+        UnityEngine.Debug.Log("inEnemyRange = " + playerInRange2.playerInRange);
+        if (playerInRange2.playerInRange)
+        {
+            targetHealthbar.TakeDamage(10);
+            playerInRange2.inSprintAttack = false;
+        }
+
+        yield return new WaitForSeconds(0.01f);
     }
 }
