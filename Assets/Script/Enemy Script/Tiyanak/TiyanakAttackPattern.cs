@@ -8,8 +8,8 @@ using UnityEngine;
 public class TiyanakAttackPattern : MonoBehaviour
 {
     public bool playerAttackDetected = false;
-    
-    [SerializeField] public string difficulty = "easy";
+
+    [SerializeField] public string difficulty;
     private int decision = 0;
 
     public Transform target;
@@ -30,6 +30,7 @@ public class TiyanakAttackPattern : MonoBehaviour
     public float distance;
     private float lungeStartTime = -1f;
     public bool playerDetected = false;
+    public bool inLungeAttack = false;
 
     //NavMesh
     public UnityEngine.AI.NavMeshAgent agent;
@@ -53,10 +54,16 @@ public class TiyanakAttackPattern : MonoBehaviour
     private Vector3 dashStartPos;
     private Vector3 dashEndPos;
 
+    //anim
+    public Animator anim;
+
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+
+        difficulty = DifficultySelector.setDifficulty;
+        if (difficulty == null) difficulty = "easy";
 
         //jump = new Vector3(0.0f, 2.0f, 0.0f);
 
@@ -97,41 +104,33 @@ public class TiyanakAttackPattern : MonoBehaviour
         switch (difficulty)
         {
             case "easy":
-                //if(!playerDetected) decision = UnityEngine.Random.Range(1, 5);
-                //else decision = UnityEngine.Random.Range(1, 6);
+                if(!playerDetected) decision = UnityEngine.Random.Range(1, 4);
+                else decision = UnityEngine.Random.Range(1, 7);
 
-                decision = UnityEngine.Random.Range(1, 6);
+                //decision = UnityEngine.Random.Range(4, 6);
 
                 dashSpeed = 100f; dashTime = 0.5f;
                 
                 switch (decision)
                 {
-                    case 1: //case 4:
-                        UnityEngine.Debug.Log("runs towards the player");
-                        //healthBar.TakeDamage(10); //
-
-                        //StartCoroutine(LungeAttack());
-                        
+                    case 1:
+                        UnityEngine.Debug.Log("runs towards the player");                       
                         DefaultMovement();
-                        StartCoroutine(tempCooldown(1));
-                        //DefaultMovement();
+                        StartCoroutine(tempCooldown(1));          
+                    break;
 
-                        
-                        break;
-
-                    case 4:
                     case 2:
                     case 3:
                         UnityEngine.Debug.Log("temp Evade");
                         actionPhase = true;
-                        //StartCoroutine(tempCooldown(3));
                         StartCoroutine(Evade());
                     break;
 
+                    case 4:
                     case 5:
+                    case 6:
                         UnityEngine.Debug.Log("dashes towards the player");
-                        //healthBar.TakeDamage(10); //
-
+                        inLungeAttack = true;
                         StartCoroutine(LungeAttack());
                     break;
                 }
@@ -144,7 +143,7 @@ public class TiyanakAttackPattern : MonoBehaviour
 
     void DefaultMovement()
     {
-        //transform.LookAt(playerPos.transform.position);
+        anim.SetBool("Crawl", true);
         Vector3 newPosition = playerPos.transform.position;
         agent.SetDestination(newPosition);
 
