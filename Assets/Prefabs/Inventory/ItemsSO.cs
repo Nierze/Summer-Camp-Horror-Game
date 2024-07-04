@@ -9,8 +9,8 @@ public class ItemsSO : ScriptableObject
     public string itemName;
     public string description;
 
-    public Image objectSprite;
-    public Image objectIcon;
+    public Sprite objectSprite;
+    public Sprite objectIcon;
 
     public float healthValue;
     public float sanityValue;
