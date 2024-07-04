@@ -24,8 +24,6 @@ public class RangeAttack1 : MonoBehaviour
         {
             if (timer > 3f)
             {
-                playerInRange.playerAttackDetected = true;
-                playerInRange2.playerAttackDetected = true;
                 Shoot();
             }
             
@@ -48,7 +46,8 @@ public class RangeAttack1 : MonoBehaviour
 
             //GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             GameObject impact = Instantiate(impactEffect, player.transform.position + player.transform.forward * 5f, Quaternion.LookRotation(hit.normal));
-
+            playerInRange.playerAttackDetected = true;
+            playerInRange2.playerAttackDetected = true;
             Destroy(impact, 5f);
         }
         timer = 0f;

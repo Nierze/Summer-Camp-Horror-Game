@@ -13,6 +13,7 @@ TagManager:
   - CanTake
   - CanHold
   - Projectile
+  - Health
   layers:
   - Default
   - TransparentFX
