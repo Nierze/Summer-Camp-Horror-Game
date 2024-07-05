@@ -13,7 +13,9 @@ public class EaseHealthBar : MonoBehaviour
     public TextMeshProUGUI healthText;
     public bool isDead = false;
 
-    // Start is called before the first frame update
+    //Health Kits 
+    public GameObject Medkit;
+    public GameObject Bandage;
     void Start()
     {
         health = maxHealth;
@@ -55,10 +57,22 @@ public class EaseHealthBar : MonoBehaviour
     public void Heal(float amount)
     {
         health += amount;
-
+        Debug.Log("Health" + amount);
         if (health > maxHealth)
         {
             health = maxHealth;
+        }
+    }
+
+    public void OnPickedUp(string healthKit)
+    {
+        if (healthKit == "Medkit")
+        {
+            Destroy(Medkit);
+        }    
+        if (healthKit == "Bandage")
+        {
+            Destroy(Bandage);
         }
     }
 }
