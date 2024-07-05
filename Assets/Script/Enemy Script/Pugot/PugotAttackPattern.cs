@@ -86,8 +86,8 @@ public class PugotAttackPattern : MonoBehaviour
         {
             actionPhase = true;
             playerAttackDetected = false;
-            enableMove = false;           
-            AttackDetected(difficulty);  
+            enableMove = false;
+            AttackDetected(difficulty);
         }
 
         if (!isSprinting && !isDevourTree && !isThrow)
@@ -108,11 +108,18 @@ public class PugotAttackPattern : MonoBehaviour
         {
             Sprint(sprintTargetPosition);
         }
-        
+
 
         if (isDevourTree && actionPhase == true && trees.Count != 0)
         {
             MoveToTree(targetTree);
+        }
+
+        timer += Time.deltaTime;
+        if (timer >= 3f)
+        {
+            StartCoroutine(Cooldown(0.5f));
+            timer = 0f;
         }
     }
 
