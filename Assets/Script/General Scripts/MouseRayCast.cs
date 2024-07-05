@@ -54,7 +54,7 @@ public class MouseRayCast : MonoBehaviour
                                 camMove.MoveToBoard(highlight);
                             break;
 
-                            case "Lapppypi":
+                            case "Laptop Selectable":
                                 Debug.Log("Laptop Action");
                                 camMove.MoveToLaptop(highlight);
                             break;
