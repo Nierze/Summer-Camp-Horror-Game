@@ -115,12 +115,6 @@ public class PugotAttackPattern : MonoBehaviour
             MoveToTree(targetTree);
         }
 
-        timer += Time.deltaTime;
-        if (timer >= 3f)
-        {
-            StartCoroutine(Cooldown(0.5f));
-            timer = 0f;
-        }
     }
 
     void AttackDetected(string difficulty)
@@ -178,6 +172,11 @@ public class PugotAttackPattern : MonoBehaviour
                             StartCoroutine(ThrowSkulls());
                             UnityEngine.Debug.Log("Pugot: Throw Skulls (No more trees)");
                         }
+
+                        /*UnityEngine.Debug.Log("Pugot: Devour Tree");
+                        targetTree = DevourTree();
+                        isDevourTree = true;
+                        */
                     break;
                 }
             break;
