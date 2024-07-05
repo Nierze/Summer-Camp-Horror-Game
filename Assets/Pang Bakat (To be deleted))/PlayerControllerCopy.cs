@@ -39,6 +39,7 @@ public class PlayerControllerCopy : MonoBehaviour
 
     public TiyanakAttackPattern playerInRange;
     public PugotAttackPattern playerInRange2;
+    public TiktikAttackPattern playerInRange3;
 
     private void Start()
     {
