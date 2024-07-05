@@ -97,6 +97,12 @@ public class TiyanakAttackPattern : MonoBehaviour
             agent.isStopped = true;
         }
 
+        timer += Time.deltaTime;
+        if (timer >= 3f)
+        {
+            StartCoroutine(tempCooldown(0.5f));
+            timer = 0f;
+        }
     }
 
     void AttackDetected(string difficulty)
