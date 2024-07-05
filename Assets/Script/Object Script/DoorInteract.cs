@@ -27,8 +27,6 @@ public class DoorInteract : MonoBehaviour
     void Start()
     {
         //sampleSurface.enabled = false;
-        sampleSurface.BuildNavMesh();
-
         rotationSpeed = 45f;
         doorRotation.rotation = Quaternion.Euler(0, 0, 0);
         state = false;
