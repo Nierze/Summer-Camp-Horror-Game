@@ -6347,6 +6347,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Armature
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 36078ab0369161e49a29d349ae3e0739,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 36078ab0369161e49a29d349ae3e0739,
         type: 3}
       propertyPath: m_Controller
@@ -6363,6 +6368,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1312167344}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 36078ab0369161e49a29d349ae3e0739,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1365816444}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 36078ab0369161e49a29d349ae3e0739,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 30074532}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36078ab0369161e49a29d349ae3e0739,
         type: 3}
@@ -6392,6 +6405,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 713109418}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36078ab0369161e49a29d349ae3e0739,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 713109420}
   m_SourcePrefab: {fileID: 100100000, guid: 36078ab0369161e49a29d349ae3e0739, type: 3}
 --- !u!1 &713109409 stripped
 GameObject:
@@ -6551,8 +6568,30 @@ MonoBehaviour:
   followTransform: {fileID: 2039227929}
   rotationPower: 3
   playerCurrentSpeed: 0
-  playerInRange: {fileID: 0}
-  playerInRange2: {fileID: 0}
+  playerInRange: {fileID: 1542191237}
+  playerInRange2: {fileID: 1801292399}
+--- !u!114 &713109420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713109409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b01ddfe873662545a5f03e25d33d37a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 500
+  impactForce: 60
+  fireRate: 3
+  timer: 0
+  fpsCam: {fileID: 545437675}
+  impactEffect: {fileID: 26270791}
+  player: {fileID: 545437673}
+  fpv: {fileID: 1519851054}
+  playerInRange: {fileID: 1542191237}
+  playerInRange2: {fileID: 1801292399}
 --- !u!1 &755363616
 GameObject:
   m_ObjectHideFlags: 0
@@ -6810,12 +6849,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794431828}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.94, z: 0}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1051753611}
+  m_Father: {fileID: 1519851053}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &794431830
 SphereCollider:
@@ -8045,8 +8084,6 @@ Transform:
   m_Children:
   - {fileID: 651896229}
   - {fileID: 1503249364}
-  - {fileID: 30074532}
-  - {fileID: 794431829}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1051753615
@@ -8129,6 +8166,7 @@ MonoBehaviour:
   fpsCam: {fileID: 545437675}
   impactEffect: {fileID: 26270791}
   player: {fileID: 545437673}
+  fpv: {fileID: 0}
   playerInRange: {fileID: 1542191237}
   playerInRange2: {fileID: 1801292399}
 --- !u!1 &1052100209
@@ -10891,12 +10929,12 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 159129048}
   - {fileID: 545437676}
-  m_Father: {fileID: 1519851053}
+  m_Father: {fileID: 713109410}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1366674443
 PrefabInstance:
@@ -14017,7 +14055,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 713109410}
-  - {fileID: 1365816444}
+  - {fileID: 794431829}
   - {fileID: 647478488}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14304,7 +14342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAttackDetected: 0
   difficulty: easy
-  target: {fileID: 1051753611}
+  target: {fileID: 713109410}
   actionPhase: 0
   enableMove: 1
   rb: {fileID: 1542191236}
@@ -14320,7 +14358,7 @@ MonoBehaviour:
   inLungeAttack: 0
   agent: {fileID: 0}
   movementSpeed: 15
-  playerPos: {fileID: 1051753608}
+  playerPos: {fileID: 713109409}
   hostileRange: {fileID: 0}
   timer: 0
   playerInRange: 0
@@ -16766,9 +16804,9 @@ MonoBehaviour:
   playerAttackDetected: 0
   playerDetected: 0
   difficulty: easy
-  player: {fileID: 1051753608}
+  player: {fileID: 713109409}
   agent: {fileID: 1801292403}
-  target: {fileID: 1051753611}
+  target: {fileID: 713109410}
   actionPhase: 0
   enableMove: 1
   rb: {fileID: 1801292389}
@@ -18149,7 +18187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1993887942
 Transform:
   m_ObjectHideFlags: 0
@@ -19606,7 +19644,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1051753611}
+    m_TransformParent: {fileID: 713109410}
     m_Modifications:
     - target: {fileID: 996446177146899816, guid: 291a997b0946eab43aaf44ad2d3a6f2d,
         type: 3}
@@ -19616,7 +19654,7 @@ PrefabInstance:
     - target: {fileID: 996446177146899816, guid: 291a997b0946eab43aaf44ad2d3a6f2d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 1.98
       objectReference: {fileID: 0}
     - target: {fileID: 996446177146899816, guid: 291a997b0946eab43aaf44ad2d3a6f2d,
         type: 3}
@@ -19668,6 +19706,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7879254042583638848, guid: 291a997b0946eab43aaf44ad2d3a6f2d,
+        type: 3}
+      propertyPath: fpv
+      value: 
+      objectReference: {fileID: 1519851054}
+    - target: {fileID: 7879254042583638848, guid: 291a997b0946eab43aaf44ad2d3a6f2d,
+        type: 3}
+      propertyPath: isFPV
+      value: 
+      objectReference: {fileID: 1519851054}
     - target: {fileID: 7879254042583638848, guid: 291a997b0946eab43aaf44ad2d3a6f2d,
         type: 3}
       propertyPath: scanRange

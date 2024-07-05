@@ -15,21 +15,27 @@ public class RangeAttack1 : MonoBehaviour
     public GameObject impactEffect;
     public GameObject player;
 
+    public SwitchViewPerspective fpv;
+
     public TiyanakAttackPattern playerInRange;
     public PugotAttackPattern playerInRange2;
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") || Input.GetKeyDown("j"))
+        if (fpv.isFPV)
         {
-            if (timer > 3f)
+            if (Input.GetButtonDown("Fire1") || Input.GetKeyDown("j"))
             {
-                Shoot();
+                if (timer > 3f)
+                {
+                    Shoot();
+                }
+
             }
-            
+
+            timer += Time.deltaTime;
         }
 
-        timer += Time.deltaTime;
     }
 
     void Shoot()

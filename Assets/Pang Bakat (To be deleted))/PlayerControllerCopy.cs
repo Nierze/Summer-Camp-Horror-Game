@@ -47,7 +47,7 @@ public class PlayerControllerCopy : MonoBehaviour
         inputManager = InputManager.Instance;
         cameraTransform = Camera.main.transform;
         light.transform.position = cameraTransform.position;
-        playerSpeed = 5f;
+        playerSpeed = 20f;
 
     }
 
