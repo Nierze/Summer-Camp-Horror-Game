@@ -16,12 +16,18 @@ public class InventoryManager : MonoBehaviour
     private void Awake() 
     {
         Instance = this;
+        ListItems();
     }
 
 
     public void Add(ItemsSO item) 
     {
         itemsList.Add(item);
+    }
+
+    public void DeleteRecent()
+    {
+        itemsList.RemoveAt(itemsList.Count - 1);
     }
 
     public void ListItems()
