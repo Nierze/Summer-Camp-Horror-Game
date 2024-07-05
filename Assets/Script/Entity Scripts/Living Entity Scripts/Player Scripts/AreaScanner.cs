@@ -10,15 +10,16 @@ public class AreaScanner : MonoBehaviour
 
     public GameObject scanRange;
 
+    public SwitchViewPerspective fpv;
+
     void Update()
     {
-        if (!scanning && (Input.GetMouseButton(2) || Input.GetKeyDown("q")) )
+        if ((!scanning && (Input.GetMouseButton(2) || Input.GetKeyDown("q"))) && fpv.isFPV)
         {
             scanning = true;
             castPosition = gameObject.transform.position;
             StartCoroutine(multiPulses(castPosition));
             Instantiate(scanRange, gameObject.transform.position, Quaternion.identity);
-
         }
     }
     

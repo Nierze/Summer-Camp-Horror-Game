@@ -8,7 +8,7 @@ public class NewPlayerController : MonoBehaviour
     /// Player Movement variables
 
     [Header("Player Movement")]
-    [SerializeField] private float movementSpeed = 5f;
+    [SerializeField] private float movementSpeed = 20f;
     [SerializeField] private float sprintSpeedMultiplier = 2f;
     [SerializeField] private float jumpPower = 1f;
     private float rotateVelocity;

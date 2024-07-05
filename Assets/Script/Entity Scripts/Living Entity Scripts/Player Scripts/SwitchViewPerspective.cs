@@ -31,19 +31,19 @@ public class SwitchViewPerspective : MonoBehaviour
 
     void SwitchToFPV()
     {
-        FPV.SetActive(false);
-        FPVController.enabled = false;
-        TPV.SetActive(true);
-        TPVController.enabled = true;
+        FPV.SetActive(true);
+        FPVController.enabled = true;
+        TPV.SetActive(false);
+        TPVController.enabled = false;
         isFPV = true;
     }
 
     void SwitchToTPV()
     {
-        FPV.SetActive(true);
-        FPVController.enabled = true;
-        TPV.SetActive(false);
-        TPVController.enabled = false;
+        FPV.SetActive(false);
+        FPVController.enabled = false;
+        TPV.SetActive(true);
+        TPVController.enabled = true;
         isFPV = false;
     }
 }
