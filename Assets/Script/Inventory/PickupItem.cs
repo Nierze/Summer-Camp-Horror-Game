@@ -10,6 +10,12 @@ public class PickupItem : MonoBehaviour
     void Awake()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(() => InventoryManager.Instance.Add(item)); 
+        // button.onClick.AddListener(() => addItem()); 
+    } 
+
+
+    public void addItem()
+    {
+        InventoryManager.Instance.Add(item);
     }
 }
