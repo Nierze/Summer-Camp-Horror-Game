@@ -6,6 +6,7 @@ public class KeyScript : MonoBehaviour
 {
     // Start is called before the first frame update
     public bool canHold = true;
+    public RayCast rayCastScript;
     void Start()
     {
         
@@ -14,6 +15,6 @@ public class KeyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

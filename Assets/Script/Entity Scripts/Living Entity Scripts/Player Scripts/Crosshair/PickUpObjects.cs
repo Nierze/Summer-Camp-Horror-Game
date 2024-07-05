@@ -15,31 +15,39 @@ public class PickUpObjects : MonoBehaviour
     public bool equipped;
     public static bool slotFull;
 
+
+
+    //Healthbar
+    public EaseHealthBar easeHealthBar;
+
+    //All Items
+    public AllItems allItems;
+    private void Start()
+    {
+        equipped = false;
+        slotFull = false;
+    }
     void Update()
     {
-        Debug.Log("Slot Full: " + slotFull);
-        Debug.Log("Currently Holding: " + heldObject);
-        Debug.Log("Target On Hold :" + rayCastScript.targetOnHold.name);
+
         if (rayCastScript != null)
         {
             // Check for equipping items
             if (rayCastScript.canEquip && Input.GetKeyDown(KeyCode.F) && rayCastScript.canHold == false)
             {
-                Debug.Log("Condition 2");
                 EquipItem();
             }
 
             // Check for equipping items and is currently holding an item
             if (rayCastScript.canEquip && Input.GetKeyDown(KeyCode.F) && rayCastScript.currentlyHolding == true)
             {
-                Debug.Log("Condition 3");
                 heldObject = rayCastScript.targetOnHold;
                 MoveHeldObject();
             }
             // Check for holding items
             if (rayCastScript.canHold && Input.GetKeyDown(KeyCode.E) && !slotFull && rayCastScript.currentlyHolding == false)
             {
-                Debug.Log("Condition 4");
+                Debug.Log("Hold");
                 rayCastScript.currentlyHolding = true;
                 HoldItem();
             }
@@ -47,16 +55,13 @@ public class PickUpObjects : MonoBehaviour
             // Check for dropping the held item
             if (Input.GetKeyDown(KeyCode.G) && slotFull)
             {
-                Debug.Log("Slot Full: " + slotFull);
                 slotFull = false;
-                Debug.Log("Condition 5");
                 Drop();
             }
 
             // Keep the held object in place
             if (heldObject != null)
             {
-                Debug.Log("Condition 6");
                 HoldItem();
                 MoveHeldObject();
             }
@@ -69,6 +74,19 @@ public class PickUpObjects : MonoBehaviour
         {
             flashLightScript.AddBattery(25f);
             batteryItem.OnPickedUp();
+        }
+
+        if (rayCastScript.target.name ==  "Medkit")
+        {
+            easeHealthBar.Heal(100);
+            easeHealthBar.OnPickedUp("Medkit");
+        }
+
+        if (rayCastScript.target.name == "Bandage")
+        {
+            Debug.Log("Bandage");
+            easeHealthBar.Heal(25);
+            easeHealthBar.OnPickedUp("Bandage");
         }
     }
 
@@ -83,10 +101,19 @@ public class PickUpObjects : MonoBehaviour
     {
         if (rayCastScript.targetOnHold != null && rayCastScript.canHold)
         {
+            Debug.Log("Hold Item");
             heldObject = rayCastScript.targetOnHold;
+
             heldObject.transform.position = holdArea.transform.position;
             heldObject.transform.rotation = holdArea.transform.rotation;
+
             heldObject.transform.parent = holdArea.transform;
+
+
+
+            Debug.Log("Position" + heldObject.transform.position + holdArea.transform.position);
+            Debug.Log("Parent" + heldObject.transform.parent + "Hold Area" + holdArea.transform);
+
             var rb = heldObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -105,7 +132,9 @@ public class PickUpObjects : MonoBehaviour
     {
         if (heldObject != null)
         {
-            heldObject.transform.parent = null;
+
+            heldObject.transform.parent = allItems.transform;
+            allItems.LayerDefault();
             var rb = heldObject.GetComponent<Rigidbody>();
             if (rb != null)
             {

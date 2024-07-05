@@ -10,16 +10,18 @@ public class RayCast : MonoBehaviour
     public RaycastHit hit;
     public GameObject target;
     public GameObject targetOnHold;
+    public int defaultLayer; // Store the default layer of the held item
+
 
     void Start()
     {
         canEquip = false;
         canHold = false;
+        defaultLayer = gameObject.layer; // Get the default layer on start
     }
 
     void Update()
     {
-
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, 20))
         {
@@ -33,7 +35,9 @@ public class RayCast : MonoBehaviour
             {
                 target = hit.transform.gameObject;
                 targetOnHold = target;
-                    
+
+
+                Debug.Log(target.transform.name + targetOnHold.transform.name);
                 if (!currentlyHolding)
                 {
                     canHold = true;
@@ -42,9 +46,7 @@ public class RayCast : MonoBehaviour
                 else
                 {
                     canHold = false;
-                   
                 }
-                   
             }
             else
             {

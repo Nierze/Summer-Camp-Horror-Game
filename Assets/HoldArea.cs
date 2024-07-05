@@ -5,9 +5,9 @@ using UnityEngine;
 public class HoldArea : MonoBehaviour
 {
     // Start is called before the first frame update
-
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -16,5 +16,6 @@ public class HoldArea : MonoBehaviour
 
     }
 }
+
 
 //YT VID: https://www.youtube.com/watch?v=W9Br9wFFDtY

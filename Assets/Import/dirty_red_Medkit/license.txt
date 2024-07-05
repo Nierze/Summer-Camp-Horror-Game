@@ -1,0 +1,11 @@
+Model Information:
+* title:	dirty red Medkit
+* source:	https://sketchfab.com/3d-models/dirty-red-medkit-0c37f7910746402ca5bb62899843bcd2
+* author:	dominikborovicka (https://sketchfab.com/dominikborovicka)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "dirty red Medkit" (https://sketchfab.com/3d-models/dirty-red-medkit-0c37f7910746402ca5bb62899843bcd2) by dominikborovicka (https://sketchfab.com/dominikborovicka) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
