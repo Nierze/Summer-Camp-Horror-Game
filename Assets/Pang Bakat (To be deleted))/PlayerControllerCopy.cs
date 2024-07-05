@@ -47,7 +47,8 @@ public class PlayerControllerCopy : MonoBehaviour
         inputManager = InputManager.Instance;
         cameraTransform = Camera.main.transform;
         light.transform.position = cameraTransform.position;
-        playerSpeed = 20.0f;
+        playerSpeed = 5f;
+
     }
 
     void Update()
@@ -98,10 +99,6 @@ public class PlayerControllerCopy : MonoBehaviour
         move = cameraTransform.forward * move.z + cameraTransform.right * move.x;
         move.y = -1f;
         controller.Move(move * Time.deltaTime * playerSpeed);
-        //animator.SetFloat("Magnitude", 0.5f);
-        // Rotate the player's orientation to face the movement direction
-
-
         UpdateFollowTransformRotation();
     }
 
