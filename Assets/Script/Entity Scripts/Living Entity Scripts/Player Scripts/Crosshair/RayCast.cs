@@ -4,54 +4,47 @@ using UnityEngine;
 
 public class RayCast : MonoBehaviour
 {
-    public bool canEquip;
+    public bool canTake;
     public bool canHold;
-    public bool currentlyHolding;
+    public bool slotFull;
+
     public RaycastHit hit;
-    public GameObject target;
-    public GameObject targetOnHold;
+
+    public GameObject targetToTake;
+    public GameObject targetToHold;
+
+    //public GameObject target;
+    //public GameObject targetOnHold;
     public int defaultLayer; // Store the default layer of the held item
 
 
     void Start()
     {
-        canEquip = false;
+        canTake = true;
         canHold = false;
+        slotFull = false;
         defaultLayer = gameObject.layer; // Get the default layer on start
     }
 
     void Update()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 20))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 10))
         {
             if (hit.transform.CompareTag("CanTake"))
             {
-                target = hit.transform.gameObject;
-                canEquip = true;
-                canHold = false;
+                targetToTake = hit.transform.gameObject;
+                canTake = true;
             }
-            else if (hit.transform.CompareTag("CanHold"))
+            else if (hit.transform.CompareTag("CanHold") && !slotFull)
             {
-                target = hit.transform.gameObject;
-                targetOnHold = target;
-
-
-                Debug.Log(target.transform.name + targetOnHold.transform.name);
-                if (!currentlyHolding)
-                {
-                    canHold = true;
-                    targetOnHold = hit.transform.gameObject;
-                }
-                else
-                {
-                    canHold = false;
-                }
+                targetToHold = hit.transform.gameObject;
+                canHold = true;
             }
             else
             {
-                canEquip = false;
                 canHold = false;
+                canTake = false;
             }
         }
     }

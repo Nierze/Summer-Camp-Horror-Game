@@ -10,65 +10,59 @@ public class PickUpObjects : MonoBehaviour
     public GameObject holdArea;
     public BatteryItem batteryItem;
 
-    private GameObject heldObject;
-
-    public bool equipped;
-    public static bool slotFull;
+    private GameObject holdObject;
 
 
+
+    public bool slotFull;
+    private bool currentlyHolding;
 
     //Healthbar
     public EaseHealthBar easeHealthBar;
-
     //All Items
     public AllItems allItems;
     private void Start()
     {
-        equipped = false;
         slotFull = false;
+        currentlyHolding = false;
     }
     void Update()
     {
-        //Check for Holding Item
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            Debug.Log("Slot Full" + slotFull);
-        }
-
-
         if (rayCastScript != null)
         {
             // Check for equipping items
-            if (rayCastScript.canEquip && Input.GetKeyDown(KeyCode.F) && rayCastScript.canHold == false)
+            if (rayCastScript.canTake && Input.GetKeyDown(KeyCode.E))
             {
                 EquipItem();
             }
 
             // Check for equipping items and is currently holding an item
-            if (rayCastScript.canEquip && Input.GetKeyDown(KeyCode.F) && rayCastScript.currentlyHolding == true)
-            {
-                heldObject = rayCastScript.targetOnHold;
+            if (rayCastScript.canTake && Input.GetKeyDown(KeyCode.E) && currentlyHolding == true)
+            { 
+                Debug.Log("Take while Holding an Item");
+                holdObject = rayCastScript.targetToHold;
                 MoveHeldObject();
             }
+
+
             // Check for holding items
-            if (rayCastScript.canHold && Input.GetKeyDown(KeyCode.E) && !slotFull && rayCastScript.currentlyHolding == false)
+            if (rayCastScript.canHold && Input.GetKeyDown(KeyCode.E) && !slotFull && !currentlyHolding)
             {
-                Debug.Log("Hold");
-                rayCastScript.currentlyHolding = true;
-                HoldItem();
+                currentlyHolding = true;
+                HoldObject();
             }
 
             // Check for dropping the held item
-            if (Input.GetKeyDown(KeyCode.G) && slotFull)
+            if (Input.GetKeyDown(KeyCode.F) && slotFull)
             {
                 slotFull = false;
                 Drop();
             }
 
             // Keep the held object in place
-            if (heldObject != null)
+            if (holdObject != null)
             {
-                HoldItem();
+                HoldObject();
                 MoveHeldObject();
             }
         }
@@ -76,52 +70,42 @@ public class PickUpObjects : MonoBehaviour
 
     void EquipItem()
     {
-        if (rayCastScript.target.name == "Sample Battery")
+        if (rayCastScript.targetToTake.name == "Sample Battery")
         {
             flashLightScript.AddBattery(25f);
             batteryItem.OnPickedUp();
         }
 
-        if (rayCastScript.target.name ==  "Medkit")
+        if (rayCastScript.targetToTake.name ==  "Medkit")
         {
             easeHealthBar.Heal(100);
             easeHealthBar.OnPickedUp("Medkit");
         }
 
-        if (rayCastScript.target.name == "Bandage")
+        if (rayCastScript.targetToTake.name == "Bandage")
         {
             easeHealthBar.Heal(25);
             easeHealthBar.OnPickedUp("Bandage");
         }
     }
 
-    void HoldItem()
-    {
-        equipped = true;
-        slotFull = true;
-        HoldObject();
-    }
+
 
     void HoldObject()
     {
-        if (rayCastScript.targetOnHold != null && rayCastScript.canHold)
+        slotFull = true;
+        rayCastScript.slotFull = true;
+        if (rayCastScript.targetToHold != null && rayCastScript.canHold)
         {
-            heldObject = rayCastScript.targetOnHold;
+            holdObject = rayCastScript.targetToHold;
+            holdObject.transform.position = holdArea.transform.position;
+            holdObject.transform.rotation = holdArea.transform.rotation;
 
-            Debug.Log("held Object" + heldObject.name);
-
-            //if (heldObject.name == "Shovel")
-            //{
-            //    holdArea.transform.rotation = Quaternion.Euler(-19.9f, -11.4f, 28.1f);
-            //}
-            heldObject.transform.position = holdArea.transform.position;
-            heldObject.transform.rotation = holdArea.transform.rotation;
-
-            heldObject.transform.parent = holdArea.transform;
+            holdObject.transform.parent = holdArea.transform;
 
 
 
-            var rb = heldObject.GetComponent<Rigidbody>();
+            var rb = holdObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
                 rb.isKinematic = true; 
@@ -131,21 +115,23 @@ public class PickUpObjects : MonoBehaviour
 
     void MoveHeldObject()
     {
-        heldObject.transform.position = holdArea.transform.position;
-        heldObject.transform.rotation = holdArea.transform.rotation;
+        holdObject.transform.position = holdArea.transform.position;
+        holdObject.transform.rotation = holdArea.transform.rotation;
     }
 
     public void Drop()
     {
-        if (heldObject != null)
+        if (holdObject != null)
         {
             //holdArea.transform.position = new Vector3(1.039999f, -0.5999999f, 4.200001f);
             //holdArea.transform.rotation = Quaternion.Euler(0, -0, 0);
 
 
-            heldObject.transform.parent = allItems.transform;
+            holdObject.transform.parent = allItems.transform;
+            rayCastScript.targetToHold = null;
+
             allItems.LayerDefault();
-            var rb = heldObject.GetComponent<Rigidbody>();
+            var rb = holdObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
                 rb.isKinematic = false; // Re-enable physics
@@ -153,10 +139,10 @@ public class PickUpObjects : MonoBehaviour
                 Vector3 throwDirection = holdArea.transform.forward;
                 rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
             }
-            heldObject = null;
+            holdObject = null;
         }
-        equipped = false;
         slotFull = false;
-        rayCastScript.currentlyHolding = false;
+        rayCastScript.slotFull = false;
+        currentlyHolding = false;
     }
 }

@@ -1679,8 +1679,8 @@ MonoBehaviour:
   flashLightScript: {fileID: 1039130941}
   holdArea: {fileID: 1268669593}
   batteryItem: {fileID: 289489907}
-  equipped: 0
-  easeHealthBar: {fileID: 1635150383}
+  slotFull: 0
+  easeHealthBar: {fileID: 0}
   allItems: {fileID: 1369340376}
 --- !u!1 &326897169
 GameObject:
@@ -1846,7 +1846,7 @@ MonoBehaviour:
   flashLightScript: {fileID: 1039130941}
   holdArea: {fileID: 1268669593}
   batteryItem: {fileID: 289489907}
-  equipped: 0
+  slotFull: 0
   easeHealthBar: {fileID: 1635150383}
   allItems: {fileID: 1369340376}
 --- !u!1 &417561488
@@ -3171,11 +3171,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535412e2138d1ad4aa7564e929324f69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canEquip: 0
+  canTake: 0
   canHold: 0
+  slotFull: 0
   currentlyHolding: 0
-  target: {fileID: 0}
-  targetOnHold: {fileID: 0}
+  targetToTake: {fileID: 0}
+  targetToHold: {fileID: 0}
   defaultLayer: 0
 --- !u!1 &562749901
 GameObject:
@@ -7334,8 +7335,8 @@ MonoBehaviour:
   flashLightScript: {fileID: 1039130941}
   holdArea: {fileID: 1268669593}
   batteryItem: {fileID: 289489907}
-  equipped: 0
-  easeHealthBar: {fileID: 1635150383}
+  slotFull: 0
+  easeHealthBar: {fileID: 0}
   allItems: {fileID: 1369340376}
 --- !u!1001 &1664474912
 PrefabInstance:
@@ -8598,7 +8599,7 @@ MonoBehaviour:
   flashLightScript: {fileID: 1039130941}
   holdArea: {fileID: 1268669593}
   batteryItem: {fileID: 289489907}
-  equipped: 0
+  slotFull: 0
   easeHealthBar: {fileID: 1635150383}
   allItems: {fileID: 1369340376}
 --- !u!1 &1924907258 stripped
@@ -8847,7 +8848,7 @@ MonoBehaviour:
   flashLightScript: {fileID: 1039130941}
   holdArea: {fileID: 1268669593}
   batteryItem: {fileID: 289489907}
-  equipped: 0
+  slotFull: 0
   easeHealthBar: {fileID: 1635150383}
   allItems: {fileID: 1369340376}
 --- !u!1 &1933703431
@@ -9219,7 +9220,7 @@ MonoBehaviour:
   flashLightScript: {fileID: 1039130941}
   holdArea: {fileID: 1268669593}
   batteryItem: {fileID: 289489907}
-  equipped: 0
+  slotFull: 0
   easeHealthBar: {fileID: 1635150383}
   allItems: {fileID: 1369340376}
 --- !u!1 &2039227929
