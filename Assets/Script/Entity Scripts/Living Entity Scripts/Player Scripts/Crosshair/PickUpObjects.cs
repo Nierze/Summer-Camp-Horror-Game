@@ -29,6 +29,12 @@ public class PickUpObjects : MonoBehaviour
     }
     void Update()
     {
+        //Check for Holding Item
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            Debug.Log("Slot Full" + slotFull);
+        }
+
 
         if (rayCastScript != null)
         {
@@ -84,7 +90,6 @@ public class PickUpObjects : MonoBehaviour
 
         if (rayCastScript.target.name == "Bandage")
         {
-            Debug.Log("Bandage");
             easeHealthBar.Heal(25);
             easeHealthBar.OnPickedUp("Bandage");
         }
@@ -101,18 +106,20 @@ public class PickUpObjects : MonoBehaviour
     {
         if (rayCastScript.targetOnHold != null && rayCastScript.canHold)
         {
-            Debug.Log("Hold Item");
             heldObject = rayCastScript.targetOnHold;
 
+            Debug.Log("held Object" + heldObject.name);
+
+            //if (heldObject.name == "Shovel")
+            //{
+            //    holdArea.transform.rotation = Quaternion.Euler(-19.9f, -11.4f, 28.1f);
+            //}
             heldObject.transform.position = holdArea.transform.position;
             heldObject.transform.rotation = holdArea.transform.rotation;
 
             heldObject.transform.parent = holdArea.transform;
 
 
-
-            Debug.Log("Position" + heldObject.transform.position + holdArea.transform.position);
-            Debug.Log("Parent" + heldObject.transform.parent + "Hold Area" + holdArea.transform);
 
             var rb = heldObject.GetComponent<Rigidbody>();
             if (rb != null)
@@ -132,6 +139,9 @@ public class PickUpObjects : MonoBehaviour
     {
         if (heldObject != null)
         {
+            //holdArea.transform.position = new Vector3(1.039999f, -0.5999999f, 4.200001f);
+            //holdArea.transform.rotation = Quaternion.Euler(0, -0, 0);
+
 
             heldObject.transform.parent = allItems.transform;
             allItems.LayerDefault();
