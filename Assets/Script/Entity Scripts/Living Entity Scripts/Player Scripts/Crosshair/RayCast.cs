@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,8 +27,11 @@ public class RayCast : MonoBehaviour
 
     public ObjectInteract objectInteract;
 
-    
-void Start()
+    public Vector3 raycastDirection;
+    float raycastDistance = 10f;
+
+
+    void Start()
     {
         canTake = true;
         canHold = false;
@@ -42,6 +46,7 @@ void Start()
     void Update()
     {
         RaycastHit hit;
+        UnityEngine.Debug.DrawRay(transform.position, raycastDirection * raycastDistance, Color.green);
         if (Physics.Raycast(transform.position, transform.forward, out hit, 10))
         {
             if (hit.transform.CompareTag("CanTake"))
@@ -75,7 +80,7 @@ void Start()
 
                     if (objectInteract.isExamining)
                     {
-                        Debug.Log("CHeckk");
+                        //UnityEngine.Debug.Log("CHeckk");
                         objectInteract.examinedObject = hit.transform;
                         objectInteract.originalPositions[objectInteract.examinedObject] = objectInteract.examinedObject.position;
                         objectInteract.originalRotations[objectInteract.examinedObject] = objectInteract.examinedObject.rotation;
@@ -94,4 +99,5 @@ void Start()
             }
         }
     }
+
 }

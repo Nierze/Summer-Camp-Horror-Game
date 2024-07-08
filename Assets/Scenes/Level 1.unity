@@ -2529,6 +2529,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1369340375}
     m_Modifications:
+    - target: {fileID: 3401431987584290164, guid: 2ed4d09a62ac5e944a69460f3f49c8c7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.104
+      objectReference: {fileID: 0}
+    - target: {fileID: 3401431987584290164, guid: 2ed4d09a62ac5e944a69460f3f49c8c7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7334700052073556914, guid: 2ed4d09a62ac5e944a69460f3f49c8c7,
         type: 3}
       propertyPath: m_Name
@@ -3465,6 +3475,7 @@ MonoBehaviour:
   useItemText: {fileID: 1155834385}
   defaultLayer: 0
   objectInteract: {fileID: 1275494327}
+  raycastDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &562749901
 GameObject:
   m_ObjectHideFlags: 0
@@ -6444,6 +6455,7 @@ MonoBehaviour:
   _canva: {fileID: 1698630848}
   tableObject: {fileID: 2146563759}
   examinedObject: {fileID: 0}
+  cinemachineBrain: {fileID: 545437677}
   _playerController: {fileID: 1051753609}
 --- !u!4 &1275494328
 Transform:
@@ -7392,7 +7404,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.14, y: 0.23, z: -0.03}
-  m_Center: {x: 0, y: 0.09, z: -0.01}
+  m_Center: {x: 0, y: -0.01, z: -0.01}
 --- !u!1 &1578611918
 GameObject:
   m_ObjectHideFlags: 0
@@ -10830,7 +10842,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!65 &2146563761
 BoxCollider:
