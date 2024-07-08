@@ -9073,6 +9073,7 @@ GameObject:
   - component: {fileID: 314739282}
   - component: {fileID: 314739281}
   - component: {fileID: 314739280}
+  - component: {fileID: 314739283}
   m_Layer: 0
   m_Name: Stairs
   m_TagString: Untagged
@@ -9089,8 +9090,8 @@ Transform:
   m_GameObject: {fileID: 314739278}
   serializedVersion: 2
   m_LocalRotation: {x: 0.3420201, y: -0, z: -0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.8998003, y: 0.5625357, z: 11.356216}
+  m_LocalPosition: {x: 0, y: -0.4056, z: 0.4834}
+  m_LocalScale: {x: 3.8998003, y: 0.5625357, z: 12.617891}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1678880784}
@@ -9166,6 +9167,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 314739278}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &314739283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314739278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 1
+  m_Size: {x: 3.8998, y: 0.5625357, z: 11.35622}
+  m_Center: {x: 0, y: 0, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 3c550c7660265274bb713d7d67510f84, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &324129801
 GameObject:
   m_ObjectHideFlags: 0
@@ -53443,7 +53475,7 @@ PrefabInstance:
     - target: {fileID: 1242267405216325386, guid: dce1632ec55ffe74a9412df081df929c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 4.67
       objectReference: {fileID: 0}
     - target: {fileID: 1242267405216325386, guid: dce1632ec55ffe74a9412df081df929c,
         type: 3}
@@ -53498,7 +53530,7 @@ PrefabInstance:
     - target: {fileID: 1906917320245593520, guid: dce1632ec55ffe74a9412df081df929c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1920724366830179603, guid: dce1632ec55ffe74a9412df081df929c,
         type: 3}
@@ -53515,6 +53547,11 @@ PrefabInstance:
       propertyPath: playerPos
       value: 
       objectReference: {fileID: 2082864850}
+    - target: {fileID: 4187748429676031571, guid: dce1632ec55ffe74a9412df081df929c,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6608637485096996132, guid: dce1632ec55ffe74a9412df081df929c,
         type: 3}
       propertyPath: targetHealthbar
