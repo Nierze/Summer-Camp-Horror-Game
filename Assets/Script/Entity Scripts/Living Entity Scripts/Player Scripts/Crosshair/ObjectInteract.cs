@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
+using Cinemachine;
 
 public class ObjectInteract : MonoBehaviour
 {
@@ -28,7 +29,8 @@ public class ObjectInteract : MonoBehaviour
     public Dictionary<Transform, Vector3> originalPositions = new Dictionary<Transform, Vector3>();
     public Dictionary<Transform, Quaternion> originalRotations = new Dictionary<Transform, Quaternion>();
 
-
+    //public GameObject cinemachine;
+    public CinemachineBrain cinemachineBrain;
 
     public PlayerController _playerController;
     void Start()
@@ -46,21 +48,37 @@ public class ObjectInteract : MonoBehaviour
         // it performs a raycast from the camera to the mouse position and checks if it hits an object tagged as "Object."
         // If it does, it toggles the examination state and stores the examined object's original position and rotation.
 
-        if (Input.GetKeyDown(KeyCode.E) && isExamining)
+        //if (Input.GetKeyDown(KeyCode.E) && isExamining)
+        if(Input.GetKeyDown(KeyCode.E) && isExamining)
         {
             Debug.Log("is Examining");
             isExamining = false;
+            //cinemachineBrain.enabled = (cinemachineBrain.enabled) ? false : true;
+            if (cinemachineBrain.enabled)
+            {
+                cinemachineBrain.enabled = false;
+            }
+            else
+            {
+                cinemachineBrain.enabled = true;
+                examinedObject = null;
+            }
         }
 
         if (isExamining)
-            {
-            _canva.enabled = false;
+        {
+            /*_canva.enabled = false;
 
-            Examine(); StartExamination();
-            }
+            Examine(); StartExamination();*/
+            //_canva.enabled = false;
+
+            NonExamine(); StopExamination();
+        }
         else
         {
-            NonExamine(); StopExamination();
+            //NonExamine(); StopExamination();
+            
+            Examine(); StartExamination();
         }
 
     }
