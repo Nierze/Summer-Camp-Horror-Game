@@ -110,19 +110,19 @@ public class TiyanakAttackPattern : MonoBehaviour
         switch (difficulty)
         {
             case "easy":
-                if(!playerDetected) decision = UnityEngine.Random.Range(1, 4);
-                else decision = UnityEngine.Random.Range(1, 7);
-
-                //decision = UnityEngine.Random.Range(4, 6);
+                //if(!playerDetected) decision = UnityEngine.Random.Range(1, 4);
+                //else decision = UnityEngine.Random.Range(1, 7);
+                
+                decision = UnityEngine.Random.Range(1, 7);
 
                 dashSpeed = 100f; dashTime = 0.5f;
                 
                 switch (decision)
                 {
                     case 1:
-                        UnityEngine.Debug.Log("runs towards the player");                       
-                        DefaultMovement();
-                        StartCoroutine(tempCooldown(1));          
+                        //UnityEngine.Debug.Log("runs towards the player");
+                        StartCoroutine(Bite());
+                        //StartCoroutine(tempCooldown(1));          
                     break;
 
                     case 2:
@@ -149,7 +149,9 @@ public class TiyanakAttackPattern : MonoBehaviour
 
     void DefaultMovement()
     {
-        anim.SetBool("Crawl", true);
+        //anim.SetBool("Crawl", true);
+        anim.SetTrigger("WalkTrigger");
+        anim.SetBool("WalkLoop", true);
         Vector3 newPosition = playerPos.transform.position;
         agent.SetDestination(newPosition);
 
@@ -188,10 +190,13 @@ public class TiyanakAttackPattern : MonoBehaviour
 
     private IEnumerator LungeAttack()
     {
+        anim.SetBool("WalkLoop", false);
+        
         yield return new WaitForSeconds(1f);
 
         // Rotate towards the player position
         transform.LookAt(playerPos.transform.position);
+        anim.SetTrigger("PounceTrigger");
         yield return new WaitForSeconds(0.5f);
 
         // Calculate dash parameters based on distance
@@ -205,7 +210,7 @@ public class TiyanakAttackPattern : MonoBehaviour
 
         Vector3 startPosition = transform.position;
         Vector3 targetPosition = playerPos.transform.position;
-
+        
         while (Time.time <= startTime + dashTime && Vector3.Distance(transform.position, playerPos.transform.position) + 6f > radius)
         {
             float verticalOffset = Mathf.Sin((Time.time - startTime) / dashTime * Mathf.PI) * jumpHeight;
@@ -221,7 +226,14 @@ public class TiyanakAttackPattern : MonoBehaviour
         yield return StartCoroutine(tempCooldown(1));
     }
 
+    private IEnumerator Bite()
+    {
+        anim.SetBool("WalkLoop", false);
 
+        anim.SetTrigger("HitTrigger");
+
+        yield return StartCoroutine(tempCooldown(1));
+    }
 
 
     private IEnumerator tempCooldown(float duration)

@@ -8,6 +8,12 @@ public class EnemyBoxCast : MonoBehaviour
     public TiyanakAttackPattern playerDetector;
     public PugotAttackPattern playerDetector2;
     //public EnemyAttackPattern playerDetector;
+    
+    void Start()
+    {
+        UnityEngine.Debug.Log("Player Detector = " + playerDetector);
+        UnityEngine.Debug.Log("Player Detector 2 = " + playerDetector2);
+    }
 
     void OnDrawGizmos()
     {
@@ -22,8 +28,8 @@ public class EnemyBoxCast : MonoBehaviour
             if (hitGameObject.CompareTag("Player"))
             {
                 //UnityEngine.Debug.Log("player detected");
-                playerDetector.playerDetected = true;
-                playerDetector2.playerDetected = true;
+                if(playerDetector != null) playerDetector.playerDetected = true;
+                if (playerDetector2 != null) playerDetector2.playerDetected = true;
                 Gizmos.color = Color.red;
                 Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
                 Gizmos.DrawWireCube(transform.position + transform.forward * hit.distance, boxSize);
@@ -36,8 +42,8 @@ public class EnemyBoxCast : MonoBehaviour
         }
         else
         {
-            playerDetector.playerDetected = false;
-            playerDetector2.playerDetected = false;
+            if (playerDetector != null) playerDetector.playerDetected = false;
+            if (playerDetector2 != null) playerDetector2.playerDetected = false;
             Gizmos.color = Color.green;
             Gizmos.DrawRay(transform.position, transform.forward * maxDistance);
         }
