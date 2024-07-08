@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class FlashLight : MonoBehaviour
 {
     [SerializeField] GameObject flashlightLight;
-    [SerializeField] private bool flashlightActive = false;
-
+    [SerializeField] private bool flashlightActive;
+    public Light areaLight;
 
     //Battery 
     public Light m_Light;
@@ -20,7 +20,7 @@ public class FlashLight : MonoBehaviour
     public float blinkAtThisTime;
     public float timer;
 
-    public float Battery = 20f;
+    public float Battery;
     public Image batteryImage;
     public Sprite battery0;
     public Sprite battery25;
@@ -32,7 +32,7 @@ public class FlashLight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        flashlightLight.gameObject.SetActive(false);
+        flashlightLight.SetActive(false);
         flashlightActive = false;
     }
 
@@ -40,50 +40,45 @@ public class FlashLight : MonoBehaviour
     void Update()
     {
         CheckBattery(Battery);
-        if (Battery <= 0)
-        {
-            m_Light.enabled = false;
-            Battery = 0;
-        }
-        
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.T) || Input.GetKeyDown("t")) ;
-            {
-                if (flashlightActive == false)
-                {
-                    Debug.Log("ON");
-                    flashlightLight.gameObject.SetActive(true);
-                    flashlightActive = true;
-                }
-                else
-                {
-                    Debug.Log("OFF");
-                    flashlightLight.gameObject.SetActive(false);
-                    flashlightActive = false;
-                }
 
+       if (Input.GetKeyDown(KeyCode.T)) 
+        {
+            if (!flashlightActive)
+            {
+                Debug.Log("ON");
+                flashlightLight.gameObject.SetActive(true);
+                flashlightActive = true;
+                areaLight.intensity = 0.05f;
+                drainOverTime = true;
+            }
+            else
+            {
+                Debug.Log("OFF");
+                flashlightLight.gameObject.SetActive(false);
+                flashlightActive = false;
+                areaLight.intensity = 0.03f;
+                drainOverTime = false;
+            }
+        }
+
+         m_Light.intensity = Mathf.Clamp(m_Light.intensity, minBrightness, maxBrightness);
+
+        if (drainOverTime && flashlightActive)
+        {
+            Battery -= Time.deltaTime;
+            if (m_Light.intensity > minBrightness)
+            {
+                m_Light.intensity -= Time.deltaTime * (drainRate / 1000);
             }
 
-            m_Light.intensity = Mathf.Clamp(m_Light.intensity, minBrightness, maxBrightness);
-
-            if (drainOverTime == true && flashlightActive == true)
+            if (Battery < 25)
             {
-                Battery -= Time.deltaTime;
-                if (m_Light.intensity > minBrightness)
+                Debug.Log(timer);
+                timer += Time.deltaTime;
+                if (timer > blinkAtThisTime)
                 {
-                    m_Light.intensity -= Time.deltaTime * (drainRate / 1000);
-                }
-
-                if (Battery < 25)
-                {
-                    Debug.Log(timer);
-                    timer += Time.deltaTime;
-                    if (timer > blinkAtThisTime)
-                    {
-                        StartCoroutine("Blink");
-                        timer = 0;
-                    }
+                    StartCoroutine(Blink());
+                    timer = 0;
                 }
             }
         }
@@ -108,6 +103,8 @@ public class FlashLight : MonoBehaviour
         if (Battery <= 0)
         {
             batteryImage.sprite = battery0;
+            m_Light.enabled = false;
+            Battery = 0;
         }
         else if (Battery < 25)
         {
@@ -128,6 +125,7 @@ public class FlashLight : MonoBehaviour
             batteryImage.sprite = battery100;
         }
     }
+
     public void AddBattery (float amout)
     {
         Battery += amout;
