@@ -8,33 +8,40 @@ public class InEnemyRange : MonoBehaviour
     public PugotAttackPattern playerInRange2;
     public EaseHealthBar targetHealthbar;
     public float timer = 0f;
+    public Animator anim;
 
     public void Update()
     {
         timer += Time.deltaTime;
         //if(playerInRange.inLungeAttack) UnityEngine.Debug.Log("in lunge attack bool = " + playerInRange.inLungeAttack);
-        if (!playerInRange.inLungeAttack)
+        if (playerInRange != null)
         {
-            if (timer >= 3f)
+            if (!playerInRange.inLungeAttack)
             {
-                //UnityEngine.Debug.Log("Successive attack");
-                StartCoroutine(Attack());
-                timer = 0f;
+                if (timer >= 3f)
+                {
+                    //UnityEngine.Debug.Log("Successive attack");
+                    StartCoroutine(Attack());
+                    timer = 0f;
+                }
+            }
+
+            if (playerInRange.inLungeAttack)
+            {
+                //UnityEngine.Debug.Log("inEnemyRange = " + playerInRange.playerInRange);
+
+                StartCoroutine(TiyanakLungeAttack());
             }
         }
 
-        if(playerInRange.inLungeAttack)
+        if (playerInRange2 != null)
         {
-            UnityEngine.Debug.Log("inEnemyRange = " + playerInRange.playerInRange);
-            
-            StartCoroutine(TiyanakLungeAttack());
-        }
+            if (playerInRange2.inSprintAttack)
+            {
+                //UnityEngine.Debug.Log("inEnemyRange = " + playerInRange2.playerInRange);
 
-        if (playerInRange2.inSprintAttack)
-        {
-            UnityEngine.Debug.Log("inEnemyRange = " + playerInRange2.playerInRange);
-
-            StartCoroutine(PugotSprintAttack());
+                StartCoroutine(PugotSprintAttack());
+            }
         }
     }
 
@@ -44,8 +51,8 @@ public class InEnemyRange : MonoBehaviour
         {
             timer = 0f;
             //UnityEngine.Debug.Log("In Range, Attacks!");
-            playerInRange.playerInRange = true;
-            playerInRange2.playerInRange = true;
+            if(playerInRange != null) playerInRange.playerInRange = true;
+            if (playerInRange2 != null) playerInRange2.playerInRange = true;
         }
     }
 
@@ -54,8 +61,8 @@ public class InEnemyRange : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //UnityEngine.Debug.Log("Outside Range");
-            playerInRange.playerInRange = false;
-            playerInRange2.playerInRange = false;
+            if (playerInRange != null) playerInRange.playerInRange = false;
+            if (playerInRange2 != null) playerInRange2.playerInRange = false;
 
         }
     }
@@ -63,17 +70,22 @@ public class InEnemyRange : MonoBehaviour
     private IEnumerator Attack()
     {
         yield return new WaitForSeconds(3f);
-        if(playerInRange.playerInRange) targetHealthbar.TakeDamage(10);
-        if (playerInRange2.playerInRange) targetHealthbar.TakeDamage(10);
+
+        if(playerInRange != null) if(playerInRange.playerInRange) targetHealthbar.TakeDamage(10);
+        if(playerInRange2 != null) if(playerInRange2.playerInRange) targetHealthbar.TakeDamage(10);
     }
 
     private IEnumerator TiyanakLungeAttack()
     {
-        UnityEngine.Debug.Log("inEnemyRange = " + playerInRange.playerInRange);
-        if (playerInRange.playerInRange)
+        //UnityEngine.Debug.Log("inEnemyRange = " + playerInRange.playerInRange);
+        if (playerInRange != null)
         {
-            targetHealthbar.TakeDamage(10);
-            playerInRange.inLungeAttack = false;
+            if (playerInRange.playerInRange)
+            {
+                targetHealthbar.TakeDamage(10);
+                if (playerInRange != null) playerInRange.inLungeAttack = false;
+                anim.SetTrigger("HitTrigger");
+            }
         }
 
         yield return new WaitForSeconds(0.01f);
@@ -81,11 +93,14 @@ public class InEnemyRange : MonoBehaviour
 
     private IEnumerator PugotSprintAttack()
     {
-        UnityEngine.Debug.Log("inEnemyRange = " + playerInRange2.playerInRange);
-        if (playerInRange2.playerInRange)
+        //UnityEngine.Debug.Log("inEnemyRange = " + playerInRange2.playerInRange);
+        if (playerInRange2 != null)
         {
-            targetHealthbar.TakeDamage(10);
-            playerInRange2.inSprintAttack = false;
+            if (playerInRange2.playerInRange)
+            {
+                targetHealthbar.TakeDamage(10);
+                if (playerInRange2 != null) playerInRange2.inSprintAttack = false;
+            }
         }
 
         yield return new WaitForSeconds(0.01f);
