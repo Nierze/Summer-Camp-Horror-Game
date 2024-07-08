@@ -70,7 +70,7 @@ public class PickUpObjects : MonoBehaviour
 
     void EquipItem()
     {
-        if (rayCastScript.targetToTake.name == "Sample Battery")
+        if (rayCastScript.targetToTake.name == "Battery")
         {
             flashLightScript.AddBattery(25f);
             batteryItem.OnPickedUp();
