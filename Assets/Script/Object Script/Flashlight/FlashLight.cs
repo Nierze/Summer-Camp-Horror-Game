@@ -48,7 +48,7 @@ public class FlashLight : MonoBehaviour
         
         else
         {
-            if (Input.GetKeyDown(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.T) || Input.GetKeyDown("t")) ;
             {
                 if (flashlightActive == false)
                 {
