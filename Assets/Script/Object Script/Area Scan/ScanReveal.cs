@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ScanReveal : MonoBehaviour
 {
     public MeshRenderer meshRenderer;
     public Light light;
-    // [SerializeField]
     public GameObject itemAttributes;
+    public TextMeshPro textComponent;
 
     void Start()
     {
@@ -16,6 +17,8 @@ public class ScanReveal : MonoBehaviour
         light = GetComponent<Light>();
         light.enabled = false;
         itemAttributes.SetActive(false);
+        textComponent = itemAttributes.GetComponent<TextMeshPro>();
+        textComponent.text = gameObject.name;
     }
 
     public void Reveal(bool reveal)
