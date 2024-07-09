@@ -69,10 +69,10 @@ public class RayCast : MonoBehaviour
             }
             else if (hit.transform.CompareTag("CanObserve") && !slotFull)
             {
-                if (!objectInteract.isExamining)
+                /*if (!objectInteract.isExamining)
                 {
                     objectInteract._canva.enabled = true;
-                }
+                }*/
 
                 if (Input.GetKeyDown(KeyCode.E))
                 {
