@@ -6,8 +6,8 @@ public class PlayerCamRaycast : MonoBehaviour
 {
     public Camera mainCamera;
 
-    public MaterialControl[] highlightables;
-    private MaterialControl currentHighlight = null;
+    //public MaterialControl[] highlightables;
+    //private MaterialControl currentHighlight = null;
 
     SwitchViewPerspective FPV;
 
@@ -61,16 +61,15 @@ public class PlayerCamRaycast : MonoBehaviour
             SetObjectEnum hitEnum = hitGameObject.GetComponent<SetObjectEnum>();
             if (hitGameObject.CompareTag("Scannable"))
             {
-
-                /*if ()
-                {
-                    
-                }*/
                 switch (hitEnum.objectInteraction)
                 {
                     case "open":
                         hitEnum.enableOpen = true;
-                        break;
+                    break;
+
+                    case "pickUp":
+                        hitEnum.enablePickUp = true;
+                    break;
 
                     default:
                         if (Input.GetKeyDown(KeyCode.E) && !isInspecting)
@@ -104,9 +103,6 @@ public class PlayerCamRaycast : MonoBehaviour
                 }
 
             }
-
-            //else { if (hitEnum != null) hitEnum.enableOpen = false; }
-            
         }
     }
 
