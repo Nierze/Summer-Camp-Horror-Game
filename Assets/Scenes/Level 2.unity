@@ -36810,6 +36810,7 @@ MonoBehaviour:
   highlightables: []
   cmVC: {fileID: 0}
   isInspecting: 0
+  vMachine: {fileID: 0}
 --- !u!1 &1519394588
 GameObject:
   m_ObjectHideFlags: 0
@@ -52390,6 +52391,7 @@ MonoBehaviour:
   highlightables: []
   cmVC: {fileID: 1770305988}
   isInspecting: 0
+  vMachine: {fileID: 1770305986}
 --- !u!1001 &2083630395
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53270,7 +53272,7 @@ PrefabInstance:
     - target: {fileID: 105349995047740517, guid: dce1632ec55ffe74a9412df081df929c,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1242267405216325386, guid: dce1632ec55ffe74a9412df081df929c,
         type: 3}
@@ -53330,7 +53332,7 @@ PrefabInstance:
     - target: {fileID: 1906917320245593520, guid: dce1632ec55ffe74a9412df081df929c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1920724366830179603, guid: dce1632ec55ffe74a9412df081df929c,
         type: 3}
@@ -53347,6 +53349,16 @@ PrefabInstance:
       propertyPath: playerPos
       value: 
       objectReference: {fileID: 2082864850}
+    - target: {fileID: 2289187235303094605, guid: dce1632ec55ffe74a9412df081df929c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3388959165768514831, guid: dce1632ec55ffe74a9412df081df929c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4187748429676031571, guid: dce1632ec55ffe74a9412df081df929c,
         type: 3}
       propertyPath: m_StoppingDistance
