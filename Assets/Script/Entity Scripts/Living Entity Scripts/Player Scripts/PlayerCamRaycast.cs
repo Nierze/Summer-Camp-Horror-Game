@@ -58,36 +58,55 @@ public class PlayerCamRaycast : MonoBehaviour
         if (Physics.Raycast(interactionRay, out interactionRayHit, interactionRayLength))
         {
             hitGameObject = interactionRayHit.transform.gameObject;
+            SetObjectEnum hitEnum = hitGameObject.GetComponent<SetObjectEnum>();
             if (hitGameObject.CompareTag("Scannable"))
             {
-                if (Input.GetKeyDown(KeyCode.E) && !isInspecting)
+
+                /*if ()
                 {
-                    cmVC.enabled = false;
-                    cmBrain.enabled = false;
-
-                    UnityEngine.Debug.Log("Inspect Object Function");
-                    originalPosition = hitGameObject.transform.position;
-                    originalRotation = hitGameObject.transform.rotation;
-
-                    hitGameObject.transform.position = new Vector3(hitGameObject.transform.position.x, hitGameObject.transform.position.y + 1f, hitGameObject.transform.position.z);
-                   
-                    objToRotate = hitGameObject;
-                    isInspecting = true;
-                }
-                else if(Input.GetKeyDown(KeyCode.E) && isInspecting)
-                {
-                    enableCam();
-
-                    isInspecting = false;
                     
-                    hitGameObject.transform.position = originalPosition;
-                    hitGameObject.transform.rotation = originalRotation;
+                }*/
+                switch (hitEnum.objectInteraction)
+                {
+                    case "open":
+                        hitEnum.enableOpen = true;
+                        break;
 
-                    objToRotate = null;
+                    default:
+                        if (Input.GetKeyDown(KeyCode.E) && !isInspecting)
+                        {
+                            cmVC.enabled = false;
+                            cmBrain.enabled = false;
+
+                            UnityEngine.Debug.Log("Inspect Object Function");
+                            originalPosition = hitGameObject.transform.position;
+                            originalRotation = hitGameObject.transform.rotation;
+
+                            hitGameObject.transform.position = new Vector3(hitGameObject.transform.position.x, hitGameObject.transform.position.y + 1f, hitGameObject.transform.position.z);
+
+                            objToRotate = hitGameObject;
+                            isInspecting = true;
+                        }
+                        else if (Input.GetKeyDown(KeyCode.E) && isInspecting)
+                        {
+                            enableCam();
+
+                            isInspecting = false;
+
+                            hitGameObject.transform.position = originalPosition;
+                            hitGameObject.transform.rotation = originalRotation;
+
+                            objToRotate = null;
 
 
+                        }
+                        break;
                 }
+
             }
+
+            //else { if (hitEnum != null) hitEnum.enableOpen = false; }
+            
         }
     }
 

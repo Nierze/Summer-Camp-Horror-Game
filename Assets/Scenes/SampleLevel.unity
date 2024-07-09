@@ -590,6 +590,7 @@ MonoBehaviour:
   meshRenderer: {fileID: 60107053}
   light: {fileID: 0}
   itemAttributes: {fileID: 1208794665}
+  textComponent: {fileID: 0}
 --- !u!195 &60107050
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4685,6 +4686,7 @@ MonoBehaviour:
   meshRenderer: {fileID: 513677428}
   light: {fileID: 0}
   itemAttributes: {fileID: 509410996}
+  textComponent: {fileID: 0}
 --- !u!195 &513677425
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -17330,12 +17332,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 36078ab0369161e49a29d349ae3e0739,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.63
+      value: 0.78
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36078ab0369161e49a29d349ae3e0739,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 40.1
+      value: 105
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36078ab0369161e49a29d349ae3e0739,
         type: 3}
@@ -20834,6 +20836,7 @@ MonoBehaviour:
   meshRenderer: {fileID: 2119711276}
   light: {fileID: 0}
   itemAttributes: {fileID: 1179743624}
+  textComponent: {fileID: 0}
 --- !u!65 &2119711286
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21048,6 +21051,7 @@ MonoBehaviour:
   meshRenderer: {fileID: 2142439785}
   light: {fileID: 0}
   itemAttributes: {fileID: 543037479}
+  textComponent: {fileID: 0}
 --- !u!114 &2142439788
 MonoBehaviour:
   m_ObjectHideFlags: 0
