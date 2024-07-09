@@ -15,7 +15,6 @@ public class ObjectInteract : MonoBehaviour
     public GameObject targetObject;
     public bool isExamining = false;
 
-    public Canvas _canva;
 
     public GameObject tableObject;
 
@@ -32,10 +31,12 @@ public class ObjectInteract : MonoBehaviour
     public CinemachineBrain cinemachineBrain;
 
     public PlayerController _playerController;
+
+
+
     void Start()
     {
         isExamining = false;
-        _canva.enabled = false;
         _playerInput = targetObject.GetComponent<PlayerInput>();
 
 
@@ -70,7 +71,6 @@ public class ObjectInteract : MonoBehaviour
             /*_canva.enabled = false;
 
             Examine(); StartExamination();*/
-            //_canva.enabled = false;
             Rigidbody rb = examinedObject.GetComponent<Rigidbody>();
             rb.isKinematic = false;
             NonExamine(); StopExamination();
