@@ -9,16 +9,23 @@ public class InventoryManager : MonoBehaviour
     public static InventoryManager Instance;
     public List<ItemsSO> itemsList = new List<ItemsSO>();
 
-
-    public Transform inventoryContents;
-    public GameObject itemPrefabTemplate;
+    [SerializeField] private Transform inventoryContents;
+    [SerializeField] private GameObject itemPrefabTemplate;
 
     private void Awake() 
     {
+        // Singleton pattern
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
+        
+        // List down the shits
         ListItems();
     }
-
 
     public void Add(ItemsSO item) 
     {
@@ -32,7 +39,6 @@ public class InventoryManager : MonoBehaviour
 
     public void ListItems()
     {
-
         foreach (Transform child in inventoryContents)
         {
             Destroy(child.gameObject);
@@ -48,6 +54,4 @@ public class InventoryManager : MonoBehaviour
             itemIcon.sprite = item.objectIcon;
         }
     }
-
-    
 }
