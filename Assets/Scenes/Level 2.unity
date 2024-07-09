@@ -22390,14 +22390,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 903255478}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.029840784, y: 0, z: 0, w: 0.9995547}
   m_LocalPosition: {x: 0, y: 1.69, z: 0.368}
   m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 0.6666667}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1464120954}
   m_Father: {fileID: 2082864849}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -3.42, y: 0, z: 0}
 --- !u!1001 &905236915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25798,7 +25798,7 @@ Transform:
   m_GameObject: {fileID: 1060874622}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.07, z: -0.02199936}
+  m_LocalPosition: {x: 0, y: 5.0028286, z: -0.019996643}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -36808,6 +36808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 517913193}
   highlightables: []
+  cmBrain: {fileID: 0}
   cmVC: {fileID: 0}
   isInspecting: 0
   vMachine: {fileID: 0}
@@ -45024,7 +45025,7 @@ Transform:
   m_GameObject: {fileID: 1770305986}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.07, z: -0.02199936}
+  m_LocalPosition: {x: 0, y: 5.0028286, z: -0.019996643}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -52153,6 +52154,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2552327617057372446, guid: 36078ab0369161e49a29d349ae3e0739,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 36078ab0369161e49a29d349ae3e0739,
         type: 3}
       propertyPath: m_Controller
@@ -52389,9 +52395,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1060874627}
   highlightables: []
+  cmBrain: {fileID: 1060874625}
   cmVC: {fileID: 1770305988}
   isInspecting: 0
-  vMachine: {fileID: 1770305986}
+  vMachine: {fileID: 0}
 --- !u!1001 &2083630395
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53332,7 +53339,7 @@ PrefabInstance:
     - target: {fileID: 1906917320245593520, guid: dce1632ec55ffe74a9412df081df929c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1920724366830179603, guid: dce1632ec55ffe74a9412df081df929c,
         type: 3}
@@ -53650,9 +53657,9 @@ SceneRoots:
   - {fileID: 1653857864}
   - {fileID: 992765648}
   - {fileID: 1104509151}
-  - {fileID: 518234669}
   - {fileID: 5877130950743266217}
   - {fileID: 905236915}
   - {fileID: 1951734165}
   - {fileID: 1390829120}
   - {fileID: 929249294}
+  - {fileID: 518234669}
