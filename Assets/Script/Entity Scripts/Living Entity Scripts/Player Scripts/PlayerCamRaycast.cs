@@ -1,5 +1,6 @@
 using UnityEngine;
 using Cinemachine;
+using System.Collections;
 
 public class PlayerCamRaycast : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class PlayerCamRaycast : MonoBehaviour
     Vector3 originalPosition;
     Quaternion originalRotation;
     GameObject objToRotate;
+    public GameObject vMachine;
+    Vector3 vMacOriginalPosition;
+    Quaternion vMacOriginalRotation;
+
     void Start()
     {
         GameObject FPVCamera = GameObject.FindWithTag("MainCamera");
@@ -31,13 +36,30 @@ public class PlayerCamRaycast : MonoBehaviour
     {
         if (FPV.isFPV)
         {
-            InteractRaycast();
+            if (!isInspecting) InteractRaycast();
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.E) && isInspecting)
+                {
+                    isInspecting = false;
+                    objToRotate.transform.position = originalPosition;
+                    objToRotate.transform.rotation = originalRotation;
+                    vMachine.transform.position = vMacOriginalPosition;
+                    vMachine.transform.rotation = vMacOriginalRotation;
+                    objToRotate = null;
+
+                    cmVC.enabled = true;
+                    cmBrain.enabled = true;
+                }
+            }
+            
             if (isInspecting && objToRotate != null)
             {
                 Inspecting(objToRotate);
             }
         }
-        
+
+
     }
 
     void InteractRaycast()
@@ -52,70 +74,38 @@ public class PlayerCamRaycast : MonoBehaviour
         if (Physics.Raycast(interactionRay, out interactionRayHit, interactionRayLength))
         {
             hitGameObject = interactionRayHit.transform.gameObject;
-            /*if (hitGameObject.CompareTag("Selectable"))
-            {
-                UnityEngine.Debug.Log(hitGameObject.name);
-
-                MaterialControl highlight = hitGameObject.GetComponent<MaterialControl>();
-                string hitFeedback = hitGameObject.name;
-
-                if (highlight != null)
-                {
-                    //Debug.Log("highlight = " + highlight);
-                    //Debug.Log("hitFeedback = " + hitFeedback);
-
-                    if (currentHighlight != highlight)
-                    {
-                        if (currentHighlight != null)
-                        {
-                            currentHighlight.DisableMaterial();
-                        }
-                        highlight.EnableMaterial();
-                        currentHighlight = highlight;
-                    }
-                }
-            }
-            else
-            {
-                if (currentHighlight != null)
-                {
-                    currentHighlight.DisableMaterial();
-                    currentHighlight = null;
-                }
-            }*/
             if (hitGameObject.CompareTag("Scannable"))
             {
                 if (Input.GetKeyDown(KeyCode.E) && !isInspecting)
                 {
+                    cmVC.enabled = false;
+                    cmBrain.enabled = false;
+
                     UnityEngine.Debug.Log("Inspect Object Function");
                     originalPosition = hitGameObject.transform.position;
                     originalRotation = hitGameObject.transform.rotation;
+                    vMacOriginalPosition = vMachine.transform.position;
+                    vMacOriginalRotation = vMachine.transform.rotation;
                     hitGameObject.transform.position = new Vector3(hitGameObject.transform.position.x, hitGameObject.transform.position.y + 1f, hitGameObject.transform.position.z);
-                    
-                    cmVC.enabled = false;
-                    cmBrain.enabled = false;
+                   
                     objToRotate = hitGameObject;
                     isInspecting = true;
+
+                    
                 }
                 else if(Input.GetKeyDown(KeyCode.E) && isInspecting)
                 {
                     isInspecting = false;
-
-                    cmVC.enabled = true;
-                    cmBrain.enabled = true;
                     
                     hitGameObject.transform.position = originalPosition;
                     hitGameObject.transform.rotation = originalRotation;
+                    vMachine.transform.position = vMacOriginalPosition;
+                    vMachine.transform.rotation = vMacOriginalRotation;
                     objToRotate = null;
+
+                    cmVC.enabled = true;
+                    cmBrain.enabled = true;
                 }
-            }
-        }
-        else
-        {
-            if (currentHighlight != null)
-            {
-                currentHighlight.DisableMaterial();
-                currentHighlight = null;
             }
         }
     }
@@ -132,6 +122,20 @@ public class PlayerCamRaycast : MonoBehaviour
 
         obj.transform.Rotate(Vector3.up, rotationY, Space.World);
         obj.transform.Rotate(Vector3.right, rotationX, Space.World);
-
     }
+
+    /*private IEnumerator OffCam()
+    {
+        cmVC.enabled = false;
+        cmBrain.enabled = false;
+        yield return null;
+    }
+
+    private IEnumerator OnCam()
+    {
+        yield return null;
+        cmVC.enabled = true;
+        cmBrain.enabled = true;
+        
+    }*/
 }
