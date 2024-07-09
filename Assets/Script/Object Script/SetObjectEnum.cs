@@ -6,7 +6,8 @@ public class SetObjectEnum : MonoBehaviour
 {
     public string objectInteraction;
     public bool enableOpen = false;
-    
+    public bool enablePickUp = false;
+
     void Start()
     {
         /*if (objectInteraction == "open")
