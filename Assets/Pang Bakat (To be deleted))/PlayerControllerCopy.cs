@@ -41,6 +41,8 @@ public class PlayerControllerCopy : MonoBehaviour
     public PugotAttackPattern playerInRange2;
     public TiktikAttackPattern playerInRange3;
 
+    PlayerCamRaycast camRaycast;
+
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -48,6 +50,7 @@ public class PlayerControllerCopy : MonoBehaviour
         inputManager = InputManager.Instance;
         cameraTransform = Camera.main.transform;
         light.transform.position = cameraTransform.position;
+        camRaycast = GetComponent<PlayerCamRaycast>();
         playerSpeed = 20f;
 
     }
@@ -63,14 +66,18 @@ public class PlayerControllerCopy : MonoBehaviour
 
         /////////////////////////////////////////
         // Movement Handler
-        if (inputManager.GetSprint())
+        if (!camRaycast.isInspecting)
         {
-            Run();
+            if (inputManager.GetSprint())
+            {
+                Run();
+            }
+            else
+            {
+                Walk();
+            }
         }
-        else
-        {
-            Walk();
-        }
+
 
         /////////////////////////////////////////
         // Attack Handler

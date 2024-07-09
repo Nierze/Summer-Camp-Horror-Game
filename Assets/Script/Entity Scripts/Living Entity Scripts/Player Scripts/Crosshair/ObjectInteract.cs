@@ -11,9 +11,8 @@ using Cinemachine;
 public class ObjectInteract : MonoBehaviour
 {
     public GameObject offset;
-    private PlayerInput _playerInput;
-    GameObject targetObject;
-
+    public PlayerInput _playerInput;
+    public GameObject targetObject;
     public bool isExamining = false;
 
     public Canvas _canva;
@@ -37,7 +36,6 @@ public class ObjectInteract : MonoBehaviour
     {
         isExamining = false;
         _canva.enabled = false;
-        targetObject = GameObject.Find("PlayerCapsule");
         _playerInput = targetObject.GetComponent<PlayerInput>();
 
 
@@ -57,10 +55,12 @@ public class ObjectInteract : MonoBehaviour
             if (cinemachineBrain.enabled)
             {
                 cinemachineBrain.enabled = false;
+                _playerController.enabled = false;
             }
             else
             {
                 cinemachineBrain.enabled = true;
+                _playerController.enabled = true;
                 examinedObject = null;
             }
         }
@@ -71,13 +71,15 @@ public class ObjectInteract : MonoBehaviour
 
             Examine(); StartExamination();*/
             //_canva.enabled = false;
-
+            Rigidbody rb = examinedObject.GetComponent<Rigidbody>();
+            rb.isKinematic = false;
             NonExamine(); StopExamination();
         }
         else
         {
             //NonExamine(); StopExamination();
-            
+            Rigidbody rb = examinedObject.GetComponent<Rigidbody>();
+            rb.isKinematic = true;
             Examine(); StartExamination();
         }
 
@@ -116,6 +118,7 @@ public class ObjectInteract : MonoBehaviour
 
     void Examine()
     {
+        examinedObject.transform.position = new Vector3(examinedObject.transform.position.x, examinedObject.transform.position.y + 0.5f, examinedObject.transform.position.z);
         if (examinedObject != null)
         {
             examinedObject.position = Vector3.Lerp(examinedObject.position, offset.transform.position, 0.2f);
