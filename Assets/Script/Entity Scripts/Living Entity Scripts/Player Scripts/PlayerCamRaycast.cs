@@ -13,16 +13,17 @@ public class PlayerCamRaycast : MonoBehaviour
 
     GameObject hitGameObject;
 
-    CinemachineBrain cmBrain;
+    public CinemachineBrain cmBrain;
     public CinemachineVirtualCamera cmVC;
+
     //Inspecting
     public bool isInspecting = false;
     Vector3 originalPosition;
     Quaternion originalRotation;
     GameObject objToRotate;
+
     public GameObject vMachine;
-    Vector3 vMacOriginalPosition;
-    Quaternion vMacOriginalRotation;
+    
 
     void Start()
     {
@@ -36,30 +37,13 @@ public class PlayerCamRaycast : MonoBehaviour
     {
         if (FPV.isFPV)
         {
-            if (!isInspecting) InteractRaycast();
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.E) && isInspecting)
-                {
-                    isInspecting = false;
-                    objToRotate.transform.position = originalPosition;
-                    objToRotate.transform.rotation = originalRotation;
-                    vMachine.transform.position = vMacOriginalPosition;
-                    vMachine.transform.rotation = vMacOriginalRotation;
-                    objToRotate = null;
+            InteractRaycast();
 
-                    cmVC.enabled = true;
-                    cmBrain.enabled = true;
-                }
-            }
-            
             if (isInspecting && objToRotate != null)
             {
                 Inspecting(objToRotate);
             }
         }
-
-
     }
 
     void InteractRaycast()
@@ -84,27 +68,24 @@ public class PlayerCamRaycast : MonoBehaviour
                     UnityEngine.Debug.Log("Inspect Object Function");
                     originalPosition = hitGameObject.transform.position;
                     originalRotation = hitGameObject.transform.rotation;
-                    vMacOriginalPosition = vMachine.transform.position;
-                    vMacOriginalRotation = vMachine.transform.rotation;
+
                     hitGameObject.transform.position = new Vector3(hitGameObject.transform.position.x, hitGameObject.transform.position.y + 1f, hitGameObject.transform.position.z);
                    
                     objToRotate = hitGameObject;
                     isInspecting = true;
-
-                    
                 }
                 else if(Input.GetKeyDown(KeyCode.E) && isInspecting)
                 {
+                    enableCam();
+
                     isInspecting = false;
                     
                     hitGameObject.transform.position = originalPosition;
                     hitGameObject.transform.rotation = originalRotation;
-                    vMachine.transform.position = vMacOriginalPosition;
-                    vMachine.transform.rotation = vMacOriginalRotation;
+
                     objToRotate = null;
 
-                    cmVC.enabled = true;
-                    cmBrain.enabled = true;
+
                 }
             }
         }
@@ -124,18 +105,23 @@ public class PlayerCamRaycast : MonoBehaviour
         obj.transform.Rotate(Vector3.right, rotationX, Space.World);
     }
 
-    /*private IEnumerator OffCam()
+    void enableCam()
     {
-        cmVC.enabled = false;
-        cmBrain.enabled = false;
-        yield return null;
-    }
-
-    private IEnumerator OnCam()
-    {
-        yield return null;
         cmVC.enabled = true;
         cmBrain.enabled = true;
-        
-    }*/
+    }
 }
+
+/*else
+{
+    if (Input.GetKeyDown(KeyCode.E) && isInspecting)
+    {
+        isInspecting = false;
+        objToRotate.transform.position = originalPosition;
+        objToRotate.transform.rotation = originalRotation;
+        objToRotate = null;
+
+        cmVC.enabled = true;
+        cmBrain.enabled = true;
+    }
+}*/
