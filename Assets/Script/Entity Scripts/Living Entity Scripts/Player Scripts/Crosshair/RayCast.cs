@@ -30,7 +30,7 @@ public class RayCast : MonoBehaviour
     public Vector3 raycastDirection;
     float raycastDistance = 10f;
 
-
+    public ObjectInspection objectInspection;
     void Start()
     {
         canTake = true;
@@ -69,18 +69,13 @@ public class RayCast : MonoBehaviour
             }
             else if (hit.transform.CompareTag("CanObserve") && !slotFull)
             {
-                /*if (!objectInteract.isExamining)
-                {
-                    objectInteract._canva.enabled = true;
-                }*/
 
-                if (Input.GetKeyDown(KeyCode.E))
+                    if (Input.GetKeyDown(KeyCode.E))
                 {
                     objectInteract.isExamining = true;
 
                     if (objectInteract.isExamining)
                     {
-                        //UnityEngine.Debug.Log("CHeckk");
                         objectInteract.examinedObject = hit.transform;
                         objectInteract.originalPositions[objectInteract.examinedObject] = objectInteract.examinedObject.position;
                         objectInteract.originalRotations[objectInteract.examinedObject] = objectInteract.examinedObject.rotation;
@@ -92,12 +87,15 @@ public class RayCast : MonoBehaviour
             {
                 canHold = false;
                 canTake = false;
-                objectInteract._canva.enabled = false;
 
                 holdItem.enabled = false;
                 useItem.enabled = false;
+
+
             }
         }
     }
 
 }
+
+

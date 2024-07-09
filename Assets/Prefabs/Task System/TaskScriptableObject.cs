@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Task #?", menuName = "Create Task Scriptable Object")]
 public class TaskScriptableObject : ScriptableObject
 {
+    [SerializeReference] 
     public string taskName;
     public string taskDescription;
     public TaskType taskType = TaskType.None;
