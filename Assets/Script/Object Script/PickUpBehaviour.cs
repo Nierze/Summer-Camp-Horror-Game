@@ -11,6 +11,7 @@ public class PickUpBehaviour : MonoBehaviour
     Rigidbody rb;
     public bool isHold = false;
     public bool inAction = false;
+
     void Start()
     {
         setObjectInteraction = ObjectInteractEnum.objectInteraction.pickUp.ToString();
@@ -33,7 +34,7 @@ public class PickUpBehaviour : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && !inAction && isHold)
             {
                 inAction = true;
                 StartCoroutine(Throw());
@@ -55,9 +56,9 @@ public class PickUpBehaviour : MonoBehaviour
     private IEnumerator Throw()
     {
         rb.isKinematic = false;
-        gameObject.transform.SetParent(null);
-        rb.AddForce(transform.forward * -3f, ForceMode.Impulse);
         isHold = false;
+        gameObject.transform.SetParent(null);
+        rb.AddForce(holdArea.transform.forward * 3f, ForceMode.Impulse);
         yield return StartCoroutine(Wait());
     }
 

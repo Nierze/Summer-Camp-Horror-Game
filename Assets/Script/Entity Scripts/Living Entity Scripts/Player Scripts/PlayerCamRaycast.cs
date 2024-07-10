@@ -22,13 +22,18 @@ public class PlayerCamRaycast : MonoBehaviour
     Quaternion originalRotation;
     GameObject objToRotate;
 
-    public GameObject vMachine;
+    //public GameObject vMachine;
     
 
     void Start()
     {
-        GameObject FPVCamera = GameObject.FindWithTag("MainCamera");
-        cmBrain = FPVCamera.GetComponent<CinemachineBrain>();
+        mainCamera = GameObject.Find("FPV").transform.Find("Main Camera").GetComponent<Camera>();
+
+        cmBrain = GameObject.Find("FPV").transform.Find("Main Camera").GetComponent<CinemachineBrain>();
+        cmVC = GameObject.Find("FPV").transform.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
+
+        //vMachine = GameObject.Find("FPV").transform.Find("Virtual Camera");
+
         GameObject FPVObject = GameObject.Find("Player (FPV / TPV)");
         FPV = FPVObject.GetComponent<SwitchViewPerspective>();
     }
