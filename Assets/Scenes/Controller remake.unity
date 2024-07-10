@@ -985,6 +985,7 @@ GameObject:
   m_Component:
   - component: {fileID: 581683373}
   - component: {fileID: 581683372}
+  - component: {fileID: 581683374}
   m_Layer: 0
   m_Name: TaskHandler
   m_TagString: Untagged
@@ -1023,6 +1024,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &581683374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581683371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62273ecb1cd818e47adb9e6849d8ec48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &636685518
 GameObject:
   m_ObjectHideFlags: 3
@@ -3501,6 +3514,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 1
+--- !u!1 &1652351159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1652351161}
+  - component: {fileID: 1652351160}
+  m_Layer: 0
+  m_Name: GlobalEventsGameHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1652351160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652351159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f851aaf6ad6f27b45bf0de9ff32c7468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1652351161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652351159}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 58.71504, y: 4.9915814, z: 93.90534}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1659147712 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3649345365991738455, guid: 7d86966b91c5a8440bae4360d44eebde,
@@ -5822,8 +5879,9 @@ SceneRoots:
   - {fileID: 1155306402}
   - {fileID: 1445871778}
   - {fileID: 642158660}
-  - {fileID: 581683373}
   - {fileID: 1287032426}
   - {fileID: 1436821375}
   - {fileID: 484793280}
+  - {fileID: 581683373}
   - {fileID: 1402546297}
+  - {fileID: 1652351161}
