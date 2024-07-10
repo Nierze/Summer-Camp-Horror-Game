@@ -9,7 +9,7 @@ public class SwitchViewPerspective : MonoBehaviour
     public FPVPlayerControl FPVController;
     public TPVPlayerControl TPVController;
     public bool isFPV = true;
-
+    public SkinnedMeshRenderer playerModel;
 
     void Start()
     {
@@ -17,7 +17,7 @@ public class SwitchViewPerspective : MonoBehaviour
         TPV = GameObject.Find("ThirdPV");
         FPVController = GameObject.Find("Armature").GetComponent<FPVPlayerControl>();
         TPVController = GameObject.Find("Armature").GetComponent<TPVPlayerControl>();
-
+        playerModel = GameObject.Find("Armature_Mesh").GetComponent<SkinnedMeshRenderer>();
         SwitchToFPV();
     }
 
@@ -36,6 +36,7 @@ public class SwitchViewPerspective : MonoBehaviour
 
     void SwitchToFPV()
     {
+        playerModel.enabled = false;
         FPV.SetActive(true);
         FPVController.enabled = true;
         TPV.SetActive(false);
@@ -45,6 +46,7 @@ public class SwitchViewPerspective : MonoBehaviour
 
     void SwitchToTPV()
     {
+        playerModel.enabled = true;
         FPV.SetActive(false);
         FPVController.enabled = false;
         TPV.SetActive(true);

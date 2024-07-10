@@ -1559,6 +1559,8 @@ MonoBehaviour:
   end: {fileID: 1224161455}
   timer: 0
   LerpSpeed: 1
+  setObjectInteraction: 
+  setEnum: {fileID: 0}
 --- !u!1001 &187098654
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1963,6 +1965,179 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: b98fbc45d5fc3b740b967e40ac50c212, type: 2}
   m_BuildHeightMesh: 0
+--- !u!1001 &215950275
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 212705808402215228, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: impactEffect
+      value: 
+      objectReference: {fileID: 1058621471}
+    - target: {fileID: 975832636011607619, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 1873224801222581497, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 102
+      objectReference: {fileID: 0}
+    - target: {fileID: 1873224801222581497, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.6428285
+      objectReference: {fileID: 0}
+    - target: {fileID: 1873224801222581497, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -245.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 1873224801222581497, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1873224801222581497, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2907329424409257882, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2907329424409257882, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.0028286
+      objectReference: {fileID: 0}
+    - target: {fileID: 2907329424409257882, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.019989014
+      objectReference: {fileID: 0}
+    - target: {fileID: 2907329424409257882, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2907329424409257882, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773002272038548899, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: field of view
+      value: 57.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773002272038548899, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: far clip plane
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773002272038548899, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773002272038548899, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: orthographic size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435934986510537214, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435934986510537214, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435934986510537214, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435934986510537214, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435934986510537214, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435934986510537214, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435934986510537214, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435934986510537214, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435934986510537214, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435934986510537214, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6400964701337251443, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_Name
+      value: Player (FPV _ TPV)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8276435016457244027, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: field of view
+      value: 57.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8276435016457244027, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: far clip plane
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8276435016457244027, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8276435016457244027, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: orthographic size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8546436717218935668, guid: c34c1e73a45356748a074ac0a51cbabd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.888
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c34c1e73a45356748a074ac0a51cbabd, type: 3}
 --- !u!1001 &230643044
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4032,6 +4207,8 @@ MonoBehaviour:
   end: {fileID: 2051475045}
   timer: 0
   LerpSpeed: 1
+  setObjectInteraction: 
+  setEnum: {fileID: 0}
 --- !u!4 &447410754 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 549411217280115887, guid: f003184d53518314f85cd3ed9f8d55fb,
@@ -9227,7 +9404,6 @@ MonoBehaviour:
   controller: {fileID: 1051753610}
   groundedPlayer: 1
   playerSpeed: 10
-  light: {fileID: 0}
   sprintSpeedMultiplier: 2
   followTransform: {fileID: 0}
   rotationPower: 3
@@ -9270,6 +9446,12 @@ MonoBehaviour:
   playerInRange: {fileID: 1542191237}
   playerInRange2: {fileID: 1801292399}
   playerInRange3: {fileID: 0}
+--- !u!1 &1058621471 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7315588507657184218, guid: c34c1e73a45356748a074ac0a51cbabd,
+    type: 3}
+  m_PrefabInstance: {fileID: 215950275}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1071306911
 GameObject:
   m_ObjectHideFlags: 0
@@ -13675,7 +13857,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f003184d53518314f85cd3ed9f8d55fb,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f003184d53518314f85cd3ed9f8d55fb,
         type: 3}
@@ -14183,11 +14365,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 669092742}
-  highlightables: []
   cmBrain: {fileID: 0}
   cmVC: {fileID: 0}
   isInspecting: 0
-  vMachine: {fileID: 0}
 --- !u!1 &1491812508
 GameObject:
   m_ObjectHideFlags: 0
@@ -17490,11 +17670,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1491812513}
-  highlightables: []
   cmBrain: {fileID: 1491812511}
   cmVC: {fileID: 862725769}
   isInspecting: 0
-  vMachine: {fileID: 0}
 --- !u!114 &1775873494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17621,7 +17799,6 @@ MonoBehaviour:
   controller: {fileID: 1775873495}
   groundedPlayer: 0
   playerSpeed: 5
-  light: {fileID: 1578434184}
   sprintSpeedMultiplier: 2
   followTransform: {fileID: 1249185456}
   rotationPower: 3
@@ -17640,12 +17817,12 @@ GameObject:
   - component: {fileID: 1777657746}
   - component: {fileID: 1777657745}
   m_Layer: 0
-  m_Name: Player (FPV / TPV)
+  m_Name: Player (FPV / TPV) (Disabled)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1777657745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17663,6 +17840,7 @@ MonoBehaviour:
   FPVController: {fileID: 1775873499}
   TPVController: {fileID: 1775873492}
   isFPV: 1
+  playerModel: {fileID: 0}
 --- !u!4 &1777657746
 Transform:
   m_ObjectHideFlags: 0
@@ -20709,6 +20887,8 @@ MonoBehaviour:
   end: {fileID: 951782726}
   timer: 0
   LerpSpeed: 1
+  setObjectInteraction: 
+  setEnum: {fileID: 0}
 --- !u!114 &2119711280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21248,7 +21428,7 @@ PrefabInstance:
     - target: {fileID: 2873710679939570066, guid: 2329857e608d9ad43b7c9ed430965540,
         type: 3}
       propertyPath: m_Name
-      value: Baby Mesh
+      value: Tiyanak
       objectReference: {fileID: 0}
     - target: {fileID: 3086585494430903889, guid: 2329857e608d9ad43b7c9ed430965540,
         type: 3}
@@ -22063,3 +22243,4 @@ SceneRoots:
   - {fileID: 1259301452}
   - {fileID: 2089010309}
   - {fileID: 1777657746}
+  - {fileID: 215950275}

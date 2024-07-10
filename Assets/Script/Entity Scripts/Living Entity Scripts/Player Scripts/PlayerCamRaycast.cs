@@ -34,7 +34,7 @@ public class PlayerCamRaycast : MonoBehaviour
 
         //vMachine = GameObject.Find("FPV").transform.Find("Virtual Camera");
 
-        GameObject FPVObject = GameObject.Find("Player (FPV / TPV)");
+        GameObject FPVObject = GameObject.Find("Player (FPV _ TPV)");
         FPV = FPVObject.GetComponent<SwitchViewPerspective>();
     }
 
@@ -107,7 +107,7 @@ public class PlayerCamRaycast : MonoBehaviour
                     break;
 
                     default:
-                        if (Input.GetKeyDown(KeyCode.E) && !isInspecting)
+                        /*if (Input.GetKeyDown(KeyCode.E) && !isInspecting)
                         {
                             cmVC.enabled = false;
                             cmBrain.enabled = false;
@@ -133,7 +133,7 @@ public class PlayerCamRaycast : MonoBehaviour
                             objToRotate = null;
 
 
-                        }
+                        }*/
                     break;
                 }
 
