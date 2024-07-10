@@ -66,7 +66,37 @@ public class PlayerCamRaycast : MonoBehaviour
             SetObjectEnum hitEnum = hitGameObject.GetComponent<SetObjectEnum>();
             if (hitGameObject.CompareTag("Scannable"))
             {
-                switch (hitEnum.objectInteraction)
+                if (hitEnum == null)
+                {
+                    if (Input.GetKeyDown(KeyCode.E) && !isInspecting)
+                    {
+                        cmVC.enabled = false;
+                        cmBrain.enabled = false;
+
+                        UnityEngine.Debug.Log("Inspect Object Function");
+                        originalPosition = hitGameObject.transform.position;
+                        originalRotation = hitGameObject.transform.rotation;
+
+                        hitGameObject.transform.position = new Vector3(hitGameObject.transform.position.x, hitGameObject.transform.position.y + 1f, hitGameObject.transform.position.z);
+
+                        objToRotate = hitGameObject;
+                        isInspecting = true;
+                    }
+                    else if (Input.GetKeyDown(KeyCode.E) && isInspecting)
+                    {
+                        enableCam();
+
+                        isInspecting = false;
+
+                        hitGameObject.transform.position = originalPosition;
+                        hitGameObject.transform.rotation = originalRotation;
+
+                        objToRotate = null;
+
+
+                    }
+                }
+                else switch (hitEnum.objectInteraction)
                 {
                     case "open":
                         hitEnum.enableOpen = true;
@@ -104,7 +134,7 @@ public class PlayerCamRaycast : MonoBehaviour
 
 
                         }
-                        break;
+                    break;
                 }
 
             }
