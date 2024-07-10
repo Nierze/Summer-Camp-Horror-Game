@@ -13,6 +13,11 @@ public class SwitchViewPerspective : MonoBehaviour
 
     void Start()
     {
+        FPV = GameObject.Find("FPV");
+        TPV = GameObject.Find("ThirdPV");
+        FPVController = GameObject.Find("Armature").GetComponent<PlayerControllerCopy>();
+        TPVController = GameObject.Find("Armature").GetComponent<NewPlayerController>();
+
         SwitchToFPV();
     }
 

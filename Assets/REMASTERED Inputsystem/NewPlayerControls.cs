@@ -62,6 +62,15 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RangeAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""af98a6ac-7e8c-45fb-9e34-82af96889982"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ce66c297-d7a1-4ffb-902c-3c8f7cd9cd3a"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RangeAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +184,7 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
         m_Ground_Look = m_Ground.FindAction("Look", throwIfNotFound: true);
         m_Ground_Sprint = m_Ground.FindAction("Sprint", throwIfNotFound: true);
         m_Ground_Jump = m_Ground.FindAction("Jump", throwIfNotFound: true);
+        m_Ground_RangeAttack = m_Ground.FindAction("RangeAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -229,6 +250,7 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Ground_Look;
     private readonly InputAction m_Ground_Sprint;
     private readonly InputAction m_Ground_Jump;
+    private readonly InputAction m_Ground_RangeAttack;
     public struct GroundActions
     {
         private @NewPlayerControls m_Wrapper;
@@ -237,6 +259,7 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Ground_Look;
         public InputAction @Sprint => m_Wrapper.m_Ground_Sprint;
         public InputAction @Jump => m_Wrapper.m_Ground_Jump;
+        public InputAction @RangeAttack => m_Wrapper.m_Ground_RangeAttack;
         public InputActionMap Get() { return m_Wrapper.m_Ground; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -258,6 +281,9 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @RangeAttack.started += instance.OnRangeAttack;
+            @RangeAttack.performed += instance.OnRangeAttack;
+            @RangeAttack.canceled += instance.OnRangeAttack;
         }
 
         private void UnregisterCallbacks(IGroundActions instance)
@@ -274,6 +300,9 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @RangeAttack.started -= instance.OnRangeAttack;
+            @RangeAttack.performed -= instance.OnRangeAttack;
+            @RangeAttack.canceled -= instance.OnRangeAttack;
         }
 
         public void RemoveCallbacks(IGroundActions instance)
@@ -297,5 +326,6 @@ public partial class @NewPlayerControls: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnRangeAttack(InputAction.CallbackContext context);
     }
 }
