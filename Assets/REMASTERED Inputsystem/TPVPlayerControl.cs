@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewPlayerController : MonoBehaviour
+public class TPVPlayerControl : MonoBehaviour
 {
     /////////////////////////////////////////
     /// Player Movement variables
 
     [Header("Player Movement")]
-    [SerializeField] private float movementSpeed = 20f;
+    [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private float sprintSpeedMultiplier = 2f;
-    [SerializeField] private float jumpPower = 1f;
+    [SerializeField] private float jumpPower = 2.5f;
     private float rotateVelocity;
 
     /////////////////////////////////////////
@@ -35,6 +35,7 @@ public class NewPlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         animator.SetBool("Grounded", true);
+        mainCamera = GameObject.Find("ThirdPV").transform.Find("Camera").GetComponent<Camera>();
     }
 
     // Update is called once per frame

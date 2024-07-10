@@ -8,16 +8,4 @@ public class SetObjectEnum : MonoBehaviour
     public bool enableOpen = false;
     public bool enablePickUp = false;
 
-    void Start()
-    {
-        /*if (objectInteraction == "open")
-        {
-            enableOpen = true;
-        }*/
-    }
-
-    /*void Update()
-    {
-        UnityEngine.Debug.Log(objectInteraction);
-    }*/
 }

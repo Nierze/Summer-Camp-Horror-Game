@@ -21,6 +21,23 @@ public class RangeAttack1 : MonoBehaviour
     public PugotAttackPattern playerInRange2;
     public TiktikAttackPattern playerInRange3;
 
+    void Start()
+    {
+        fpsCam = GameObject.Find("FPV").transform.Find("Main Camera").GetComponent<Camera>();
+        impactEffect = GameObject.Find("Player (FPV / TPV)").transform.Find("temp bullet").gameObject;
+        player = GameObject.Find("FPV").transform.Find("Main Camera").gameObject;
+
+        fpv = GameObject.Find("Player (FPV / TPV)").GetComponent<SwitchViewPerspective>();
+
+        playerInRange = (GameObject.Find("Tiyanak")) ? GameObject.Find("Tiyanak").GetComponent<TiyanakAttackPattern>() : null;
+        playerInRange2 = (GameObject.Find("Pugot")) ? GameObject.Find("Pugot").GetComponent<PugotAttackPattern>() : null;
+        playerInRange3 = (GameObject.Find("Tiktik")) ? GameObject.Find("Tiktik").GetComponent<TiktikAttackPattern>() : null;
+
+        if (playerInRange == null) UnityEngine.Debug.Log("Tiyanak doesn't exist");
+        if (playerInRange2 == null) UnityEngine.Debug.Log("Pugot doesn't exist");
+        if (playerInRange3 == null) UnityEngine.Debug.Log("Tiktik doesn't exist");
+    }
+
     void Update()
     {
         if (fpv.isFPV)
