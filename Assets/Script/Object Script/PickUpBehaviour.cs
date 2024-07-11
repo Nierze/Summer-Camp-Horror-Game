@@ -25,23 +25,6 @@ public class PickUpBehaviour : MonoBehaviour
 
     void Update()
     {
-        /*if (!isHold && !inAction)
-        {
-            if (Input.GetKeyDown(KeyCode.E) && setEnum.enablePickUp && !isHold)
-            {
-                inAction = true;
-                StartCoroutine(Pick());
-            }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.E) && !inAction && isHold)
-            {
-                inAction = true;
-                StartCoroutine(Throw());
-            }
-        }*/
-
         //working 1
         if (Input.GetKeyDown(KeyCode.E) && setEnum.enablePickUp && !inAction && !isHold && holdArea.childCount < 1)
         {
@@ -49,7 +32,13 @@ public class PickUpBehaviour : MonoBehaviour
             StartCoroutine(Pick());
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && !inAction && isHold && holdArea.childCount == 1)
+        else if (Input.GetKeyDown(KeyCode.E) && isHold)
+        {
+            inAction = true;
+            StartCoroutine(StoreToInventory());
+        }
+
+        if (Input.GetKeyDown(KeyCode.G) && !inAction && isHold && holdArea.childCount == 1)
         {
             inAction = true;
             StartCoroutine(Throw());
@@ -63,9 +52,9 @@ public class PickUpBehaviour : MonoBehaviour
         gameObject.transform.position = new Vector3(holdArea.transform.position.x, holdArea.transform.position.y, holdArea.transform.position.z);
         gameObject.transform.SetParent(holdArea);
         isHold = true;
-        yield return StartCoroutine(Wait());
-        setEnum.enablePickUp = false;
         //yield return StartCoroutine(Wait());
+        setEnum.enablePickUp = false;
+        yield return StartCoroutine(Wait());
     }
 
     private IEnumerator Throw()
@@ -74,6 +63,14 @@ public class PickUpBehaviour : MonoBehaviour
         isHold = false;
         gameObject.transform.SetParent(null);
         rb.AddForce(holdArea.transform.forward * 3f, ForceMode.Impulse);
+        yield return StartCoroutine(Wait());
+    }
+
+    private IEnumerator StoreToInventory()
+    {
+        setEnum.enablePickUp = false;
+        StoreToInventory storeItem = GetComponent<StoreToInventory>();
+        storeItem.OnPickedUp();
         yield return StartCoroutine(Wait());
     }
 
