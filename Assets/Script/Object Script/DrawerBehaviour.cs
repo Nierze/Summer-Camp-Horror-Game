@@ -27,7 +27,7 @@ public class DrawerBehaviour : MonoBehaviour
     {
         if (setEnum.enableOpen)
         {
-            if (Input.GetKeyDown("i") && !open && !onMotion)
+            if (Input.GetKeyDown(KeyCode.F) && !open && !onMotion)
             {
                 open = true;
                 onMotion = true;
@@ -35,7 +35,7 @@ public class DrawerBehaviour : MonoBehaviour
                 StartCoroutine(Open());
             }
 
-            if (Input.GetKeyDown("c") && open && !onMotion)
+            if (Input.GetKeyDown(KeyCode.F) && open && !onMotion)
             {
                 open = false;
                 onMotion = true;

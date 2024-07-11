@@ -66,6 +66,11 @@ public class NewInputManager : MonoBehaviour
     {
         return playerControls.Ground.Jump.triggered;
     }
+
+    public bool GetRangeAttack()
+    {
+        return playerControls.Ground.RangeAttack.triggered;
+    }
     
 
     /////////////////////////////////////////////////////////////

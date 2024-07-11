@@ -14,37 +14,35 @@ public class CabinetBehaviour : MonoBehaviour
 
     public bool state = false;
 
+    public string setObjectInteraction;
+    public SetObjectEnum setEnum;
+
+    void Start()
+    {
+        setObjectInteraction = ObjectInteractEnum.objectInteraction.open.ToString();
+        setEnum = GetComponent<SetObjectEnum>();
+        setEnum.objectInteraction = setObjectInteraction;
+    }
+
     void Update()
     {
-        /*if (Input.GetKeyDown("i") && !open && !onMotion)
+        if (setEnum.enableOpen)
         {
-            open = true;
-            onMotion = true;
-            UnityEngine.Debug.Log("Cabinet Opened");
-            StartCoroutine(RotateDoor(new Vector3(0, 90, 0)));
-            state = true;
-        }
-
-        if (Input.GetKeyDown("c") && open && !onMotion)
-        {
-            open = false;
-            onMotion = true;
-            UnityEngine.Debug.Log("Cabinet Closed");
-            StartCoroutine(RotateDoor(new Vector3(0, 0, 0)));
-            state = false;
-        }*/
-
-        if (Input.GetKeyDown(KeyCode.F) && !onMotion)
-        {
-            if (!state)
+            if (Input.GetKeyDown(KeyCode.F) && !onMotion)
             {
-                StartCoroutine(RotateDoor(new Vector3(0, 90, 0)));
-                onMotion = true;
-            }
-            else
-            {
-                StartCoroutine(RotateDoor(new Vector3(0, 0, 0)));
-                onMotion = true;
+                if (!state)
+                {
+                    StartCoroutine(RotateDoor(new Vector3(0, 90, 0)));
+                    onMotion = true;
+                    
+                }
+                else
+                {
+                    StartCoroutine(RotateDoor(new Vector3(0, 0, 0)));
+                    onMotion = true;
+                    
+                }
+
             }
         }
     }
@@ -64,6 +62,8 @@ public class CabinetBehaviour : MonoBehaviour
         }
         state = (!state) ? true : false;
         onMotion = false;
+        setEnum.enableOpen = false;
         transform.rotation = endRotation;
+        
     }
 }

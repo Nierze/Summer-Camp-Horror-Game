@@ -6,8 +6,8 @@ public class PlayerCamRaycast : MonoBehaviour
 {
     public Camera mainCamera;
 
-    public MaterialControl[] highlightables;
-    private MaterialControl currentHighlight = null;
+    //public MaterialControl[] highlightables;
+    //private MaterialControl currentHighlight = null;
 
     SwitchViewPerspective FPV;
 
@@ -22,14 +22,19 @@ public class PlayerCamRaycast : MonoBehaviour
     Quaternion originalRotation;
     GameObject objToRotate;
 
-    public GameObject vMachine;
+    //public GameObject vMachine;
     
 
     void Start()
     {
-        GameObject FPVCamera = GameObject.FindWithTag("MainCamera");
-        cmBrain = FPVCamera.GetComponent<CinemachineBrain>();
-        GameObject FPVObject = GameObject.Find("Player (FPV / TPV)");
+        mainCamera = GameObject.Find("FPV").transform.Find("Main Camera").GetComponent<Camera>();
+
+        cmBrain = GameObject.Find("FPV").transform.Find("Main Camera").GetComponent<CinemachineBrain>();
+        cmVC = GameObject.Find("FPV").transform.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
+
+        //vMachine = GameObject.Find("FPV").transform.Find("Virtual Camera");
+
+        GameObject FPVObject = GameObject.Find("Player (FPV _ TPV)");
         FPV = FPVObject.GetComponent<SwitchViewPerspective>();
     }
 
@@ -61,19 +66,48 @@ public class PlayerCamRaycast : MonoBehaviour
             SetObjectEnum hitEnum = hitGameObject.GetComponent<SetObjectEnum>();
             if (hitGameObject.CompareTag("Scannable"))
             {
-
-                /*if ()
+                if (hitEnum == null)
                 {
-                    
-                }*/
-                switch (hitEnum.objectInteraction)
+                    if (Input.GetKeyDown(KeyCode.E) && !isInspecting)
+                    {
+                        cmVC.enabled = false;
+                        cmBrain.enabled = false;
+
+                        UnityEngine.Debug.Log("Inspect Object Function");
+                        originalPosition = hitGameObject.transform.position;
+                        originalRotation = hitGameObject.transform.rotation;
+
+                        hitGameObject.transform.position = new Vector3(hitGameObject.transform.position.x, hitGameObject.transform.position.y + 1f, hitGameObject.transform.position.z);
+
+                        objToRotate = hitGameObject;
+                        isInspecting = true;
+                    }
+                    else if (Input.GetKeyDown(KeyCode.E) && isInspecting)
+                    {
+                        enableCam();
+
+                        isInspecting = false;
+
+                        hitGameObject.transform.position = originalPosition;
+                        hitGameObject.transform.rotation = originalRotation;
+
+                        objToRotate = null;
+
+
+                    }
+                }
+                else switch (hitEnum.objectInteraction)
                 {
                     case "open":
                         hitEnum.enableOpen = true;
-                        break;
+                    break;
+
+                    case "pickUp":
+                        hitEnum.enablePickUp = true;
+                    break;
 
                     default:
-                        if (Input.GetKeyDown(KeyCode.E) && !isInspecting)
+                        /*if (Input.GetKeyDown(KeyCode.E) && !isInspecting)
                         {
                             cmVC.enabled = false;
                             cmBrain.enabled = false;
@@ -99,14 +133,11 @@ public class PlayerCamRaycast : MonoBehaviour
                             objToRotate = null;
 
 
-                        }
-                        break;
+                        }*/
+                    break;
                 }
 
             }
-
-            //else { if (hitEnum != null) hitEnum.enableOpen = false; }
-            
         }
     }
 

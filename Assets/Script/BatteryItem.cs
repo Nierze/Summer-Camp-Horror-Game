@@ -1,23 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class BatteryItem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public ItemsSO item;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            OnPickedUp();
+        }
     }
 
     public void OnPickedUp()
     {
+        InventoryManager.Instance.Add(item);
+        UnityEngine.Debug.Log("Picked");
         Destroy(gameObject); // Destroy itself when picked up
     }
 }

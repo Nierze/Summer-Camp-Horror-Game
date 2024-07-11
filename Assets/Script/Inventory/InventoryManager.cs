@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static System.Net.Mime.MediaTypeNames;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private Transform inventoryContents;
     [SerializeField] private GameObject itemPrefabTemplate;
 
-    private void Awake() 
+    private void Awake()
     {
         // Singleton pattern
         if (Instance != null && Instance != this)
@@ -22,12 +23,12 @@ public class InventoryManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        
+
         // List down the shits
-        ListItems();
+        //ListItems();
     }
 
-    public void Add(ItemsSO item) 
+    public void Add(ItemsSO item)
     {
         itemsList.Add(item);
     }
@@ -39,16 +40,21 @@ public class InventoryManager : MonoBehaviour
 
     public void ListItems()
     {
+        foreach (ItemsSO item in itemsList)
+        {
+            UnityEngine.Debug.Log("item = " + item);
+        }
+
         foreach (Transform child in inventoryContents)
         {
             Destroy(child.gameObject);
         }
-        
+
         foreach (ItemsSO item in itemsList)
         {
             GameObject itemObject = Instantiate(itemPrefabTemplate, inventoryContents);
             var itemName = itemPrefabTemplate.transform.Find("Item Name").GetComponent<TMP_Text>();
-            var itemIcon = itemPrefabTemplate.transform.Find("Image").GetComponent<Image>();
+            var itemIcon = itemPrefabTemplate.transform.Find("Image").GetComponent<UnityEngine.UI.Image>();
 
             itemName.text = item.itemName;
             itemIcon.sprite = item.objectIcon;

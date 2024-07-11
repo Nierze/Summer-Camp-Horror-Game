@@ -74,18 +74,21 @@ public class PickUpObjects : MonoBehaviour
         {
             flashLightScript.AddBattery(25f);
             batteryItem.OnPickedUp();
+            UnityEngine.Debug.Log("Picked");
+
+
         }
 
         if (rayCastScript.targetToTake.name ==  "Medkit")
         {
             easeHealthBar.Heal(100);
-            easeHealthBar.OnPickedUp("Medkit");
+            //easeHealthBar.OnPickedUp("Medkit");
         }
 
         if (rayCastScript.targetToTake.name == "Bandage")
         {
             easeHealthBar.Heal(25);
-            easeHealthBar.OnPickedUp("Bandage");
+            //easeHealthBar.OnPickedUp("Bandage");
         }
     }
 
