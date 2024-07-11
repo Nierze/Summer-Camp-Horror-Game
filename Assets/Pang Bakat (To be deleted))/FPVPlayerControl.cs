@@ -5,7 +5,7 @@ using System.Diagnostics;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerControllerCopy : MonoBehaviour
+public class FPVPlayerControl : MonoBehaviour
 {
     [SerializeField]
     private CharacterController controller;
@@ -16,9 +16,6 @@ public class PlayerControllerCopy : MonoBehaviour
     private float playerSpeed;
     private float jumpHeight = 20.0f;
     private float gravityValue = -9.81f;
-
-    [SerializeField]
-    private Light light;
 
     private InputManager inputManager;
     private Transform cameraTransform;
@@ -46,12 +43,21 @@ public class PlayerControllerCopy : MonoBehaviour
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
-        controller = GetComponent<CharacterController>();
         inputManager = InputManager.Instance;
         cameraTransform = Camera.main.transform;
-        light.transform.position = cameraTransform.position;
         camRaycast = GetComponent<PlayerCamRaycast>();
         playerSpeed = 20f;
+
+        controller = GetComponent<CharacterController>();
+        followTransform = GameObject.Find("POV");
+
+        playerInRange = (GameObject.Find("Tiyanak")) ? GameObject.Find("Tiyanak").GetComponent<TiyanakAttackPattern>() : null;
+        playerInRange2 = (GameObject.Find("Pugot")) ? GameObject.Find("Pugot").GetComponent<PugotAttackPattern>() : null;
+        playerInRange3 = (GameObject.Find("Tiktik")) ? GameObject.Find("Tiktik").GetComponent<TiktikAttackPattern>() : null;
+
+        //if (playerInRange == null) UnityEngine.Debug.Log("Tiyanak doesn't exist");
+        //if (playerInRange2 == null) UnityEngine.Debug.Log("Pugot doesn't exist");
+        //if (playerInRange3 == null) UnityEngine.Debug.Log("Tiktik doesn't exist");
 
     }
 

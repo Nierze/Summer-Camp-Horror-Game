@@ -9,8 +9,10 @@ public class PickUpBehaviour : MonoBehaviour
     GameObject holdObject;
     Transform holdArea;
     Rigidbody rb;
+
     public bool isHold = false;
     public bool inAction = false;
+
     void Start()
     {
         setObjectInteraction = ObjectInteractEnum.objectInteraction.pickUp.ToString();
@@ -23,7 +25,7 @@ public class PickUpBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (!isHold && !inAction)
+        /*if (!isHold && !inAction)
         {
             if (Input.GetKeyDown(KeyCode.E) && setEnum.enablePickUp && !isHold)
             {
@@ -33,31 +35,45 @@ public class PickUpBehaviour : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && !inAction && isHold)
             {
                 inAction = true;
                 StartCoroutine(Throw());
             }
+        }*/
+
+        //working 1
+        if (Input.GetKeyDown(KeyCode.E) && setEnum.enablePickUp && !inAction && !isHold && holdArea.childCount < 1)
+        {
+            inAction = true;
+            StartCoroutine(Pick());
         }
 
+        if (Input.GetKeyDown(KeyCode.E) && !inAction && isHold && holdArea.childCount == 1)
+        {
+            inAction = true;
+            StartCoroutine(Throw());
+        }
     }
 
     private IEnumerator Pick()
     {
-        setEnum.enablePickUp = false;
+        //setEnum.enablePickUp = false;
         rb.isKinematic = true;
         gameObject.transform.position = new Vector3(holdArea.transform.position.x, holdArea.transform.position.y, holdArea.transform.position.z);
         gameObject.transform.SetParent(holdArea);
         isHold = true;
         yield return StartCoroutine(Wait());
+        setEnum.enablePickUp = false;
+        //yield return StartCoroutine(Wait());
     }
 
     private IEnumerator Throw()
     {
         rb.isKinematic = false;
-        gameObject.transform.SetParent(null);
-        rb.AddForce(transform.forward * -3f, ForceMode.Impulse);
         isHold = false;
+        gameObject.transform.SetParent(null);
+        rb.AddForce(holdArea.transform.forward * 3f, ForceMode.Impulse);
         yield return StartCoroutine(Wait());
     }
 

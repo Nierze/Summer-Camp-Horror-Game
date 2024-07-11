@@ -18,6 +18,17 @@ public class ScannableInteraction : MonoBehaviour
             {
                 scanRevealComponent.Reveal(true);
             }
+
+            StoredContents storedContents = other.GetComponent<StoredContents>();
+            if (storedContents != null)
+            {
+                storedContents.CountContents();
+                if (storedContents.contents.Count != 0)
+                {
+                    storedContents.EnableMaterial();
+                    storedContents.StartCoroutine(storedContents.DisableHighlight());
+                }
+            }
         }
 
         else if (other.CompareTag("Selectable"))

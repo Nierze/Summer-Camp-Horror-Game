@@ -13,11 +13,15 @@ public class ScanReveal : MonoBehaviour
     void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
-        //meshRenderer.enabled = false;
         light = GetComponent<Light>();
+
+        //GameObject parent = transform.parent.gameObject;
+        //itemAttributes = parent.transform.Find("Text (TMP)").gameObject;
+        itemAttributes = gameObject.transform.Find("Text (TMP)").gameObject;
+        textComponent = itemAttributes.GetComponent<TextMeshPro>();
+
         light.enabled = false;
         itemAttributes.SetActive(false);
-        textComponent = itemAttributes.GetComponent<TextMeshPro>();
         textComponent.text = gameObject.name;
     }
 
