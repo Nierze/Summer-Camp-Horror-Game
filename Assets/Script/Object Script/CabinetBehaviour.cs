@@ -17,11 +17,15 @@ public class CabinetBehaviour : MonoBehaviour
     public string setObjectInteraction;
     public SetObjectEnum setEnum;
 
+    public List<GameObject> contents;
+
     void Start()
     {
         setObjectInteraction = ObjectInteractEnum.objectInteraction.open.ToString();
         setEnum = GetComponent<SetObjectEnum>();
         setEnum.objectInteraction = setObjectInteraction;
+
+        UpdateContent();
     }
 
     void Update()
@@ -65,5 +69,20 @@ public class CabinetBehaviour : MonoBehaviour
         setEnum.enableOpen = false;
         transform.rotation = endRotation;
         
+    }
+
+    void UpdateContent()
+    {
+        contents.Clear();
+        GameObject drawerSection = gameObject.transform.GetChild(0).gameObject;
+        int childCount = drawerSection.transform.childCount;
+        UnityEngine.Debug.Log(childCount);
+        for (int i = 0; i < childCount; i++)
+        {
+            contents.Add(drawerSection.transform.GetChild(i).gameObject);
+            UnityEngine.Debug.Log(contents[i].name);
+        }
+
+
     }
 }

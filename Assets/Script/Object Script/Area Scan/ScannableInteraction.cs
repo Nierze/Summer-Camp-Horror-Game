@@ -29,6 +29,13 @@ public class ScannableInteraction : MonoBehaviour
                     storedContents.StartCoroutine(storedContents.DisableHighlight());
                 }
             }
+
+            CollectibleHighlight collectibleHighlight = other.GetComponent<CollectibleHighlight>();
+            if (collectibleHighlight != null)
+            {
+                collectibleHighlight.EnableMaterial();
+                collectibleHighlight.StartCoroutine(collectibleHighlight.DisableHighlight());
+            }
         }
 
         else if (other.CompareTag("Selectable"))
