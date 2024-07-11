@@ -17,7 +17,7 @@ public class FPVPlayerControl : MonoBehaviour
     private float jumpHeight = 20.0f;
     private float gravityValue = -9.81f;
 
-    private InputManager inputManager;
+    private NewInputManager inputManager;
     private Transform cameraTransform;
 
     [SerializeField]
@@ -43,7 +43,7 @@ public class FPVPlayerControl : MonoBehaviour
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
-        inputManager = InputManager.Instance;
+        inputManager = NewInputManager.Instance;
         cameraTransform = Camera.main.transform;
         camRaycast = GetComponent<PlayerCamRaycast>();
         playerSpeed = 20f;
@@ -94,14 +94,6 @@ public class FPVPlayerControl : MonoBehaviour
             //playerInRange2.playerAttackDetected = true;
             //UnityEngine.Debug.Log("Attacked");
         }*/
-
-        /////////////////////////////////////////
-        // Defend Handler
-        if (inputManager.GetDefend())
-        {
-            //UnityEngine.Debug.Log("Defended");
-        }
-
 
         playerCurrentSpeed = controller.velocity.magnitude;
     }
