@@ -16,7 +16,8 @@ public class StoreToInventory: MonoBehaviour
 
     public void OnPickedUp()
     {
-        InventoryManager.Instance.Add(item);
+        //InventoryManager.Instance.Add(item);
+        updateItemsInInventory.Add(item);
         updateItemsInInventory.ListItems();
         updateItemsInInventory.ListItems();
         UnityEngine.Debug.Log("Picked");

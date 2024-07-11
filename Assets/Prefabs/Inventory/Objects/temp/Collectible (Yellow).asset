@@ -20,5 +20,7 @@ MonoBehaviour:
   sanityValue: 0
   damageValue: 0
   damageReductionMultiplier: 0
+  prefabObject: {fileID: 5024225010768330663, guid: 5575fd37f8104214d9d01369b3881de0,
+    type: 3}
   monsterEffectiveness: 0
   objectType: 0

@@ -21,6 +21,12 @@ public class PickUpBehaviour : MonoBehaviour
         holdObject = GameObject.Find("Hold Area");
         holdArea = holdObject.GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
+
+        if (gameObject.transform.parent.gameObject == holdArea.gameObject)
+        {
+            UnityEngine.Debug.Log("with parent");
+            isHold = true;
+        }
     }
 
     void Update()

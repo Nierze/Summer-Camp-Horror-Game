@@ -18,6 +18,8 @@ public class ItemsSO : ScriptableObject
 
     public float damageReductionMultiplier;
 
+    public GameObject prefabObject;
+
     public MonsterEffectiveness monsterEffectiveness;
 
     public ObjectType objectType;
