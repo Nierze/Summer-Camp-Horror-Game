@@ -14,6 +14,8 @@ namespace ExamineSystem
         [Header("Crosshair")]
         [SerializeField] private Image uiCrosshair = null;
 
+
+        public RayCast raycast;
         public bool IsLookingAtExaminable
         {
             get { return examinableItem != null; }
@@ -30,7 +32,7 @@ namespace ExamineSystem
             {
                 Debug.Log("hit" + hit.transform.name);
                 var examineItem = hit.collider.GetComponent<ExamineItemController>();
-                if (examineItem != null)
+                if (examineItem != null && !raycast.slotFull)
                 {
                     examinableItem = examineItem;
                     examinableItem.MainHighlight(true);
