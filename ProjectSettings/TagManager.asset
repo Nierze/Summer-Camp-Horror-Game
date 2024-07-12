@@ -20,6 +20,7 @@ TagManager:
   - ItemName
   - ' ExaminePoint'
   - InspectPointLayer
+  - Ground
   layers:
   - Default
   - TransparentFX
