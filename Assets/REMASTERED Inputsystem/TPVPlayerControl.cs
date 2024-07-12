@@ -30,6 +30,8 @@ public class TPVPlayerControl : MonoBehaviour
     private Vector3 velocity;
     [SerializeField] private float gravity = -9.81f;
 
+    //
+    public bool isGrounded = false;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -131,9 +133,17 @@ public class TPVPlayerControl : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpPower * -2f * gravity);
             animator.SetBool("Jump", true);
             animator.SetBool("Grounded", false);
-            //animator.SetBool("FreeFall", true);
+
+            animator.SetBool("FreeFall", true);
+
             animator.SetTrigger("JumpStart");
             animator.SetTrigger("JumpLand(Trigger)");
+        }
+
+        if (!checkGrounded())
+        {
+            animator.SetBool("Jump", false);
+            animator.SetBool("Grounded", false);
         }
     }
 
@@ -143,8 +153,56 @@ public class TPVPlayerControl : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    /*bool checkGrounded()
+    {
+        Ray interactionRay;
+        RaycastHit interactionRayHit;
+        float interactionRayLength = controller.height / 2 + 0.1f;
+
+        UnityEngine.Debug.DrawRay(interactionRay.origin, interactionRay.direction * interactionRayLength, Color.red);
+
+        if (Physics.Raycast(interactionRay, out interactionRayHit, interactionRayLength))
+        {
+            
+            isGrounded = (hitGameObject.CompareTag("Ground")) ? true: false;
+        }
+
+        return isGrounded;
+    }*/
+
     bool checkGrounded()
     {
-        return Physics.Raycast(transform.position, Vector3.down, controller.height / 2 + 0.1f);
+        Vector3 rayStart = transform.position;
+        Vector3 rayDirection = Vector3.down;
+
+        Ray interactionRay = new Ray(rayStart, rayDirection);
+
+        float interactionRayLength = controller.height / 2 + 0.1f;// 1.0f;
+
+        Debug.DrawRay(interactionRay.origin, interactionRay.direction * interactionRayLength, Color.red);
+
+        RaycastHit interactionRayHit;
+
+        if (Physics.Raycast(interactionRay, out interactionRayHit, interactionRayLength))
+        {
+            if (interactionRayHit.collider.CompareTag("Ground"))
+            {
+                isGrounded = true;
+            }
+            else
+            {
+                isGrounded = false;
+            }
+        }
+        else
+        {
+            isGrounded = false;
+        }
+
+        return isGrounded;
     }
 }
+
+//if (Physics.Raycast(transform.position, Vector3.down, controller.height / 2 + 0.1f))
+
+//if(hitGameObject.CompareTag("Ground"))  isGrounded = true;
