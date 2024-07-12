@@ -24,7 +24,7 @@ public class PickUpBehaviour : MonoBehaviour
 
         if (gameObject.transform.parent.gameObject == holdArea.gameObject)
         {
-            UnityEngine.Debug.Log("with parent");
+            UnityEngine.Debug.Log(gameObject.name + " with parent/in Hold Area");
             isHold = true;
         }
     }
