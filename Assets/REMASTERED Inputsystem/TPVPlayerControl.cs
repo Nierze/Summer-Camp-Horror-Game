@@ -10,7 +10,7 @@ public class TPVPlayerControl : MonoBehaviour
     [Header("Player Movement")]
     [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private float sprintSpeedMultiplier = 2f;
-    [SerializeField] private float jumpPower = 2.5f;
+    [SerializeField] private float jumpPower = 5f;//2.5f;
     private float rotateVelocity;
 
     /////////////////////////////////////////
@@ -131,7 +131,9 @@ public class TPVPlayerControl : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpPower * -2f * gravity);
             animator.SetBool("Jump", true);
             animator.SetBool("Grounded", false);
-            animator.SetBool("FreeFall", true);
+            //animator.SetBool("FreeFall", true);
+            animator.SetTrigger("JumpStart");
+            animator.SetTrigger("JumpLand(Trigger)");
         }
     }
 
