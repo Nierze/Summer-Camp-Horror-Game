@@ -48,7 +48,7 @@ public class InventoryManager : MonoBehaviour
             else inventory.SetActive(true);
         }
 
-        UpdateList();
+        //UpdateList();
     }
 
     public void Add(ItemsSO item)
@@ -60,6 +60,12 @@ public class InventoryManager : MonoBehaviour
     public void DeleteRecent()
     {
         itemsList.RemoveAt(itemsList.Count - 1);
+    }
+
+    public void DeleteItem(ItemsSO item)
+    {
+        itemsList.Remove(item);
+        ListItems();
     }
 
     public void ListItems()
@@ -76,6 +82,8 @@ public class InventoryManager : MonoBehaviour
 
         foreach (ItemsSO item in itemsList)
         {
+            UnityEngine.Debug.Log("item in list = " + item);
+
             GameObject itemObject = Instantiate(itemPrefabTemplate, inventoryContents);
             var itemName = itemPrefabTemplate.transform.Find("Item Name").GetComponent<TMP_Text>();
             var itemIcon = itemPrefabTemplate.transform.Find("Image").GetComponent<UnityEngine.UI.Image>();
@@ -83,9 +91,15 @@ public class InventoryManager : MonoBehaviour
             itemName.text = item.itemName;
             itemIcon.sprite = item.objectIcon;
 
-            GameObject itemPhysical = Instantiate(item.prefabObject);
+            GameObject itemPhysical = Instantiate(item.prefabObject);// .GetComponent<StoreToInventory>()) // prefabObject);
+            //GameObject itemPhysical = Instantiate(itemObject.transform.GetChild(itemObject.transform.childCount - 1).gameObject);
+            //StoreToInventory itemSO = itemPhysical.GetComponent<StoreToInventory>();
+            //ItemsSO itemSOtoDelete = itemSO.item;
+            //DeleteItem(itemSOtoDelete);
+
             itemPhysical.transform.SetParent(itemObject.transform);
             itemPhysical.transform.localPosition = new Vector3(0f, 0f, 0f);
+            
             itemPhysical.SetActive(false);
         }
     }

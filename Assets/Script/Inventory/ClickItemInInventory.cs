@@ -32,12 +32,23 @@ public class ClickItemInInventory : MonoBehaviour
             Rigidbody itemRb = thisItem.GetComponent<Rigidbody>();
             itemRb.isKinematic = true;
 
-            //itemSO = thisItem.
             thisItem.transform.SetParent(hold.transform);
             thisItem.transform.localPosition = Vector3.zero;
 
+            StoreToInventory itemSO = thisItem.GetComponent<StoreToInventory>();
+            ItemsSO itemSOtoDelete = itemSO.item;
+            invManager.DeleteItem(itemSOtoDelete);
+            
             Destroy(gameObject);
         }
 
     }
 }
+
+/*
+             //GameObject itemPhysical = Instantiate(itemObject.transform.GetChild(itemObject.transform.childCount - 1).gameObject);
+            //StoreToInventory itemSO = itemPhysical.GetComponent<StoreToInventory>();
+            //ItemsSO itemSOtoDelete = itemSO.item;
+            //DeleteItem(itemSOtoDelete);
+ 
+ */
