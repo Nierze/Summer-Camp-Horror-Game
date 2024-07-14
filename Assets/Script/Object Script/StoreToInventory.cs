@@ -2,19 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using TMPro;
 
 public class StoreToInventory: MonoBehaviour
 {
     public ItemsSO item;
-
-    public InventoryManager updateItemsInInventory;
+    public GameObject inventorySlot;
+    //public InventoryManager updateItemsInInventory;
 
     void Start()
     {
-        updateItemsInInventory = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
+        //updateItemsInInventory = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
     }
 
-    public void OnPickedUp()
+    /*public void OnPickedUp()
     {
         //InventoryManager.Instance.Add(item);
         updateItemsInInventory.Add(item);
@@ -22,5 +23,20 @@ public class StoreToInventory: MonoBehaviour
         updateItemsInInventory.ListItems();
         UnityEngine.Debug.Log("Picked");
         Destroy(gameObject);
+    }*/
+
+    public void StoreToInven()
+    {
+        FixedInventoryManager fixedInventoryManager = GameObject.Find("kfw - InventoryManager").GetComponent<FixedInventoryManager>();
+        fixedInventoryManager.GetNearestEmpty();
+        gameObject.transform.SetParent(fixedInventoryManager.inventoryObjects[fixedInventoryManager.emptyIndexInventory].transform);
+        
+        inventorySlot = GameObject.Find("kfw - Inventory").transform.Find("Viewport").gameObject.transform.Find("Content").transform.GetChild(fixedInventoryManager.emptyIndexInventory).gameObject;
+    
+        var itemName = inventorySlot.transform.Find("Item Name").GetComponent<TMP_Text>();
+        var itemIcon = inventorySlot.transform.Find("Image").GetComponent<UnityEngine.UI.Image>();
+
+        itemName.text = item.itemName;
+        itemIcon.sprite = item.objectIcon;
     }
 }
