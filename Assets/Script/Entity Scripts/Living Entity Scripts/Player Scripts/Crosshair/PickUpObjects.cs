@@ -12,38 +12,40 @@ public class PickUpObjects : MonoBehaviour
 
     private GameObject holdObject;
 
-
-
     public bool slotFull;
     private bool currentlyHolding;
 
-    //Healthbar
+    // Healthbar
     public EaseHealthBar easeHealthBar;
-    //All Items
+    // All Items
     public AllItems allItems;
+
+    public SoundEffectObject soundEffectObject;
+
     private void Start()
     {
         slotFull = false;
         currentlyHolding = false;
     }
+
     void Update()
     {
         if (rayCastScript != null)
         {
+            Debug.Log("hit");
             // Check for equipping items
             if (rayCastScript.canTake && Input.GetKeyDown(KeyCode.E))
             {
                 EquipItem();
             }
-
+            
             // Check for equipping items and is currently holding an item
             if (rayCastScript.canTake && Input.GetKeyDown(KeyCode.E) && currentlyHolding == true)
-            { 
+            {
                 Debug.Log("Take while Holding an Item");
                 holdObject = rayCastScript.targetToHold;
                 MoveHeldObject();
             }
-
 
             // Check for holding items
             if (rayCastScript.canHold && Input.GetKeyDown(KeyCode.E) && !slotFull && !currentlyHolding)
@@ -74,25 +76,24 @@ public class PickUpObjects : MonoBehaviour
         {
             flashLightScript.AddBattery(25f);
             batteryItem.OnPickedUp();
-            UnityEngine.Debug.Log("Picked");
-
-
+            Debug.Log("Picked");
+            soundEffectObject.PlaySound("Equip");
         }
 
-        if (rayCastScript.targetToTake.name ==  "Medkit")
+        if (rayCastScript.targetToTake.name == "Medkit")
         {
             easeHealthBar.Heal(100);
-            //easeHealthBar.OnPickedUp("Medkit");
+            easeHealthBar.OnPickedUp("Medkit");
+            soundEffectObject.PlaySound("Medkit"); // Play Medkit sound
         }
 
         if (rayCastScript.targetToTake.name == "Bandage")
         {
             easeHealthBar.Heal(25);
-            //easeHealthBar.OnPickedUp("Bandage");
+            easeHealthBar.OnPickedUp("Bandage");
+            soundEffectObject.PlaySound("Equip");
         }
     }
-
-
 
     void HoldObject()
     {
@@ -103,16 +104,16 @@ public class PickUpObjects : MonoBehaviour
             holdObject = rayCastScript.targetToHold;
             holdObject.transform.position = holdArea.transform.position;
             holdObject.transform.rotation = holdArea.transform.rotation;
-
             holdObject.transform.parent = holdArea.transform;
-
-
 
             var rb = holdObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.isKinematic = true; 
+                rb.isKinematic = true;
             }
+
+            soundEffectObject.PlaySound(holdObject.transform.name);
+            Debug.Log("Sound Effect: " + holdObject.transform.name);
         }
     }
 
@@ -126,10 +127,6 @@ public class PickUpObjects : MonoBehaviour
     {
         if (holdObject != null)
         {
-            //holdArea.transform.position = new Vector3(1.039999f, -0.5999999f, 4.200001f);
-            //holdArea.transform.rotation = Quaternion.Euler(0, -0, 0);
-
-
             holdObject.transform.parent = allItems.transform;
             rayCastScript.targetToHold = null;
 
