@@ -47,6 +47,7 @@ public class ClickItemInFixedInventory : MonoBehaviour
     {
         FixedInventoryManager fixedInventoryManager = GameObject.Find("kfw - InventoryManager").GetComponent<FixedInventoryManager>();
         fixedInventoryManager.GetNearestEmpty();
+
     }
 
     public void UpdateNameAndIcon()
