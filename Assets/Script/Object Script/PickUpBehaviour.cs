@@ -13,6 +13,8 @@ public class PickUpBehaviour : MonoBehaviour
     public bool isHold = false;
     public bool inAction = false;
 
+    public GameObject inventory;
+
     void Start()
     {
         setObjectInteraction = ObjectInteractEnum.objectInteraction.pickUp.ToString();
@@ -21,6 +23,11 @@ public class PickUpBehaviour : MonoBehaviour
         holdObject = GameObject.Find("Hold Area");
         holdArea = holdObject.GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
+
+        //FixedInventoryManager invManager = GameObject.Find("kfw - InventoryManager").GetComponent<FixedInventoryManager>();
+        //inventory = invManager.inventoryTab;
+
+        inventory = GameObject.Find("kfw - Inventory");
 
         if (gameObject.transform.parent.gameObject == holdArea.gameObject)
         {
@@ -86,9 +93,15 @@ public class PickUpBehaviour : MonoBehaviour
     //private IEnumerator StoreToInventory()
     void StoreToInventory()
     {
+        FixedInventoryManager inventoryManager = GameObject.Find("kfw - InventoryManager").GetComponent<FixedInventoryManager>();
+        inventoryManager.InventoryTabManager(true);
+
         setEnum.enablePickUp = false;
+
         StoreToInventory storeItem = GetComponent<StoreToInventory>();
         storeItem.StoreToInven();
+
+        gameObject.SetActive(false);
         inAction = false;
         //storeItem.OnPickedUp();
         //yield return null;

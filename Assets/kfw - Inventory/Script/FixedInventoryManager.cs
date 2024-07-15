@@ -32,7 +32,9 @@ public class FixedInventoryManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Tab))
         {
-            inventoryTab.SetActive((inventoryTab.activeInHierarchy) ? false : true);
+            //inventoryTab.SetActive((inventoryTab.activeInHierarchy) ? false : true);
+            if (inventoryTab.activeInHierarchy) InventoryTabManager(false);
+            else InventoryTabManager(true);
         }
 
         if(Input.GetKeyDown(KeyCode.M))
@@ -57,4 +59,9 @@ public class FixedInventoryManager : MonoBehaviour
             }
     }
 
+    public void InventoryTabManager(bool status)
+    {
+        inventoryTab.SetActive(status);
+        Cursor.visible = status;
+    }
 }
