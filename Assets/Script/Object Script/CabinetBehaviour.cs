@@ -76,11 +76,11 @@ public class CabinetBehaviour : MonoBehaviour
         contents.Clear();
         GameObject drawerSection = gameObject.transform.GetChild(0).gameObject;
         int childCount = drawerSection.transform.childCount;
-        UnityEngine.Debug.Log(childCount);
+        //UnityEngine.Debug.Log(childCount);
         for (int i = 0; i < childCount; i++)
         {
             contents.Add(drawerSection.transform.GetChild(i).gameObject);
-            UnityEngine.Debug.Log(contents[i].name);
+            //UnityEngine.Debug.Log(contents[i].name);
         }
 
 
