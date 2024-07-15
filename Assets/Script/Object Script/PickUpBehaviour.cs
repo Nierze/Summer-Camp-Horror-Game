@@ -93,10 +93,14 @@ public class PickUpBehaviour : MonoBehaviour
     //private IEnumerator StoreToInventory()
     void StoreToInventory()
     {
-        inventory.SetActive(true);
+        FixedInventoryManager inventoryManager = GameObject.Find("kfw - InventoryManager").GetComponent<FixedInventoryManager>();
+        inventoryManager.InventoryTabManager(true);
+
         setEnum.enablePickUp = false;
+
         StoreToInventory storeItem = GetComponent<StoreToInventory>();
         storeItem.StoreToInven();
+
         gameObject.SetActive(false);
         inAction = false;
         //storeItem.OnPickedUp();

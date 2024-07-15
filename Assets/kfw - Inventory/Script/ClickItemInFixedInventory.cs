@@ -20,11 +20,6 @@ public class ClickItemInFixedInventory : MonoBehaviour
         baseItemIcon = GameObject.Find("Empty Slot").GetComponent<Image>().sprite;
     }
 
-    void Update()
-    {
-        
-    }
-
     public void FetchItemInIventory()
     {
         if(gameObject.transform.childCount == 2)
