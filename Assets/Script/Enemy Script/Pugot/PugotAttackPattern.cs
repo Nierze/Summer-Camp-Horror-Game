@@ -39,7 +39,7 @@ public class PugotAttackPattern : MonoBehaviour
 
     //Deal Damage
     public bool playerInRange = false;
-    public EaseHealthBar healthBar;
+    //public EaseHealthBar healthBar;
 
     //Devour Heal
     public EntityStats devourHeal;
@@ -50,7 +50,7 @@ public class PugotAttackPattern : MonoBehaviour
     public bool isDevourTree = false;
 
     //HP
-    public EnemyHealth enemyHp;
+    //public EnemyHealth enemyHp;
     public float timer = 0f;
 
     //Anim
