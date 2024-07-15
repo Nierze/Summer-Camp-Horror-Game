@@ -52,7 +52,7 @@ public class RayCast : MonoBehaviour
             if (hit.transform.CompareTag("CanTake"))
             {
                 useItem.enabled = true;
-                useItemText.text = $"Press [E] to use {hit.transform.name}";
+                useItemText.text = hit.transform.name;
 
 
                 targetToTake = hit.transform.gameObject;
@@ -61,7 +61,7 @@ public class RayCast : MonoBehaviour
             else if (hit.transform.CompareTag("CanHold") && !slotFull)
             {
                 holdItem.enabled = true;
-                holdItemText.text = $"Press [E] to hold {hit.transform.name}";
+                holdItemText.text = hit.transform.name;
 
 
                 targetToHold = hit.transform.gameObject;
