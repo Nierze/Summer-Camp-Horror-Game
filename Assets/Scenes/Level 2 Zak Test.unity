@@ -1903,7 +1903,7 @@ PrefabInstance:
     - target: {fileID: 8546436717218935668, guid: c34c1e73a45356748a074ac0a51cbabd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 104.557884
+      value: 104.56555
       objectReference: {fileID: 0}
     - target: {fileID: 8574568305225819634, guid: c34c1e73a45356748a074ac0a51cbabd,
         type: 3}
@@ -11393,6 +11393,13 @@ MonoBehaviour:
     GateFit: 2
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -16213,6 +16220,7 @@ MonoBehaviour:
   setEnum: {fileID: 0}
   isHold: 0
   inAction: 0
+  inventory: {fileID: 0}
 --- !u!1 &527298150
 GameObject:
   m_ObjectHideFlags: 0
@@ -38075,6 +38083,13 @@ MonoBehaviour:
     GateFit: 2
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -47621,6 +47636,13 @@ MonoBehaviour:
     GateFit: 2
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -55858,6 +55880,7 @@ MonoBehaviour:
   animationSmoothTime: 0.2
   mainCamera: {fileID: 517913193}
   gravity: -9.81
+  isGrounded: 0
 --- !u!114 &2082864852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57112,6 +57135,7 @@ MonoBehaviour:
   state: 0
   setObjectInteraction: 
   setEnum: {fileID: 0}
+  contents: []
 --- !u!114 &3816561430031498110
 MonoBehaviour:
   m_ObjectHideFlags: 0

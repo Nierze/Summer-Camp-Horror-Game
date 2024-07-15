@@ -74,7 +74,7 @@ public class FPVPlayerControl : MonoBehaviour
         // Movement Handler
         if (!camRaycast.isInspecting)
         {
-            if (inputManager.GetSprint())
+            if (inputManager.GetSprint() && StaminaSystem.Instance.currentStamina > 0)
             {
                 Run();
             }
@@ -110,6 +110,7 @@ public class FPVPlayerControl : MonoBehaviour
 
     void Run()
     {
+        StaminaSystem.Instance.useStamina(0.1f);
         Vector2 movement = inputManager.GetPlayerMovement();
         Vector3 move = new Vector3(movement.x, 0f, movement.y);
         move = cameraTransform.forward * move.z + cameraTransform.right * move.x;

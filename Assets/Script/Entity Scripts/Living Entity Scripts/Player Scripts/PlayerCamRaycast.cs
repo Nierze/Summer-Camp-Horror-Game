@@ -22,12 +22,18 @@ public class PlayerCamRaycast : MonoBehaviour
     Quaternion originalRotation;
     GameObject objToRotate;
 
+    //last raycast hit object
+    private GameObject lastHitGameObject = null;
+
     //public GameObject vMachine;
     
 
     void Start()
     {
-        mainCamera = GameObject.Find("FPV").transform.Find("Main Camera").GetComponent<Camera>();
+        //mainCamera = GameObject.Find("FPV").transform.Find("Main Camera").GetComponent<Camera>();
+        //mainCamera;
+
+        mainCamera = Camera.main;
 
         cmBrain = GameObject.Find("FPV").transform.Find("Main Camera").GetComponent<CinemachineBrain>();
         cmVC = GameObject.Find("FPV").transform.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
@@ -51,7 +57,7 @@ public class PlayerCamRaycast : MonoBehaviour
         }
     }
 
-    void InteractRaycast()
+    /*void InteractRaycast()
     {
         Ray interactionRay = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit interactionRayHit;
@@ -75,6 +81,77 @@ public class PlayerCamRaycast : MonoBehaviour
                     case "pickUp":
                         hitEnum.enablePickUp = true;
                     break;
+
+                    // default:
+                    //     if (Input.GetKeyDown(KeyCode.E) && !isInspecting)
+                    //     {
+                    //         cmVC.enabled = false;
+                    //         cmBrain.enabled = false;
+
+                    //         UnityEngine.Debug.Log("Inspect Object Function");
+                    //         originalPosition = hitGameObject.transform.position;
+                    //         originalRotation = hitGameObject.transform.rotation;
+
+                    //         hitGameObject.transform.position = new Vector3(hitGameObject.transform.position.x, hitGameObject.transform.position.y + 1f, hitGameObject.transform.position.z);
+
+                    //         objToRotate = hitGameObject;
+                    //         isInspecting = true;
+                    //     }
+                    //     else if (Input.GetKeyDown(KeyCode.E) && isInspecting)
+                    //     {
+                    //         enableCam();
+
+                    //         isInspecting = false;
+
+                    //         hitGameObject.transform.position = originalPosition;
+                    //         hitGameObject.transform.rotation = originalRotation;
+
+                    //         objToRotate = null;
+
+
+                    //     }
+                    // break;
+                }
+
+            }
+        }
+    }*/
+
+    void InteractRaycast()
+    {
+        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        Ray interactionRay = mainCamera.ScreenPointToRay(screenCenter); //Input.mousePosition
+        RaycastHit interactionRayHit;
+        float interactionRayLength = 50.0f;
+
+        Debug.DrawRay(interactionRay.origin, interactionRay.direction * interactionRayLength, Color.red);
+
+        if (Physics.Raycast(interactionRay, out interactionRayHit, interactionRayLength))
+        {
+            hitGameObject = interactionRayHit.transform.gameObject;
+            SetObjectEnum hitEnum = hitGameObject.GetComponent<SetObjectEnum>();
+
+            if (hitGameObject.CompareTag("Scannable"))
+            {
+                if (lastHitGameObject != null && lastHitGameObject != hitGameObject)
+                {
+                    SetObjectEnum lastHitEnum = lastHitGameObject.GetComponent<SetObjectEnum>();
+                    if (lastHitEnum != null)
+                    {
+                        lastHitEnum.enableOpen = false;
+                        lastHitEnum.enablePickUp = false;
+                    }
+                }
+
+                switch (hitEnum.objectInteraction)
+                {
+                    case "open":
+                        hitEnum.enableOpen = true;
+                        break;
+
+                    case "pickUp":
+                        hitEnum.enablePickUp = true;
+                        break;
 
                     default:
                         /*if (Input.GetKeyDown(KeyCode.E) && !isInspecting)
@@ -101,15 +178,28 @@ public class PlayerCamRaycast : MonoBehaviour
                             hitGameObject.transform.rotation = originalRotation;
 
                             objToRotate = null;
-
-
                         }*/
-                    break;
+                        break;
                 }
 
+                lastHitGameObject = hitGameObject;
+            }
+        }
+        else
+        {
+            if (lastHitGameObject != null)
+            {
+                SetObjectEnum lastHitEnum = lastHitGameObject.GetComponent<SetObjectEnum>();
+                if (lastHitEnum != null)
+                {
+                    lastHitEnum.enableOpen = false;
+                    lastHitEnum.enablePickUp = false;
+                }
+                lastHitGameObject = null;
             }
         }
     }
+
 
     void Inspecting(GameObject obj)
     {
