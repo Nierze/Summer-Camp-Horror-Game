@@ -9,13 +9,12 @@ public class FixedInventoryManager : MonoBehaviour
     public GameObject content;
     public GameObject[] inventoryObjects;
     public int emptyIndexInventory = 0;
-
-    public bool maxInventory = false;
-
+    
     void Start()
     {
         inventoryTab = GameObject.Find("kfw - Inventory");
        
+
         content = inventoryTab.transform.Find("Viewport").gameObject.transform.Find("Content").gameObject;
         inventoryObjects = new GameObject[content.transform.childCount];
         //UnityEngine.Debug.Log("inv elems = " + inventoryElements);
@@ -42,78 +41,22 @@ public class FixedInventoryManager : MonoBehaviour
         {
             GetNearestEmpty();
         }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            CheckMaxInventory();
-        }
-
-        CheckMaxInventory();
-        //UnityEngine.Debug.Log("empty index inventory = "+ emptyIndexInventory);
-        //UnityEngine.Debug.Log("Child Count = ");
-        //UnityEngine.Debug.Log(content.transform.childCount - 1);
-        //UnityEngine.Debug.Log("maxInventory = " + maxInventory);
     }
 
     public void GetNearestEmpty()
     {
-        /*if (emptyIndexInventory == content.transform.childCount - 1)
-        {
+        if(emptyIndexInventory == content.transform.childCount - 1)
             UnityEngine.Debug.Log("Inventory Limit Reached");
-            maxInventory = true;
-        }
         else
-        {
             for (int i = 0; i < content.transform.childCount; i++)
             {
-                if (inventoryObjects[i].transform.childCount != 3)
+                if(inventoryObjects[i].transform.childCount != 3)
                 {
                     emptyIndexInventory = i;
                     UnityEngine.Debug.Log("empty inventory = " + inventoryObjects[i]);
                     break;
                 }
             }
-            //maxInventory = false;
-        }*/
-
-        /*for (int i = 0; i < content.transform.childCount; i++)
-        {
-            UnityEngine.Debug.Log("inventory = " + inventoryObjects[i].name);
-        }*/
-        UnityEngine.Debug.Log("GetNearestEmpty() Section");
-
-        for (int i = 0; i < content.transform.childCount; i++)
-        {
-            if (inventoryObjects[i].transform.childCount != 3)
-            {
-                emptyIndexInventory = i;
-                UnityEngine.Debug.Log("empty inventory = " + inventoryObjects[i]);
-                break;
-            }
-        }
-        UnityEngine.Debug.Log("CheckMaxInventory() Section");
-        CheckMaxInventory();
-    }
-
-    public void CheckMaxInventory()
-    {
-        //UnityEngine.Debug.Log("cnt.trn.chldcount = ");
-        //UnityEngine.Debug.Log(content.transform.childCount - 1);
-        //UnityEngine.Debug.Log(content.transform.childCount);
-        for (int i = 0; i < content.transform.childCount; i++)
-        {
-            if (inventoryObjects[i].transform.childCount == 3)
-            {
-                //UnityEngine.Debug.Log(inventoryObjects[i].name + "slot have object inside");
-            }
-            else
-            {
-                //UnityEngine.Debug.Log(inventoryObjects[i].name + "slot doesn't have object inside");
-                maxInventory = false;
-                return;
-            }
-        }
-        maxInventory = true;
     }
 
     public void InventoryTabManager(bool status)

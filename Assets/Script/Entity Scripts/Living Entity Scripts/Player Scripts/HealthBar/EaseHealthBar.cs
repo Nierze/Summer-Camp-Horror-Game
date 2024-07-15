@@ -33,10 +33,10 @@ public class EaseHealthBar : MonoBehaviour
             easeHealthSlider.value = Mathf.Lerp(easeHealthSlider.value, health, lerpSpeed);
         }
         // Sample Take Damage
-        /*if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             TakeDamage(10);
-        }*/
+        }
 
         string healthTextValue = health.ToString();
         healthText.text = healthTextValue;
